@@ -213,40 +213,4 @@ output application/json
             </ee:message>
         </ee:transform>
     </flow>
-    <flow name="post:\tms\liquidated:application\json:traxion-pharma-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  traxion_response: {
-    completed_succesfully: "true",
-    response: {
-      message: "successful",
-      data: {}
-    }
-  }
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-    </flow>
-    <flow name="post:\tms\payments\statements-folios:application\json:traxion-pharma-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  traxion_response: {
-    completed_succesfully: "true",
-    response: {
-      message: "successful",
-      data: {}
-    }
-  }
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-    </flow>
 </mule>
