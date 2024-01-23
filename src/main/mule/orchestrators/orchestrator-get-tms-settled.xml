@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="orchestrator-get-tms-settled" doc:id="4128e1bf-778e-4fd7-9a0f-e6d3b1236230" >
+		<logger level="INFO" doc:name="Logger" doc:id="7d90ccbc-cc45-4d25-9505-a873deb93b62" message="#[payload]"/>
+		<flow-ref doc:name="Call-clients-process-pharma-api-tms-settled" doc:id="176bdbbe-0146-45e2-b986-b6c5c6548e46" name="clients-process-pharma-api-tms-settled"/>
+		<logger level="INFO" doc:name="Logger" doc:id="c55b99fc-5aaf-4058-84b2-19b79ee90300" message="#[payload]"/>
+	</sub-flow>
+</mule>

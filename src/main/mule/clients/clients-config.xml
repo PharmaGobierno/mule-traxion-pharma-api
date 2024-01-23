@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:request-config name="HTTP_Request_configuration-process-pharma-api" doc:name="HTTP Request configuration" doc:id="081acd9d-8c37-4ac5-9817-df45224169eb" >
+		<http:request-connection protocol="HTTPS" host="${client.process.pharma.api.https.host}" port="${client.process.pharma.api.https.port}" maxConnections="${client.process.pharma.api.https.max.connections}" connectionIdleTimeout="${client.process.pharma.api.https.connection.idle.timeout}" responseBufferSize="${client.process.pharma.api.https.response.buffer.size}"/>
+	</http:request-config>
+</mule>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="clients-process-pharma-api-tms-settled" doc:id="615fda4d-10c6-4dac-a33e-5b7794ba12ae" >
+		<http:request method="GET" doc:name="Request" doc:id="d3aacbc3-5062-41ca-913a-45bf144758ce" path="${client.process.pharma.api.https.path.tms.settled}" config-ref="HTTP_Request_configuration-process-pharma-api">
+			<http:headers ><![CDATA[#[output application/json
+---
+{
+	"client_id": p('client.process.pharma.api.https.client_id'),
+	"client_secret": p('client.process.pharma.api.https.client_secret')
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/json
+---
+{
+	"api_key" : vars.api_key,
+	"id_guia": vars.id_guia,
+	"estado": vars.estado,
+	"observaciones": vars.observaciones
+}]]]></http:query-params>
+		</http:request>
+	</sub-flow>
+</mule>
