@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="orchestrator-post-tms-load-confirmation" doc:id="494c0ddc-5959-449c-837a-84d7219deb06" >
+		<logger level="INFO" doc:name="Logger" doc:id="4af4a137-d56d-438b-83b3-6fa342c3d2d8" message="#[payload]"/>
+		<flow-ref doc:name="Call-clients-process-pharma-api-tms-load-confirmation" doc:id="9b56c6f0-b9e6-4f06-8b7b-c373796562fe" name="clients-process-pharma-api-tms-load-confirmation"/>
+		<logger level="INFO" doc:name="Logger" doc:id="c7654282-2796-4f28-98e9-4e3fe3168442" message="#[payload]"/>
+	</sub-flow>
+</mule>
