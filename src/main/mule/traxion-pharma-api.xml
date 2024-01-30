@@ -153,16 +153,16 @@ output application/json
 				<ee:transform doc:name="Transform Message" doc:id="947248e3-3743-4fc1-bb8b-77b8c3a3acaf" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
-output application/java
+output application/json
 ---
 {
 	"traxion_response": {
 	
 		"completed_succesfully": "false",
 		"error": {
-			"error_type": "UNIGIS: BAD_REQUEST",
-			"user_error_description": error,
-			"system_error_description": error
+			"error_type": "UNIGIS " ++ error.errorType.asString,
+			"user_error_description": error.description,
+			"system_error_description": error.errorMessage.payload.traxion_response.error
 		}
 	}
 }]]></ee:set-payload>
@@ -174,12 +174,15 @@ output application/java
 					<ee:message >
 						<ee:set-payload ><![CDATA[output application/json
 ---
-
-  {
+{
 	"traxion_response": {
 	
 		"completed_succesfully": "false",
-		"error": error	
+		"error": {
+			"error_type": "UNIGIS " ++ error.errorType.asString,
+			"user_error_description": error.description,
+			"system_error_description": error.errorMessage.payload.traxion_response.error
+		}
 	}
 }]]></ee:set-payload>
 					</ee:message>
