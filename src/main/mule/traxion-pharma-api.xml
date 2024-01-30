@@ -22,10 +22,19 @@
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Bad request"}]]></ee:set-payload>
+{
+	"traxion_response": {
+		"completed_succesfully": "false",
+		"error": {
+			"error_type": "APIKIT-400",
+			"user_error_description": "The server cannot or will not process the request due to something that is perceived to be a client error",
+			"system_error_description": "Bad Request"
+		}
+	}
+}]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">400</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[400]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
@@ -35,10 +44,19 @@ output application/json
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Resource not found"}]]></ee:set-payload>
+{
+	"traxion_response": {
+		"completed_succesfully": "false",
+		"error": {
+			"error_type": "APIKIT-404",
+			"user_error_description": "The origin server did not find a current representation for the target resource or is not willing to disclose that one exists",
+			"system_error_description": "Not Found"
+		}
+	}
+}]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">404</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[404]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
@@ -48,10 +66,19 @@ output application/json
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Method not allowed"}]]></ee:set-payload>
+{
+	"traxion_response": {
+		"completed_succesfully": "false",
+		"error": {
+			"error_type": "APIKIT-405",
+			"user_error_description": "The method received in the request-line is known by the origin server but not supported by the target resource",
+			"system_error_description": "Method Not Allowed"
+		}
+	}
+}]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">405</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[405]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
@@ -61,10 +88,19 @@ output application/json
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Not acceptable"}]]></ee:set-payload>
+{
+	"traxion_response": {
+		"completed_succesfully": "false",
+		"error": {
+			"error_type": "APIKIT-406",
+			"user_error_description": "The target resource does not have a current representation that would be acceptable to the user agent, according to the proactive negotiation header fields received in the request1, and the server is unwilling to supply a default representation",
+			"system_error_description": "Not Acceptable"
+		}
+	}
+}]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">406</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[406]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
@@ -74,10 +110,19 @@ output application/json
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Unsupported media type"}]]></ee:set-payload>
+{
+	"traxion_response": {
+		"completed_succesfully": "false",
+		"error": {
+			"error_type": "APIKIT-415",
+			"user_error_description": "The origin server is refusing to service the request because the payload is in a format not supported by this method on the target resource",
+			"system_error_description": "Unsupported Media Type"
+		}
+	}
+}]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">415</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[415]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
@@ -87,13 +132,43 @@ output application/json
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Not Implemented"}]]></ee:set-payload>
+{
+	"traxion_response": {
+	
+		"completed_succesfully": "false",
+		"error": {
+			"error_type": "APIKIT-501",
+			"user_error_description": "The server does not support the functionality required to fulfill the request",
+			"system_error_description": "Not Implemented"
+		}
+	}
+}]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">501</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[501]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="2ac2fec4-adcb-411e-b442-73b5680a5fe0" type="HTTP:BAD_REQUEST">
+				<ee:transform doc:name="Transform Message" doc:id="947248e3-3743-4fc1-bb8b-77b8c3a3acaf" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"traxion_response": {
+	
+		"completed_succesfully": "false",
+		"error": {
+			"error_type": "UNIGIS: BAD_REQUEST",
+			"user_error_description": error,
+			"system_error_description": error
+		}
+	}
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</on-error-propagate>
         </error-handler>
     </flow>
     <flow name="traxion-pharma-api-console">

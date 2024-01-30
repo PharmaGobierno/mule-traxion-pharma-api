@@ -20,7 +20,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		</http:request>
 	</sub-flow>
 	<sub-flow name="clients-process-pharma-api-tms-load-confirmation" doc:id="1f0db756-352f-4e01-9cae-6169e4f0147e" >
-		<http:request method="POST" doc:name="Request" doc:id="db34684b-c5af-4597-b565-952f5c7c497b" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.settled}" >
+		<http:request method="POST" doc:name="Request" doc:id="db34684b-c5af-4597-b565-952f5c7c497b" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.load.confirmation}" >
 			<http:headers ><![CDATA[#[output application/json
 ---
 {
@@ -35,7 +35,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		</http:request>
 	</sub-flow>
 	<sub-flow name="clients-process-pharma-api-tms-product-interface" doc:id="2eafeab8-741a-4ffb-818c-50357327506f" >
-		<http:request method="POST" doc:name="Request" doc:id="fd64d3d8-48c0-4a33-9c18-3885d9f4f0b5" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.settled}" >
+		<http:request method="POST" doc:name="Request" doc:id="fd64d3d8-48c0-4a33-9c18-3885d9f4f0b5" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.products}" >
 			<http:headers ><![CDATA[#[output application/json
 ---
 {
@@ -50,7 +50,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		</http:request>
 	</sub-flow>
 	<sub-flow name="clients-process-pharma-api-tms-bill-lading" doc:id="728dc0d7-25ea-4231-aa18-7aa14bd41540" >
-		<http:request method="POST" doc:name="Request" doc:id="e5835754-e561-4c94-b189-358acfe790e8" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.settled}" >
+		<http:request method="POST" doc:name="Request" doc:id="e5835754-e561-4c94-b189-358acfe790e8" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.bill_lading}" >
 			<http:headers ><![CDATA[#[output application/json
 ---
 {

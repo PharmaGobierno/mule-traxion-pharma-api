@@ -1,4 +1,0 @@
-%dw 2.0
-
-type auto_4128e1bf_778e_4fd7_9a0f_e6d3b1236230_Output_Variables_estado = String
-
