@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.7:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.8:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -149,10 +149,10 @@ output application/json
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
-			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="2ac2fec4-adcb-411e-b442-73b5680a5fe0" type="HTTP:BAD_REQUEST">
-				<ee:transform doc:name="Transform Message" doc:id="947248e3-3743-4fc1-bb8b-77b8c3a3acaf" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
+            <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="2ac2fec4-adcb-411e-b442-73b5680a5fe0" type="HTTP:BAD_REQUEST">
+                <ee:transform doc:name="Transform Message" doc:id="947248e3-3743-4fc1-bb8b-77b8c3a3acaf">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
@@ -166,9 +166,26 @@ output application/json
 		}
 	}
 }]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>
-			</on-error-propagate>
+                    </ee:message>
+                </ee:transform>
+            </on-error-propagate>
+            <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="49693ced-2bc7-4108-8927-d710301f5d01" type="ANY">
+                <ee:transform doc:name="Transform Message" doc:id="5a963d6c-6e32-436c-86e6-8730f32ca5ce">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+
+  {
+	"traxion_response": {
+	
+		"completed_succesfully": "false",
+		"error": error	
+	}
+}]]></ee:set-payload>
+                    </ee:message>
+                </ee:transform>
+            </on-error-propagate>
         </error-handler>
     </flow>
     <flow name="traxion-pharma-api-console">
@@ -199,16 +216,15 @@ output application/json
         </error-handler>
     </flow>
     <flow name="post:\tms\liquidated:application\json:traxion-pharma-api-config">
-		<ee:transform doc:name="Set variable" doc:id="6c28d655-fb98-4830-87c8-ea4cf9d6de7d" >
-			<ee:message >
-			</ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="source_system" ><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
-			</ee:variables>
-		</ee:transform>
-		<flow-ref doc:name="Call-orchestrator-get-tms-settled" doc:id="ec710393-0c03-4143-a50d-1847edd19207" name="orchestrator-post-tms-settled"/>
+        <ee:transform doc:name="Set variable" doc:id="6c28d655-fb98-4830-87c8-ea4cf9d6de7d">
+            <ee:message />
+            <ee:variables>
+                <ee:set-variable variableName="source_system"><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <flow-ref doc:name="Call-orchestrator-get-tms-settled" doc:id="ec710393-0c03-4143-a50d-1847edd19207" name="orchestrator-post-tms-settled" />
     </flow>
-	<flow name="post:\tms\payments\statements-folios:application\json:traxion-pharma-api-config">
+    <flow name="post:\tms\payments\statements-folios:application\json:traxion-pharma-api-config">
         <ee:transform doc:name="Transform Message">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
@@ -226,34 +242,31 @@ output application/json
             </ee:message>
         </ee:transform>
     </flow>
-	<flow name="post:\tms\load-confirmation:application\json:traxion-pharma-api-config">
-		<ee:transform doc:name="Set variable" doc:id="d0cc6b53-d9bb-41c7-9607-8f4d07366427" >
-			<ee:message >
-			</ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="source_system" ><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
-			</ee:variables>
-		</ee:transform>
-		<flow-ref doc:name="Call-orchestrator-post-tms-load-confirmation" doc:id="25ea7f86-7208-41b5-88a3-9d3ed5941b7d" name="orchestrator-post-tms-load-confirmation"/>
+    <flow name="post:\tms\load-confirmation:application\json:traxion-pharma-api-config">
+        <ee:transform doc:name="Set variable" doc:id="d0cc6b53-d9bb-41c7-9607-8f4d07366427">
+            <ee:message />
+            <ee:variables>
+                <ee:set-variable variableName="source_system"><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <flow-ref doc:name="Call-orchestrator-post-tms-load-confirmation" doc:id="25ea7f86-7208-41b5-88a3-9d3ed5941b7d" name="orchestrator-post-tms-load-confirmation" />
     </flow>
-	<flow name="post:\tms\product-interface:application\json:traxion-pharma-api-config">
-		<ee:transform doc:name="Set variable" doc:id="bcbadd31-cc04-443b-b8a5-26449c626331" >
-			<ee:message >
-			</ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="source_system" ><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
-			</ee:variables>
-		</ee:transform>
-		<flow-ref doc:name="Call-orchestrator-post-tms-product-interface" doc:id="4dafdd46-abd6-4923-8b39-a85b9c94c0b0" name="orchestrator-post-tms-product-interface"/>
+    <flow name="post:\tms\product-interface:application\json:traxion-pharma-api-config">
+        <ee:transform doc:name="Set variable" doc:id="bcbadd31-cc04-443b-b8a5-26449c626331">
+            <ee:message />
+            <ee:variables>
+                <ee:set-variable variableName="source_system"><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <flow-ref doc:name="Call-orchestrator-post-tms-product-interface" doc:id="4dafdd46-abd6-4923-8b39-a85b9c94c0b0" name="orchestrator-post-tms-product-interface" />
     </flow>
-	<flow name="post:\tms\carta-porte:application\json:traxion-pharma-api-config">
-		<ee:transform doc:name="Set variable" doc:id="52ce10a1-9f42-42a4-977c-c4ca6de84020" >
-			<ee:message >
-			</ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="source_system" ><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
-			</ee:variables>
-		</ee:transform>
-		<flow-ref doc:name="Call-orchestrator-post-tms-bill-lading" doc:id="202aeed3-595f-4d4a-96be-31ac868d6f11" name="orchestrator-post-tms-bill-lading"/>
+    <flow name="post:\tms\carta-porte:application\json:traxion-pharma-api-config">
+        <ee:transform doc:name="Set variable" doc:id="52ce10a1-9f42-42a4-977c-c4ca6de84020">
+            <ee:message />
+            <ee:variables>
+                <ee:set-variable variableName="source_system"><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <flow-ref doc:name="Call-orchestrator-post-tms-bill-lading" doc:id="202aeed3-595f-4d4a-96be-31ac868d6f11" name="orchestrator-post-tms-bill-lading" />
     </flow>
 </mule>
