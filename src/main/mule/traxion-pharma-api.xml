@@ -167,6 +167,9 @@ output application/json
 	}
 }]]></ee:set-payload>
                     </ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[400]]></ee:set-variable>
+					</ee:variables>
                 </ee:transform>
             </on-error-propagate>
             <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="49693ced-2bc7-4108-8927-d710301f5d01" type="ANY">
@@ -184,6 +187,9 @@ output application/json
 	}
 }]]></ee:set-payload>
                     </ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[500]]></ee:set-variable>
+					</ee:variables>
                 </ee:transform>
             </on-error-propagate>
         </error-handler>
@@ -242,7 +248,7 @@ output application/json
             </ee:message>
         </ee:transform>
     </flow>
-    <flow name="post:\tms\load-confirmation:application\json:traxion-pharma-api-config">
+	<flow name="post:\tms\load-confirmation:application\json:traxion-pharma-api-config">
         <ee:transform doc:name="Set variable" doc:id="d0cc6b53-d9bb-41c7-9607-8f4d07366427">
             <ee:message />
             <ee:variables>
