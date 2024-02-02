@@ -169,25 +169,6 @@ output application/json
 					</ee:message>
 				</ee:transform>
 			</on-error-propagate>
-			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="d382762d-2dc9-4698-a0ae-33e6a673c68d" type="ANY">
-				<ee:transform doc:name="Transform Message" doc:id="c28be5cc-1ba4-41da-b8ad-41dc0646ab26" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[output application/json
----
-{
-	"traxion_response": {
-	
-		"completed_succesfully": "false",
-		"error": {
-			"error_type": "UNIGIS " ++ error.errorType.asString,
-			"user_error_description": error.description,
-			"system_error_description": error.errorMessage.payload.traxion_response.error
-		}
-	}
-}]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>
-			</on-error-propagate>
         </error-handler>
     </flow>
     <flow name="traxion-pharma-api-console">
