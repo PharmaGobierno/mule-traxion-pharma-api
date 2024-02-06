@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<sub-flow name="clients-process-pharma-api-tms-settled" doc:id="615fda4d-10c6-4dac-a33e-5b7794ba12ae" >
 		<http:request method="POST" doc:name="Request" doc:id="d3aacbc3-5062-41ca-913a-45bf144758ce" path="${client.process.pharma.api.https.path.tms.settled}" config-ref="HTTP_Request_configuration-process-pharma-api">
 			<http:headers ><![CDATA[#[output application/json
@@ -34,20 +35,36 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 }]]]></http:query-params>
 		</http:request>
 	</sub-flow>
-	<sub-flow name="clients-process-pharma-api-tms-product-interface" doc:id="2eafeab8-741a-4ffb-818c-50357327506f" >
-		<http:request method="POST" doc:name="Request" doc:id="fd64d3d8-48c0-4a33-9c18-3885d9f4f0b5" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.products}" >
-			<http:headers ><![CDATA[#[output application/json
+	<sub-flow name="clients-process-pharma-api-tms-product-interface" doc:id="2eafeab8-741a-4ffb-818c-50357327506f">
+		<try doc:name="Try" doc:id="9a74454e-eedd-4680-b458-f39184133ebf" >
+			<http:request method="POST" doc:name="Request" doc:id="fd64d3d8-48c0-4a33-9c18-3885d9f4f0b5" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.products}">
+			<http:headers><![CDATA[#[output application/json
 ---
 {
 	"client_id": p('client.process.pharma.api.https.client_id'),
 	"client_secret": p('client.process.pharma.api.https.client_secret')
 }]]]></http:headers>
-			<http:query-params ><![CDATA[#[output application/json
+			<http:query-params><![CDATA[#[output application/json
 ---
 {
 	"source_system": vars.source_system
 }]]]></http:query-params>
 		</http:request>
+			<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="91887a96-5e02-400b-988d-a9da1406ea53" >
+					<ee:transform doc:name="Transform Message" doc:id="a998a778-aa20-4e04-a92a-9543ffb85323" >
+						<ee:message >
+						</ee:message>
+						<ee:variables >
+							<ee:set-variable variableName="errorMessageTep" ><![CDATA[error]]></ee:set-variable>
+							<ee:set-variable variableName="errorCodeTep" ><![CDATA[409]]></ee:set-variable>
+						</ee:variables>
+					</ee:transform>
+					<logger level="INFO" doc:name="Logger" doc:id="cffae235-9d17-4dd2-b1e6-0eaac42510d2" message="#[payload]"/>
+					<raise-error doc:name="Raise error" doc:id="c4e32e4d-a3b8-46fd-b4d0-11d87bb678a1" type="TEP:ERROR" description="CONFLICTO AL ENVIAR LA SOLICITUD"/>
+				</on-error-continue>
+			</error-handler>
+		</try>
 	</sub-flow>
 	<sub-flow name="clients-process-pharma-api-tms-bill-lading" doc:id="728dc0d7-25ea-4231-aa18-7aa14bd41540" >
 		<http:request method="POST" doc:name="Request" doc:id="e5835754-e561-4c94-b189-358acfe790e8" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.bill_lading}" >

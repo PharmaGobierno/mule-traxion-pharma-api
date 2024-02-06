@@ -172,7 +172,29 @@ output application/json
 					</ee:variables>
                 </ee:transform>
             </on-error-propagate>
-            <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="49693ced-2bc7-4108-8927-d710301f5d01" type="ANY">
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="7853e24c-5f33-4451-afae-9176a2a8d495" type="TEP:ERROR">
+				<ee:transform doc:name="Transform Message" doc:id="2235635c-af51-4087-9db1-f6c933fdf3ab" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"traxion_response": {
+		"completed_succesfully": "false",
+		"error": {
+			"error_type": vars.errorMessageTep.errorType.namespace ++ ":" ++ "409",
+			"user_error_description": "The request cannot be processed due to a conflict in the current state of the resource on the server. -> " ++ vars.errorMessageTep.errorMessage.payload.traxion_response.error.user_error_description,
+			"system_error_description": vars.errorMessageTep.errorMessage.payload.traxion_response.error.system_error_description.system_error_description.response
+		}
+	}
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[(vars.errorCodeTep default 500) as Number]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</on-error-propagate>
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="49693ced-2bc7-4108-8927-d710301f5d01" type="ANY">
                 <ee:transform doc:name="Transform Message" doc:id="5a963d6c-6e32-436c-86e6-8730f32ca5ce">
                     <ee:message>
                         <ee:set-payload><![CDATA[%dw 2.0
@@ -187,8 +209,8 @@ output application/json
 	}
 }]]></ee:set-payload>
                     </ee:message>
-					<ee:variables >
-						<ee:set-variable variableName="httpStatus" ><![CDATA[500]]></ee:set-variable>
+					<ee:variables>
+						<ee:set-variable variableName="httpStatus"><![CDATA[500]]></ee:set-variable>
 					</ee:variables>
                 </ee:transform>
             </on-error-propagate>
