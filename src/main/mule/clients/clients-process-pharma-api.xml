@@ -52,15 +52,21 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		</http:request>
 			<error-handler >
 				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="91887a96-5e02-400b-988d-a9da1406ea53" >
-					<ee:transform doc:name="Transform Message" doc:id="a998a778-aa20-4e04-a92a-9543ffb85323" >
+					<ee:transform doc:name="Set error variables" doc:id="a998a778-aa20-4e04-a92a-9543ffb85323" >
 						<ee:message >
 						</ee:message>
 						<ee:variables >
-							<ee:set-variable variableName="errorMessageTep" ><![CDATA[error]]></ee:set-variable>
-							<ee:set-variable variableName="errorCodeTep" ><![CDATA[409]]></ee:set-variable>
+							<ee:set-variable variableName="errorMessageTep" ><![CDATA[%dw 2.0
+output application/json
+---
+error]]></ee:set-variable>
+							<ee:set-variable variableName="errorCodeTep" ><![CDATA[%dw 2.0
+output application/json
+---
+(if (error.errorMessage.payload.traxion_response.error.user_error_description contains "409") 409 else "")]]></ee:set-variable>
 						</ee:variables>
 					</ee:transform>
-					<logger level="INFO" doc:name="Logger" doc:id="cffae235-9d17-4dd2-b1e6-0eaac42510d2" message="#[payload]"/>
+					<logger level="INFO" doc:name="Visualize error variables" doc:id="cffae235-9d17-4dd2-b1e6-0eaac42510d2" message="Mensaje error Tep: #[vars.errorMessageTep], Código error Tep: #[vars.errorCodeTep]" />
 					<raise-error doc:name="Raise error" doc:id="c4e32e4d-a3b8-46fd-b4d0-11d87bb678a1" type="TEP:ERROR" description="CONFLICTO AL ENVIAR LA SOLICITUD"/>
 				</on-error-continue>
 			</error-handler>
