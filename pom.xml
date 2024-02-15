@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>ab8117f6-d718-4307-b5f7-03262d589cd0</groupId>
 			<artifactId>traxion-pharma-api</artifactId>
-			<version>1.0.8</version>
+			<version>1.0.10</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
