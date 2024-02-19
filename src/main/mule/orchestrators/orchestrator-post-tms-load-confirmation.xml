@@ -17,22 +17,19 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-  "shipmentId": payload.shipment_id,
-  "wmsId": payload.wms_id,
-  "carrier": payload.carrier,
-  "vehicleType":  payload.vehicle_type,
-  "vehiclePlate": payload.vehicle_plate,
-  "orders": payload.orders map (item) -> 
+	"shipmentId": payload.shipment_id,
+	"wmsId": payload.wms_id,
+	"carrier": payload.carrier,
+	"vehicleType": payload.vehicle_type,
+	"vehiclePlate": payload.vehicle_plate,
+	"orders": payload.orders map ((item) -> 
     {
-      "identifier": item.identifier,
-      "account": {
-        "identifier": item.account.identifier
-      }
-    }
-
-  
-}
-]]></ee:set-payload>
+		"identifier": item.identifier,
+		"account": {
+			"identifier": item.account.identifier
+		}
+	})
+}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 	</sub-flow>
