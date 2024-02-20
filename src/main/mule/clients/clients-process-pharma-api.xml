@@ -65,7 +65,9 @@ error]]></ee:set-variable>
 							<ee:set-variable variableName="errorCodeTep" ><![CDATA[%dw 2.0
 output application/json
 ---
-(if (error.errorMessage.payload.traxion_response.error.user_error_description contains "409") 409 else "")]]></ee:set-variable>
+(if (error.errorMessage.payload.traxion_response.error.user_error_description contains "409") 409 
+	else if (error.errorMessage.payload.traxion_response.error.user_error_description contains "404") 404 
+	else "")]]></ee:set-variable>
 						</ee:variables>
 					</ee:transform>
 					<logger level="INFO" doc:name="Visualize error variables" doc:id="cffae235-9d17-4dd2-b1e6-0eaac42510d2" message="Mensaje error Tep: #[vars.errorMessageTep], Código error Tep: #[vars.errorCodeTep]" />

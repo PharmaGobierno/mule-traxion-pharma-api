@@ -182,17 +182,30 @@ output application/json
                     <ee:message>
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
----
+
+fun handleError(nameSpace, logErrCode, errDesc, userErrDesc, syserrDesc): Object=
 {
 	"traxion_response": {
 		"completed_succesfully": "false",
 		"error": {
-			"error_type": vars.errorMessageTep.errorType.namespace ++ ": " ++ (if (vars.errorMessageTep.errorMessage.payload.traxion_response.error.user_error_description contains "409") "409" else ""),
-			"user_error_description": "The request cannot be processed due to a conflict in the current state of the resource on the server. -> " ++ vars.errorMessageTep.errorMessage.payload.traxion_response.error.user_error_description,
-			"system_error_description": vars.errorMessageTep.errorMessage.payload.traxion_response.error.system_error_description.system_error_description.response
+			"error_type": nameSpace ++ ": " ++ logErrCode,
+			"user_error_description": userErrDesc ++ errDesc,
+			"system_error_description": syserrDesc
 		}
 	}
-}]]></ee:set-payload>
+}
+
+var nameSpace=vars.errorMessageTep.errorType.namespace
+var logErrCode=(if (vars.errorMessageTep.errorMessage.payload.traxion_response.error.user_error_description contains "409") "409" 
+	else if (vars.errorMessageTep.errorMessage.payload.traxion_response.error.user_error_description contains "404") "404"
+	else "error": vars.errorMessageTep)
+var errDesc=vars.errorMessageTep.errorMessage.payload.traxion_response.error.user_error_description
+var userErrDesc="The request cannot be processed due to a conflict in the current state of the resource on the server. -> "
+var syserrDesc=vars.errorMessageTep.errorMessage.payload.traxion_response.error.system_error_description.system_error_description.response
+
+---
+
+handleError(nameSpace, logErrCode, errDesc, userErrDesc, syserrDesc)]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
                         <ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
