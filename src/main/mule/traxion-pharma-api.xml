@@ -160,7 +160,7 @@ output application/json
 	
 		"completed_succesfully": "false",
 		"error": {
-			"error_type": "UNIGIS " ++ error.errorType.asString,
+			"error_type": error.errorType.namespace ++ ": " ++ error.errorType.asString,
 			"user_error_description": error.description,
 			"system_error_description": error.errorMessage.payload.traxion_response.error
 		}
