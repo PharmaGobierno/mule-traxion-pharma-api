@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+<mule xmlns:crypto="http://www.mulesoft.org/schema/mule/crypto" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/crypto http://www.mulesoft.org/schema/mule/crypto/current/mule-crypto.xsd">
 	<sub-flow name="orchestrator-post-tms-bill-lading" doc:id="cf058394-2619-4d71-bc4e-b82b52a1d349" >
 		<logger level="INFO" doc:name="Logger" doc:id="6f77fff2-24ec-4572-af39-0bde61742e7d" message="#[payload]"/>
 		<flow-ref doc:name="Call-clients-process-pharma-api-tms-bill-lading" doc:id="d15cddd1-0acb-4cc4-bfe5-f9c0efcdeba7" name="clients-process-pharma-api-tms-bill-lading"/>

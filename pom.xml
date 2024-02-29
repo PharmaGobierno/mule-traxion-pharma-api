@@ -15,6 +15,7 @@
 
 		<app.runtime>4.5.3</app.runtime>
 		<mule.maven.plugin.version>4.0.0</mule.maven.plugin.version>
+		<munit.version>3.0.0</munit.version>
 	</properties>
 
 	<build>
@@ -31,6 +32,29 @@
 				<extensions>true</extensions>
 				<configuration>
 					<classifier>mule-application</classifier>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.mulesoft.munit.tools</groupId>
+				<artifactId>munit-maven-plugin</artifactId>
+				<version>${munit.version}</version>
+				<executions>
+					<execution>
+						<id>test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+							<goal>coverage-report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<coverage>
+						<runCoverage>true</runCoverage>
+						<formats>
+							<format>html</format>
+						</formats>
+					</coverage>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -56,9 +80,41 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-runner</artifactId>
+			<version>3.0.0</version>
+			<classifier>mule-plugin</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-tools</artifactId>
+			<version>3.0.0</version>
+			<classifier>mule-plugin</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.weave</groupId>
+			<artifactId>assertions</artifactId>
+			<version>1.2.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.modules</groupId>
+			<artifactId>mule-secure-configuration-property-module</artifactId>
+			<version>1.2.7</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.modules</groupId>
+			<artifactId>mule-cryptography-module</artifactId>
+			<version>1.3.20</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
 			<groupId>ab8117f6-d718-4307-b5f7-03262d589cd0</groupId>
 			<artifactId>traxion-pharma-api</artifactId>
-			<version>1.0.11</version>
+			<version>1.0.12</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>

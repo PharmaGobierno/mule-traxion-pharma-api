@@ -4,7 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 	<sub-flow name="orchestrator-post-tms-product-interface" doc:id="1b1554d7-d386-4dc2-8dcd-2608ce2e35f5" >
-		<logger level="INFO" doc:name="Logger" doc:id="8e8f88e6-8b57-46b9-b5aa-8f5db596524f" message="#[payload]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="8e8f88e6-8b57-46b9-b5aa-8f5db596524f" message='#[payload]'/>
 		<flow-ref doc:name="Call-clients-process-pharma-api-tms-product-interface" doc:id="f220d060-0d26-4037-983e-fda4f9f5c00b" name="clients-process-pharma-api-tms-product-interface"/>
 		<logger level="INFO" doc:name="Logger" doc:id="f376b1cf-f415-413c-a784-d112ae2e5bcc" message="#[payload]"/>
 	</sub-flow>
