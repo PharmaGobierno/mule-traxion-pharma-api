@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="orchestrator-post-salesforce-siam" doc:id="5dc73d92-172d-47c7-a1c0-6743921aec79" >
+		<logger level="INFO" doc:name="Payload visualization" doc:id="0270f074-ec5f-4115-8bfa-50ee38242a2b" message="#[payload]" />
+		<flow-ref doc:name="Call-clients-process-albatros-call-post-salesforce-siam" doc:id="d763be5d-ab5a-448e-b9d9-9fd12626b9e9" name="clients-system-tep-call-post-salesforce-siam" />
+		<logger level="INFO" doc:name="Payload visualization" doc:id="ae0c708a-84e0-42ed-98d7-f946125577ae" message="#[payload]" />
+	</sub-flow>
+</mule>
