@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.12:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.15:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -320,15 +320,27 @@ output application/json
         <flow-ref doc:name="Call-orchestrator-post-tms-bill-lading" doc:id="202aeed3-595f-4d4a-96be-31ac868d6f11" name="orchestrator-post-tms-bill-lading" />
     </flow>
     <flow name="post:\salesforce\siam:application\json:traxion-pharma-api-config">
-		<ee:transform doc:name="Transform Message" doc:id="dbf8e670-9bb4-446d-80c0-e5b0e96d4578">
-			<ee:message />
-			<ee:variables>
-				<ee:set-variable variableName="customer_name"><![CDATA[%dw 2.0
+        <ee:transform doc:name="Set variable customer_name y transform payload" doc:id="dbf8e670-9bb4-446d-80c0-e5b0e96d4578">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload map ((item) -> {
+    "existencias_apartadas": item.existencias_apartadas as String,
+    "existencias_disponibles": item.existencias_disponibles as String,
+    "fecha": item.fecha as String,
+    "existencias_totales": item.existencias_totales as String,
+    "sku": item.sku as String,
+    "clave_presupuestal": item.clave_presupuestal as String
+} )]]></ee:set-payload>
+            </ee:message>
+            <ee:variables>
+                <ee:set-variable variableName="customer_name"><![CDATA[%dw 2.0
 output application/json
 ---
 attributes.queryParams.customer_name]]></ee:set-variable>
-			</ee:variables>
-		</ee:transform>
-		<flow-ref doc:name="Call-orchestrator-post-salesforce-siam" doc:id="7c406bc8-698d-445c-985c-7a8da3760dc3" name="orchestrator-post-salesforce-siam" />
+            </ee:variables>
+        </ee:transform>
+        <flow-ref doc:name="Call-orchestrator-post-salesforce-siam" doc:id="7c406bc8-698d-445c-985c-7a8da3760dc3" name="orchestrator-post-salesforce-siam" />
     </flow>
 </mule>
