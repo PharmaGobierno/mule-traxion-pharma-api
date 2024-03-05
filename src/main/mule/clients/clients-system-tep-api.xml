@@ -10,8 +10,8 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 output application/json
 ---
 {
-	"client_id": p('client.system.tep.api.https.client_id'),
-	"client_secret": p('client.system.tep.api.https.client_secret'),
+	"client_id": Mule::p('client.system.tep.api.https.client_id'),
+	"client_secret": Mule::p('client.system.tep.api.https.client_secret'),
 	"Content-Type": "application/json"
 }]]]></http:headers>
 			<http:query-params ><![CDATA[#[%dw 2.0
