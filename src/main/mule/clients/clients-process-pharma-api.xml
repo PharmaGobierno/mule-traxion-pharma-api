@@ -11,8 +11,8 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-	"client_id": Mule::p('client.process.pharma.api.https.client_id'),
-	"client_secret": Mule::p('client.process.pharma.api.https.client_secret')
+	"client_id": Mule::p('secure::client.process.pharma.api.https.client_id'),
+	"client_secret": Mule::p('secure::client.process.pharma.api.https.client_secret')
 }]]]></http:headers>
 			<http:query-params ><![CDATA[#[output application/json
 ---
@@ -28,8 +28,8 @@ output application/json
 output application/json
 ---
 {
-	"client_id": Mule::p('client.process.pharma.api.https.client_id'),
-	"client_secret": Mule::p('client.process.pharma.api.https.client_secret')
+	"client_id": Mule::p('secure::client.process.pharma.api.https.client_id'),
+	"client_secret": Mule::p('secure::client.process.pharma.api.https.client_secret')
 }]]]></http:headers>
 			<http:query-params ><![CDATA[#[output application/json
 ---
@@ -37,7 +37,7 @@ output application/json
 	"source_system": vars.source_system
 }]]]></http:query-params>
 		</http:request>
-		<logger level="INFO" doc:name="Logger" doc:id="88d85419-50e7-46c6-8520-c8cce27c6ff2" message="#[payload]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="88d85419-50e7-46c6-8520-c8cce27c6ff2" message='#[payload]'/>
 	</sub-flow>
 	<sub-flow name="clients-process-pharma-api-tms-product-interface" doc:id="2eafeab8-741a-4ffb-818c-50357327506f">
 		<try doc:name="Try" doc:id="9a74454e-eedd-4680-b458-f39184133ebf" >
@@ -46,8 +46,8 @@ output application/json
 output application/json
 ---
 {
-	"client_id": Mule::p('client.process.pharma.api.https.client_id'),
-	"client_secret": Mule::p('client.process.pharma.api.https.client_secret')
+	"client_id": Mule::p('secret::client.process.pharma.api.https.client_id'),
+	"client_secret": Mule::p('secret::client.process.pharma.api.https.client_secret')
 }]]]></http:headers>
 			<http:query-params><![CDATA[#[output application/json
 ---
@@ -85,8 +85,8 @@ output application/json
 output application/json
 ---
 {
-	"client_id": Mule::p('client.process.pharma.api.https.client_id'),
-	"client_secret": Mule::p('client.process.pharma.api.https.client_secret')
+	"client_id": Mule::p('secret::client.process.pharma.api.https.client_id'),
+	"client_secret": Mule::p('secret::client.process.pharma.api.https.client_secret')
 }]]]></http:headers>
 			<http:query-params ><![CDATA[#[output application/json
 ---

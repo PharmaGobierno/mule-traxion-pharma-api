@@ -21,7 +21,7 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 	<http:request-config name="HTTP_Request_configuration-system-tep-api" doc:name="HTTP Request configuration" doc:id="c6bba8d2-1fda-476a-8127-c83c514603f3" basePath="${client.system.tep.api.base.path}" responseTimeout="${client.system.tep.api.https.response.timeout}">
 		<http:request-connection host="${client.system.tep.api.https.host}" port="${client.system.tep.api.https.port}" protocol="${client.system.tep.api.https.protocol}" maxConnections="${client.system.tep.api.https.max.connections}" connectionIdleTimeout="${client.system.tep.api.https.connection.idle.timeout}" responseBufferSize="${client.system.tep.api.https.response.buffer.size}"/>
 	</http:request-config>
-	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="d1a93782-059f-491c-95d3-b4f0e0b08a03" file="traxion-pharma-api-${env}.properties" key="${anypoint.platform.client_id}, ${anypoint.platform.client_secret}">
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="d1a93782-059f-491c-95d3-b4f0e0b08a03" file="traxion-pharma-api-${env}.properties" key="${sec.key}">
 		<secure-properties:encrypt algorithm="Blowfish" />
 	</secure-properties:config>
 	

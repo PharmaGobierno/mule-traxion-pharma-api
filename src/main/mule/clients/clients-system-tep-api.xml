@@ -7,11 +7,11 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<sub-flow name="clients-system-tep-call-post-salesforce-siam" doc:id="7672b140-cd13-40a9-81c8-101590dbaa1f" >
 		<http:request method="POST" doc:name="Request" doc:id="a6cd9815-46f1-44e8-875c-0a8e644e27af" config-ref="HTTP_Request_configuration-system-tep-api" path="${client.system.tep.api.https.path.post.crm.siam}" >
 			<http:headers ><![CDATA[#[%dw 2.0
-output application/json
+output application/java
 ---
 {
-	"client_id": Mule::p('client.system.tep.api.https.client_id'),
-	"client_secret": Mule::p('client.system.tep.api.https.client_secret'),
+	"client_id": Mule::p('secure::client.system.tep.api.https.client_id'),
+	"client_secret": Mule::p('secure::client.system.tep.api.https.client_secret'),
 	"Content-Type": "application/json"
 }]]]></http:headers>
 			<http:query-params ><![CDATA[#[%dw 2.0
