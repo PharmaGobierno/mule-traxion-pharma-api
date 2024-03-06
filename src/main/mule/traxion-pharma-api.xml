@@ -299,7 +299,6 @@ output application/json
                 <ee:set-variable variableName="source_system"><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-		<logger level="INFO" doc:name="Visualize encripted fields" doc:id="b545c135-45e5-4894-a201-15522804362a" message='#[%dw 2.0&#10;output application/java&#10;---&#10;"id: " ++ Mule::p("secure::anypoint.platform.client_id") ++ "-" ++ "secret: " ++ Mule::p("secure::anypoint.platform.client_secret")&#10; ++ "-" ++ "processClient: " ++ Mule::p("secure::client.process.pharma.api.https.client_id") ++ "-" ++ "processScrt: " ++ &#10; Mule::p("secure::client.process.pharma.api.https.client_secret")&#10; ++ "-" ++ "clienSys: " ++ Mule::p("secure::client.system.tep.api.https.client_id") ++ "-" ++ "sectSys: " ++ ("secure::client.system.tep.api.https.client_secret")]' />
 		<flow-ref doc:name="Call-orchestrator-post-tms-load-confirmation" doc:id="25ea7f86-7208-41b5-88a3-9d3ed5941b7d" name="orchestrator-post-tms-load-confirmation" />
     </flow>
     <flow name="post:\tms\product-interface:application\json:traxion-pharma-api-config">
