@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="orchestrator-get-details-cam-products" doc:id="e496899d-2ced-4f2d-ab22-80af74709173" >
+		<logger level="INFO" doc:name="Logger" doc:id="27796db1-d5cb-4d0a-aa40-11aa294a68e3" message="#[Payload]"/>
+		<flow-ref doc:name="Call-clients-process-pharma-api-get-details" doc:id="d59f3573-57ce-4681-bd8d-bb0e2df8da55" name="clients-process-pharma-api-get-details"/>
+		<logger level="INFO" doc:name="Visualize payload" doc:id="d12fb718-9ae3-4f7b-a8bd-7bc80c7888f6" message="#[payload]"/>
+	</sub-flow>
+</mule>

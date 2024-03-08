@@ -46,8 +46,8 @@ output application/json
 output application/json
 ---
 {
-	"client_id": Mule::p('secret::client.process.pharma.api.https.client_id'),
-	"client_secret": Mule::p('secret::client.process.pharma.api.https.client_secret')
+	"client_id": Mule::p('secure::client.process.pharma.api.https.client_id'),
+	"client_secret": Mule::p('secure::client.process.pharma.api.https.client_secret')
 }]]]></http:headers>
 			<http:query-params><![CDATA[#[output application/json
 ---
@@ -85,13 +85,31 @@ output application/json
 output application/json
 ---
 {
-	"client_id": Mule::p('secret::client.process.pharma.api.https.client_id'),
-	"client_secret": Mule::p('secret::client.process.pharma.api.https.client_secret')
+	"client_id": Mule::p('secure::client.process.pharma.api.https.client_id'),
+	"client_secret": Mule::p('secure::client.process.pharma.api.https.client_secret')
 }]]]></http:headers>
 			<http:query-params ><![CDATA[#[output application/json
 ---
 {
 	"source_system": vars.source_system
+}]]]></http:query-params>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="clients-process-pharma-api-get-details" doc:id="139d3889-a651-48bc-9fa4-6ac45a6d6b4e" >
+		<logger level="INFO" doc:name="Visualize payload" doc:id="37afc62b-8a46-4841-94d2-be853b61a382" message="#[payload]"/>
+		<http:request method="GET" doc:name="Request" doc:id="32c60b32-b719-4cfb-9fb1-2b7ff562fae6" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.cam.products}">
+			<http:headers ><![CDATA[#[%dw 2.0
+output application/json
+---
+{
+	"client_id": Mule::p('secure::client.process.pharma.api.https.client_id'),
+	"client_secret": Mule::p('secure::client.process.pharma.api.https.client_secret')
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[%dw 2.0
+output application/json
+---
+{
+	"customer_namer": vars.customer_name
 }]]]></http:query-params>
 		</http:request>
 	</sub-flow>
