@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="orchestrator-get-issste-detailed" doc:id="829da26a-cd41-4b5f-8e8e-a8bcb2309820" >
+		<logger level="INFO" doc:name="Visualize payload" doc:id="d262a502-c608-4880-a70a-e91ef5c3ba8e" message="#[payload]"/>
+		<flow-ref doc:name="Call-clients-process-pharma-api-get-detailed" doc:id="39bfacd4-1f08-4fb8-a017-bdf5c9d97d82" name="clients-process-pharma-api-get-detailed"/>
+		<logger level="INFO" doc:name="Visualize payload" doc:id="e71543a0-ff1f-4686-96b3-665d3cd6b10b" message="#[payload]"/>
+	</sub-flow>
+</mule>
