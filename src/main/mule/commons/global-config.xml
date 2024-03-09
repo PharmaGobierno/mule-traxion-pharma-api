@@ -12,7 +12,7 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 	<tls:context name="TLS_Context" doc:name="TLS Context" doc:id="bb89a54d-a80c-42dc-aed5-c45904e9e8ca" >
 		<tls:key-store type="pkcs12" path="${https.listener.key.store.path}" keyPassword="${https.listener.key.store.key.password}" password="${https.listener.key.store.password}" />
 	</tls:context>
-	<global-property doc:name="Global Property" doc:id="8a2247b3-bde4-46c9-87c5-b7902709dd31" name="env" value="uat" />
+	<global-property doc:name="Global Property" doc:id="8a2247b3-bde4-46c9-87c5-b7902709dd31" name="env" value="pro" />
 	<configuration-properties doc:name="Configuration properties" doc:id="5d762ba0-a58e-4d71-b63b-94682a4fe297" file="traxion-pharma-api-${env}.properties" />
 	<api-gateway:autodiscovery apiId="${anypoint.platform.autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="eb48ac63-da94-4d5e-8d69-36fdda6c177e" flowRef="traxion-pharma-api-main" />
 	<http:request-config name="HTTP_Request_configuration-process-pharma-api" doc:name="HTTP Request configuration" doc:id="916393fe-36ab-4b52-830d-e4982e21fcb9" responseTimeout="${client.process.pharma.api.https.response.timeout}">
