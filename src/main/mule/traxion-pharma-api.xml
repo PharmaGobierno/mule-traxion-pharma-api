@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.18:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.19:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -292,14 +292,14 @@ output application/json
             </ee:message>
         </ee:transform>
     </flow>
-	<flow name="post:\tms\load-confirmation:application\json:traxion-pharma-api-config">
+    <flow name="post:\tms\load-confirmation:application\json:traxion-pharma-api-config">
         <ee:transform doc:name="Set variable" doc:id="d0cc6b53-d9bb-41c7-9607-8f4d07366427">
             <ee:message />
             <ee:variables>
                 <ee:set-variable variableName="source_system"><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-		<flow-ref doc:name="Call-orchestrator-post-tms-load-confirmation" doc:id="25ea7f86-7208-41b5-88a3-9d3ed5941b7d" name="orchestrator-post-tms-load-confirmation" />
+        <flow-ref doc:name="Call-orchestrator-post-tms-load-confirmation" doc:id="25ea7f86-7208-41b5-88a3-9d3ed5941b7d" name="orchestrator-post-tms-load-confirmation" />
     </flow>
     <flow name="post:\tms\product-interface:application\json:traxion-pharma-api-config">
         <ee:transform doc:name="Set variable" doc:id="bcbadd31-cc04-443b-b8a5-26449c626331">
@@ -308,7 +308,7 @@ output application/json
                 <ee:set-variable variableName="source_system"><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-		<flow-ref doc:name="Call-orchestrator-post-tms-product-interface" doc:id="4dafdd46-abd6-4923-8b39-a85b9c94c0b0" name="orchestrator-post-tms-product-interface" />
+        <flow-ref doc:name="Call-orchestrator-post-tms-product-interface" doc:id="4dafdd46-abd6-4923-8b39-a85b9c94c0b0" name="orchestrator-post-tms-product-interface" />
     </flow>
     <flow name="post:\tms\carta-porte:application\json:traxion-pharma-api-config">
         <ee:transform doc:name="Set variable" doc:id="52ce10a1-9f42-42a4-977c-c4ca6de84020">
@@ -345,28 +345,26 @@ attributes.queryParams.customer_name]]></ee:set-variable>
     </flow>
     <flow name="get:\issste\detail:traxion-pharma-api-config">
         <ee:transform doc:name="Set variable">
-            <ee:message>
-            </ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="customer_name" ><![CDATA[%dw 2.0
+            <ee:message />
+            <ee:variables>
+                <ee:set-variable variableName="customer_name"><![CDATA[%dw 2.0
 output application/json
 ---
 attributes.queryParams.customer_name]]></ee:set-variable>
-			</ee:variables>
+            </ee:variables>
         </ee:transform>
-		<flow-ref doc:name="Call-orchestrator-get-details-cam-products" doc:id="0cc7e5a2-18b9-482c-8ef4-df13a986c452" name="orchestrator-get-details-cam-products"/>
+        <flow-ref doc:name="Call-orchestrator-get-details-cam-products" doc:id="0cc7e5a2-18b9-482c-8ef4-df13a986c452" name="orchestrator-get-details-cam-products" />
     </flow>
-	<flow name="get:\issste\detailed:traxion-pharma-api-config">
+    <flow name="get:\issste\detailed:traxion-pharma-api-config">
         <ee:transform doc:name="Set variable">
-            <ee:message>
-            </ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="customer_name" ><![CDATA[%dw 2.0
+            <ee:message />
+            <ee:variables>
+                <ee:set-variable variableName="customer_name"><![CDATA[%dw 2.0
 output application/json
 ---
 attributes.queryParams.customer_name]]></ee:set-variable>
-			</ee:variables>
+            </ee:variables>
         </ee:transform>
-		<flow-ref doc:name="Call-orchestrator-get-issste-detailed" doc:id="e69e6d90-c3ce-4c4e-b3b0-1c9fb990d1e4" name="orchestrator-get-issste-detailed"/>
+        <flow-ref doc:name="Call-orchestrator-get-issste-detailed" doc:id="e69e6d90-c3ce-4c4e-b3b0-1c9fb990d1e4" name="orchestrator-get-issste-detailed" />
     </flow>
 </mule>
