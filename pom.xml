@@ -13,8 +13,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<app.runtime>4.4.0</app.runtime>
-		<mule.maven.plugin.version>4.0.0</mule.maven.plugin.version>
+		<app.runtime>4.7-e-java8</app.runtime>
+		<mule.maven.plugin.version>4.2.0</mule.maven.plugin.version>
 		<munit.version>3.0.0</munit.version>
 	</properties>
 
@@ -34,7 +34,7 @@
 					<classifier>mule-application</classifier>
 					<cloudHubDeployment>
 						<uri>https://anypoint.mulesoft.com</uri>
-						<businessGroupId>${businessGroupId}</businessGroupId>
+				    	<businessGroupId>${businessGroupId}</businessGroupId>
 						<muleVersion>${mule.version}</muleVersion>
 						<!-- <releaseChannel>EDGE</releaseChannel> -->
 						<!-- <username>${anypoint.username}</username>
