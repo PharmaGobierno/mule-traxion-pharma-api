@@ -59,6 +59,7 @@
 						<uri>https://anypoint.mulesoft.com</uri>
 						<businessGroupId>${businessGroupId}</businessGroupId>
 						<muleVersion>${mule.version}</muleVersion>
+						<releaseChannel>EDGE</releaseChannel>
 						<!-- <username>${anypoint.username}</username>
 						<password>${anypoint.password}</password> -->
 						<connectedAppClientId>${client.id}</connectedAppClientId>
