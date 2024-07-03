@@ -37,6 +37,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[400]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="e615457e-ff00-4cd4-8d67-4f6e54b08db8" message="#[payload]"/>
             </on-error-propagate>
             <on-error-propagate type="APIKIT:NOT_FOUND">
                 <ee:transform doc:name="Transform Message">
@@ -59,6 +60,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[404]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="80781221-b323-419f-9a3f-2d23fb87c8b3" message="#[payload]"/>
             </on-error-propagate>
             <on-error-propagate type="APIKIT:METHOD_NOT_ALLOWED">
                 <ee:transform doc:name="Transform Message">
@@ -81,6 +83,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[405]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="1144b946-192c-4b7e-bad0-c49274b5b3ca" message="#[payload]"/>
             </on-error-propagate>
             <on-error-propagate type="APIKIT:NOT_ACCEPTABLE">
                 <ee:transform doc:name="Transform Message">
@@ -103,6 +106,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[406]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="94c18347-f750-44e7-9cd5-100614391e39" message="#[payload]"/>
             </on-error-propagate>
             <on-error-propagate type="APIKIT:UNSUPPORTED_MEDIA_TYPE">
                 <ee:transform doc:name="Transform Message">
@@ -125,6 +129,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[415]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="01af7fd1-bdba-46c0-8d0b-69383b369ff8" message="#[payload]"/>
             </on-error-propagate>
             <on-error-propagate type="APIKIT:NOT_IMPLEMENTED">
                 <ee:transform doc:name="Transform Message">
@@ -148,6 +153,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[501]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="144ab1e2-0534-401a-947e-0c2412c3a6eb" message="#[payload]"/>
             </on-error-propagate>
             <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="2ac2fec4-adcb-411e-b442-73b5680a5fe0" type="HTTP:BAD_REQUEST">
                 <ee:transform doc:name="Transform Message" doc:id="947248e3-3743-4fc1-bb8b-77b8c3a3acaf">
@@ -162,7 +168,10 @@ output application/json
 		"error": {
 			"error_type": error.errorType.namespace ++ ": " ++ error.errorType.asString,
 			"user_error_description": error.description,
-			"system_error_description": error.errorMessage.payload.traxion_response.error
+			"system_error_description": if(error.description contains "HTTP POST on resource 'https://process-pharma-api-prd.us-w2.cloudhub.io:443/api/tms/bill_lading' failed: bad request (400).")
+			error.muleMessage.typedValue
+			else
+			error.errorMessage.payload.traxion_response.error
 		}
 	}
 }]]></ee:set-payload>
@@ -171,6 +180,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[400]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="5c49a697-817a-4849-8e93-b3f50b638d33" message="#[payload]"/>
             </on-error-propagate>
             <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="7853e24c-5f33-4451-afae-9176a2a8d495" type="TEP:ERROR">
                 <!-- [STUDIO:"Choice"]<choice doc:name="Choice" doc:id="1b6fd8df-2c65-4791-aa73-ca4c6c71f8aa" tracking:enable-default-events="true">
@@ -235,6 +245,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[500]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="3bc5eb4c-c925-4b8e-836b-47b3a7035e77" message="#[payload]"/>
             </on-error-propagate>
         </error-handler>
     </flow>
