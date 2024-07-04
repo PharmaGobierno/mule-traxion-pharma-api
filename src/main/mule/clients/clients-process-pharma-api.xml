@@ -80,8 +80,6 @@ output application/json
 		</try>
 	</sub-flow>
 	<sub-flow name="clients-process-pharma-api-tms-bill-lading" doc:id="728dc0d7-25ea-4231-aa18-7aa14bd41540" >
-		<!-- [STUDIO:"Try"]<try doc:name="Try" doc:id="c276782f-5a77-4f2a-919e-23fdbae8bfd8" >
-		</try> [STUDIO] -->
 		<http:request method="POST" doc:name="Request" doc:id="e5835754-e561-4c94-b189-358acfe790e8" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.bill_lading}">
 			<http:headers><![CDATA[#[%dw 2.0
 output application/json
