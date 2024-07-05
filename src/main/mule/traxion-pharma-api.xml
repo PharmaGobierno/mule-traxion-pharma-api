@@ -226,7 +226,31 @@ vars.errorCodeTep]]></ee:set-variable>
                 </ee:transform>
                 <logger level="INFO" doc:name="Visualize error response" doc:id="418581a2-c242-4c85-9101-be45a52f1002" message="#[payload]" />
             </on-error-propagate>
-            <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="49693ced-2bc7-4108-8927-d710301f5d01" type="ANY">
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="a7b1c49d-fb9c-4c06-9c8e-edef670a33b4" type="ERROR:CARTA_PORTE_SERVICE_UNAVAILABLE">
+				<ee:transform doc:name="Transform Message" doc:id="d0672852-a68b-4eaf-8899-436a9156c1a2" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"traxion_response": {
+	
+		"completed_succesfully": "false",
+		"error": {
+			"error_type": "HTTP:503_" ++ error.errorType.asString,
+			"user_error_description": error.description,
+			"system_error_description": error.dslSource
+		}
+	}
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[503]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="a58c1ea5-8f13-4e54-926d-7b7432c639d0" message="#[payload]"/>
+			</on-error-propagate>
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="49693ced-2bc7-4108-8927-d710301f5d01" type="ANY">
                 <ee:transform doc:name="Transform Message" doc:id="5a963d6c-6e32-436c-86e6-8730f32ca5ce">
                     <ee:message>
                         <ee:set-payload><![CDATA[%dw 2.0
@@ -245,7 +269,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[500]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="3bc5eb4c-c925-4b8e-836b-47b3a7035e77" message="#[payload]"/>
+				<logger level="INFO" doc:name="Logger" doc:id="3bc5eb4c-c925-4b8e-836b-47b3a7035e77" message="#[payload]" />
             </on-error-propagate>
         </error-handler>
     </flow>

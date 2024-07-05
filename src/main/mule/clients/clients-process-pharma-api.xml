@@ -80,7 +80,8 @@ output application/json
 		</try>
 	</sub-flow>
 	<sub-flow name="clients-process-pharma-api-tms-bill-lading" doc:id="728dc0d7-25ea-4231-aa18-7aa14bd41540" >
-		<http:request method="POST" doc:name="Request" doc:id="e5835754-e561-4c94-b189-358acfe790e8" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.bill_lading}">
+		<try doc:name="Try" doc:id="cec92066-1131-4cb6-b5f4-5dc40a649349" >
+			<http:request method="POST" doc:name="Request" doc:id="e5835754-e561-4c94-b189-358acfe790e8" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.bill_lading}">
 			<http:headers><![CDATA[#[%dw 2.0
 output application/json
 ---
@@ -94,6 +95,12 @@ output application/json
 	"source_system": vars.source_system
 }]]]></http:query-params>
 		</http:request>
+			<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="305660a3-8a34-4736-a9b4-a012867e7d12" >
+					<raise-error doc:name="Raise error" doc:id="b39c2fcd-af9a-4dcf-9bda-bf9e1a249ce0" type="ERROR:CARTA_PORTE_SERVICE_UNAVAILABLE" description="Error al generar carta porte. El servicio no está disponible."/>
+				</on-error-continue>
+			</error-handler>
+		</try>
 	</sub-flow>
 	<sub-flow name="clients-process-pharma-api-get-details" doc:id="139d3889-a651-48bc-9fa4-6ac45a6d6b4e" >
 		<logger level="INFO" doc:name="Visualize payload" doc:id="37afc62b-8a46-4841-94d2-be853b61a382" message="#[payload]"/>
