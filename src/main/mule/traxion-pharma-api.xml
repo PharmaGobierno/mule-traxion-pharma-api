@@ -168,7 +168,7 @@ output application/json
 		"error": {
 			"error_type": error.errorType.namespace ++ ": " ++ error.errorType.asString,
 			"user_error_description": error.description,
-			"system_error_description": if(error.description contains "HTTP POST on resource 'https://process-pharma-api-prd.us-w2.cloudhub.io:443/api/tms/bill_lading' failed: bad request (400).")
+			"system_error_description": if(error.description contains "400")
 			error.muleMessage.typedValue
 			else
 			error.errorMessage.payload.traxion_response.error

@@ -80,7 +80,7 @@ output application/json
 		</try>
 	</sub-flow>
 	<sub-flow name="clients-process-pharma-api-tms-bill-lading" doc:id="728dc0d7-25ea-4231-aa18-7aa14bd41540" >
-		<try doc:name="Try" doc:id="cec92066-1131-4cb6-b5f4-5dc40a649349" >
+		<try doc:name="Try" doc:id="7777bbf5-66dd-4a06-807f-d12bd05125a9" >
 			<http:request method="POST" doc:name="Request" doc:id="e5835754-e561-4c94-b189-358acfe790e8" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.tms.bill_lading}">
 			<http:headers><![CDATA[#[%dw 2.0
 output application/json
@@ -96,9 +96,16 @@ output application/json
 }]]]></http:query-params>
 		</http:request>
 			<error-handler >
-				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="305660a3-8a34-4736-a9b4-a012867e7d12" >
-					<raise-error doc:name="Raise error" doc:id="b39c2fcd-af9a-4dcf-9bda-bf9e1a249ce0" type="ERROR:CARTA_PORTE_SERVICE_UNAVAILABLE" description="Error al generar carta porte. El servicio no está disponible."/>
-				</on-error-continue>
+				<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="6e1be62f-2a43-4fa8-a227-549bf2d5e67a" >
+					<choice doc:name="Choice" doc:id="8d6733e9-4490-48d5-8d08-fcca411fc297">
+						<when expression='#[error.errorType.asString contains "ERROR:CARTA_PORTE_SERVICE_UNAVAILABLE"]'>
+							<raise-error doc:name="Raise error" doc:id="b39c2fcd-af9a-4dcf-9bda-bf9e1a249ce0" type="ERROR:CARTA_PORTE_SERVICE_UNAVAILABLE" description="Error al generar carta porte. El servicio no está disponible." />
+						</when>
+						<otherwise>
+							<logger level="INFO" doc:name="Logger" doc:id="23ad172f-8529-4c1d-8fca-49e5e94d6b8f" message="#[error.muleMessage.typedValue]" />
+						</otherwise>
+					</choice>
+				</on-error-propagate>
 			</error-handler>
 		</try>
 	</sub-flow>
