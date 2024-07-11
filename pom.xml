@@ -35,6 +35,7 @@
 					<cloudHubDeployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 				    	<businessGroupId>${businessGroupId}</businessGroupId>
+				    	<deploymentTimeout>${deploymentTimeOut}</deploymentTimeout>
 						<muleVersion>${mule.version}</muleVersion>
 						<!-- <releaseChannel>EDGE</releaseChannel> -->
 						<!-- <username>${anypoint.username}</username>
