@@ -25,6 +25,6 @@ output application/json
 	"customer_name": vars.customer_name
 }&#93;&#93;&#93;></http:query-params>
 		</http:request> [STUDIO] -->
-		<system-tms-tep-api:add-siam-stock doc:name="Post add siam stock" doc:id="a6fb488b-29fd-404f-9c6e-947067a51616" config-ref="System_tms_tep_api_Config" customer-name="#[vars.customer_name]" client-id="#[p('secure::client.system.tep.api.https.client_id')]" client-secret="#[p('secure::client.system.tep.api.https.client_secret')]"/>
+		<system-tms-tep-api:add-siam-stock doc:name="Post add siam stock" doc:id="a6fb488b-29fd-404f-9c6e-947067a51616" config-ref="System_tms_tep_api_Config" customer-name="#[vars.customer_name]" client-id="#[p('client.system.tep.api.https.client_id')]" client-secret="#[p('client.system.tep.api.https.client_secret')]"/>
 	</sub-flow>
 </mule>
