@@ -102,12 +102,28 @@ output application/json
 	"source_system": vars.source_system
 }&#93;&#93;&#93;></http:query-params>
 		</http:request> [STUDIO] -->
-			<process-pharma-api:bill-of-lading doc:name="Post bill of lading request" doc:id="cd94f2ff-4aec-4091-8b4b-0cc6d5942bac" config-ref="Process_pharma_api_Config" source-system="#[vars.source_system]" client-id="#[p('client.process.pharma.api.https.client_id')]" client-secret="#[p('client.process.pharma.api.https.client_secret')]"/>
+			<process-pharma-api:bill-of-lading doc:name="Post bill of lading request" doc:id="cd94f2ff-4aec-4091-8b4b-0cc6d5942bac" config-ref="Process_pharma_api_Config" source-system="#[vars.source_system]" client-id="#[p('client.process.pharma.api.https.client_id')]" client-secret="#[p('client.process.pharma.api.https.client_secret')]">
+				<error-mapping sourceType="PROCESS-PHARMA-API:BAD_REQUEST" targetType="APP:BAD_REQUEST" />
+			</process-pharma-api:bill-of-lading>
 			<error-handler >
 				<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="6e1be62f-2a43-4fa8-a227-549bf2d5e67a" >
 					<choice doc:name="Choice" doc:id="8d6733e9-4490-48d5-8d08-fcca411fc297">
 						<when expression='#[error.errorType.asString contains "ERROR:CARTA_PORTE_SERVICE_UNAVAILABLE"]'>
 							<raise-error doc:name="Raise error" doc:id="b39c2fcd-af9a-4dcf-9bda-bf9e1a249ce0" type="ERROR:CARTA_PORTE_SERVICE_UNAVAILABLE" description="Error al generar carta porte. El servicio no está disponible." />
+						</when>
+						<when expression='#[error.errorType.asString contains "APP:BAD_REQUEST"]'>
+							<ee:transform doc:name="Set error variable" doc:id="d228fc3e-1fbf-48c6-9658-aeb024969e43">
+								<ee:message>
+								</ee:message>
+								<ee:variables >
+									<ee:set-variable variableName="errorMessage" ><![CDATA[%dw 2.0
+output application/json
+import * from dw::core::Strings
+---
+substringAfter(error.muleMessage.typedValue.message.text, "`Attention!` <!channel> There was an error in a mule app-&gt; :warning: \n ---------------------------------------------------\n ")]]></ee:set-variable>
+								</ee:variables>
+							</ee:transform>
+							<raise-error doc:name="Raise error" doc:id="74969ca9-9e4b-44c2-bbf5-85fb12966b87" type="ERROR:BAD_REQUEST_CARTA_PORTE" description="HTTP POST on resource 'https://process-pharma-api-test.us-w2.cloudhub.io:443/api/tms/bill_lading' failed: bad request (400)."/>
 						</when>
 						<otherwise>
 							<logger level="INFO" doc:name="Logger" doc:id="23ad172f-8529-4c1d-8fca-49e5e94d6b8f" message="#[error.muleMessage.typedValue]" />
