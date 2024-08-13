@@ -120,7 +120,7 @@ output application/json
 output application/json
 import * from dw::core::Strings
 ---
-substringAfter(error.muleMessage.typedValue.message.text, "`Attention!` <!channel> There was an error in a mule app-&gt; :warning: \n ---------------------------------------------------\n ")]]></ee:set-variable>
+error.muleMessage.typedValue]]></ee:set-variable>
 								</ee:variables>
 							</ee:transform>
 							<raise-error doc:name="Raise error" doc:id="74969ca9-9e4b-44c2-bbf5-85fb12966b87" type="ERROR:BAD_REQUEST_CARTA_PORTE" description="HTTP POST on resource 'https://process-pharma-api-test.us-w2.cloudhub.io:443/api/tms/bill_lading' failed: bad request (400)."/>
