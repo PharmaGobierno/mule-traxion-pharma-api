@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:crypto="http://www.mulesoft.org/schema/mule/crypto" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/crypto http://www.mulesoft.org/schema/mule/crypto/current/mule-crypto.xsd">
-	<sub-flow name="orchestrator-post-tms-bill-lading" doc:id="cf058394-2619-4d71-bc4e-b82b52a1d349" >
-		<logger level="INFO" doc:name="Logger" doc:id="6f77fff2-24ec-4572-af39-0bde61742e7d" message="#[payload]"/>
-		<flow-ref doc:name="Call-clients-process-pharma-api-tms-bill-lading" doc:id="d15cddd1-0acb-4cc4-bfe5-f9c0efcdeba7" name="clients-process-pharma-api-tms-bill-lading"/>
-		<logger level="INFO" doc:name="Logger" doc:id="8f9a34ac-042b-4ffb-b5e2-fe4972609019" message="#[payload]"/>
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:crypto="http://www.mulesoft.org/schema/mule/crypto"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/crypto http://www.mulesoft.org/schema/mule/crypto/current/mule-crypto.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+	<sub-flow name="orchestrator-post-tms-bill-lading" doc:id="cf058394-2619-4d71-bc4e-b82b52a1d349">
+		<logger level="INFO" doc:name="Logger" doc:id="6f77fff2-24ec-4572-af39-0bde61742e7d" message="#[payload]" />
+		<flow-ref doc:name="orchestrator-post-tms-bill-lading-validations" doc:id="511ec919-239f-49d4-b39d-cdb4e0e47170" name="orchestrator-post-tms-bill-lading-validations" />
+		<flow-ref doc:name="Call-clients-process-pharma-api-tms-bill-lading" doc:id="d15cddd1-0acb-4cc4-bfe5-f9c0efcdeba7" name="clients-process-pharma-api-tms-bill-lading" />
+		<logger level="INFO" doc:name="Logger" doc:id="8f9a34ac-042b-4ffb-b5e2-fe4972609019" message="#[payload]" />
+	</sub-flow>
+	<sub-flow name="orchestrator-post-tms-bill-lading-validations" doc:id="be53666b-345c-4022-a4dd-e44376187edb">
+		<flow-ref doc:name="orchestrator-post-tms-bill-lading-validate-operator" doc:id="328b3951-2c4c-4505-a76f-0e310f6cd2bc" name="orchestrator-post-tms-bill-lading-validate-operator" />
+	</sub-flow>
+	<sub-flow name="orchestrator-post-tms-bill-lading-validate-operator" doc:id="ce53be5a-2834-43fc-be58-a03f75fceebe" >
+		<foreach doc:name="For Each" doc:id="91a07fba-f6d9-4a69-a7a0-0c41644d869e" collection="#[payload.carta_porte.figura_transporte.operadores]">
+			<validation:is-not-blank-string doc:name="Is not blank string" doc:id="d76e5979-5494-4136-89ff-72775abea50c" message="rfc requerido para el operador" value="#[payload.rfc]" >
+				<error-mapping sourceType="VALIDATION:BLANK_STRING" targetType="ERROR:BAD_REQUEST_CARTA_PORTE" />
+			</validation:is-not-blank-string>
+			<validation:is-not-blank-string doc:name="Is not blank string1" doc:id="566ac0ef-5255-4c35-9893-f27096b44df4" message="nombre requerido para el operador" value="#[payload.nombre]" >
+				<error-mapping sourceType="VALIDATION:BLANK_STRING" targetType="ERROR:BAD_REQUEST_CARTA_PORTE" />
+			</validation:is-not-blank-string>
+			<validation:is-not-blank-string doc:name="Is not blank string2" doc:id="ede90232-d82d-4fae-9a2c-9245b8a7434e" message="licencia requerida para el operador" value="#[payload.licencia]" >
+				<error-mapping sourceType="VALIDATION:BLANK_STRING" targetType="ERROR:BAD_REQUEST_CARTA_PORTE" />
+			</validation:is-not-blank-string>
+		</foreach>
 	</sub-flow>
 </mule>

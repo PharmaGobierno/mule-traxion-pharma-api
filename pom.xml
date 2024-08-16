@@ -15,7 +15,7 @@
 
 		<app.runtime>4.7-e-java8</app.runtime>
 		<mule.maven.plugin.version>4.2.0</mule.maven.plugin.version>
-		<munit.version>3.0.0</munit.version>
+		<munit.version>3.2.0</munit.version>
 	</properties>
 
 	<build>
@@ -107,14 +107,14 @@
 		<dependency>
 			<groupId>com.mulesoft.munit</groupId>
 			<artifactId>munit-runner</artifactId>
-			<version>3.0.0</version>
+			<version>3.2.0</version>
 			<classifier>mule-plugin</classifier>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.mulesoft.munit</groupId>
 			<artifactId>munit-tools</artifactId>
-			<version>3.0.0</version>
+			<version>3.2.0</version>
 			<classifier>mule-plugin</classifier>
 			<scope>test</scope>
 		</dependency>
@@ -153,6 +153,12 @@
 			<groupId>ab8117f6-d718-4307-b5f7-03262d589cd0</groupId>
 			<artifactId>mule-plugin-system-tms-tep-api</artifactId>
 			<version>1.0.16</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-validation-module</artifactId>
+			<version>2.0.6</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
