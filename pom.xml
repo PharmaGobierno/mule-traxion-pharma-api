@@ -138,13 +138,6 @@
 		</dependency>
 		<dependency>
 			<groupId>ab8117f6-d718-4307-b5f7-03262d589cd0</groupId>
-			<artifactId>traxion-pharma-api</artifactId>
-			<version>1.0.20</version>
-			<classifier>raml</classifier>
-			<type>zip</type>
-		</dependency>
-		<dependency>
-			<groupId>ab8117f6-d718-4307-b5f7-03262d589cd0</groupId>
 			<artifactId>mule-plugin-process-pharma-api</artifactId>
 			<version>1.0.24</version>
 			<classifier>mule-plugin</classifier>
@@ -160,6 +153,13 @@
 			<artifactId>mule-validation-module</artifactId>
 			<version>2.0.6</version>
 			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>ab8117f6-d718-4307-b5f7-03262d589cd0</groupId>
+			<artifactId>traxion-pharma-api</artifactId>
+			<version>1.0.21</version>
+			<classifier>raml</classifier>
+			<type>zip</type>
 		</dependency>
 	</dependencies>
 

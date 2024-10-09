@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.20:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.21:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -37,7 +37,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[400]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="e615457e-ff00-4cd4-8d67-4f6e54b08db8" message="#[payload]"/>
+                <logger level="INFO" doc:name="Logger" doc:id="e615457e-ff00-4cd4-8d67-4f6e54b08db8" message="#[payload]" />
             </on-error-propagate>
             <on-error-propagate type="APIKIT:NOT_FOUND">
                 <ee:transform doc:name="Transform Message">
@@ -60,7 +60,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[404]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="80781221-b323-419f-9a3f-2d23fb87c8b3" message="#[payload]"/>
+                <logger level="INFO" doc:name="Logger" doc:id="80781221-b323-419f-9a3f-2d23fb87c8b3" message="#[payload]" />
             </on-error-propagate>
             <on-error-propagate type="APIKIT:METHOD_NOT_ALLOWED">
                 <ee:transform doc:name="Transform Message">
@@ -83,7 +83,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[405]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="1144b946-192c-4b7e-bad0-c49274b5b3ca" message="#[payload]"/>
+                <logger level="INFO" doc:name="Logger" doc:id="1144b946-192c-4b7e-bad0-c49274b5b3ca" message="#[payload]" />
             </on-error-propagate>
             <on-error-propagate type="APIKIT:NOT_ACCEPTABLE">
                 <ee:transform doc:name="Transform Message">
@@ -106,7 +106,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[406]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="94c18347-f750-44e7-9cd5-100614391e39" message="#[payload]"/>
+                <logger level="INFO" doc:name="Logger" doc:id="94c18347-f750-44e7-9cd5-100614391e39" message="#[payload]" />
             </on-error-propagate>
             <on-error-propagate type="APIKIT:UNSUPPORTED_MEDIA_TYPE">
                 <ee:transform doc:name="Transform Message">
@@ -129,7 +129,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[415]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="01af7fd1-bdba-46c0-8d0b-69383b369ff8" message="#[payload]"/>
+                <logger level="INFO" doc:name="Logger" doc:id="01af7fd1-bdba-46c0-8d0b-69383b369ff8" message="#[payload]" />
             </on-error-propagate>
             <on-error-propagate type="APIKIT:NOT_IMPLEMENTED">
                 <ee:transform doc:name="Transform Message">
@@ -153,7 +153,7 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[501]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="144ab1e2-0534-401a-947e-0c2412c3a6eb" message="#[payload]"/>
+                <logger level="INFO" doc:name="Logger" doc:id="144ab1e2-0534-401a-947e-0c2412c3a6eb" message="#[payload]" />
             </on-error-propagate>
             <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="2ac2fec4-adcb-411e-b442-73b5680a5fe0" type="HTTP:BAD_REQUEST">
                 <ee:transform doc:name="Transform Message" doc:id="947248e3-3743-4fc1-bb8b-77b8c3a3acaf">
@@ -180,12 +180,12 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[400]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="5c49a697-817a-4849-8e93-b3f50b638d33" message="#[payload]"/>
+                <logger level="INFO" doc:name="Logger" doc:id="5c49a697-817a-4849-8e93-b3f50b638d33" message="#[payload]" />
             </on-error-propagate>
-			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="8c0d06dd-a8a0-4cbb-8d06-2ec87863beea" type="ERROR:BAD_REQUEST_CARTA_PORTE">
-				<ee:transform doc:name="Transform Message" doc:id="25fa9e8f-42e4-4298-9add-674f385379c2" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
+            <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="8c0d06dd-a8a0-4cbb-8d06-2ec87863beea" type="ERROR:BAD_REQUEST_CARTA_PORTE">
+                <ee:transform doc:name="Transform Message" doc:id="25fa9e8f-42e4-4298-9add-674f385379c2">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
@@ -199,14 +199,14 @@ output application/json
 		}
 	}
 }]]></ee:set-payload>
-					</ee:message>
-					<ee:variables >
-						<ee:set-variable variableName="httpStatus" ><![CDATA[400]]></ee:set-variable>
-					</ee:variables>
-				</ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="5346dbab-d0a6-4924-b4d9-b166ba36e2d7" message="#[payload]" />
-			</on-error-propagate>
-			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="49693ced-2bc7-4108-8927-d710301f5d01" type="ANY">
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[400]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+                <logger level="INFO" doc:name="Logger" doc:id="5346dbab-d0a6-4924-b4d9-b166ba36e2d7" message="#[payload]" />
+            </on-error-propagate>
+            <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="49693ced-2bc7-4108-8927-d710301f5d01" type="ANY">
                 <ee:transform doc:name="Transform Message" doc:id="5a963d6c-6e32-436c-86e6-8730f32ca5ce">
                     <ee:message>
                         <ee:set-payload><![CDATA[%dw 2.0
@@ -225,12 +225,12 @@ output application/json
                         <ee:set-variable variableName="httpStatus"><![CDATA[500]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="3bc5eb4c-c925-4b8e-836b-47b3a7035e77" message="#[payload]" />
+                <logger level="INFO" doc:name="Logger" doc:id="3bc5eb4c-c925-4b8e-836b-47b3a7035e77" message="#[payload]" />
             </on-error-propagate>
-			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="a7b1c49d-fb9c-4c06-9c8e-edef670a33b4" type="ERROR:CARTA_PORTE_SERVICE_UNAVAILABLE">
-				<ee:transform doc:name="Transform Message" doc:id="d0672852-a68b-4eaf-8899-436a9156c1a2">
-					<ee:message>
-						<ee:set-payload><![CDATA[%dw 2.0
+            <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="a7b1c49d-fb9c-4c06-9c8e-edef670a33b4" type="ERROR:CARTA_PORTE_SERVICE_UNAVAILABLE">
+                <ee:transform doc:name="Transform Message" doc:id="d0672852-a68b-4eaf-8899-436a9156c1a2">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
@@ -244,14 +244,14 @@ output application/json
 		}
 	}
 }]]></ee:set-payload>
-					</ee:message>
-					<ee:variables>
-						<ee:set-variable variableName="httpStatus"><![CDATA[503]]></ee:set-variable>
-					</ee:variables>
-				</ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="a58c1ea5-8f13-4e54-926d-7b7432c639d0" message="#[payload]" />
-			</on-error-propagate>
-			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="7853e24c-5f33-4451-afae-9176a2a8d495" type="TEP:ERROR">
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[503]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+                <logger level="INFO" doc:name="Logger" doc:id="a58c1ea5-8f13-4e54-926d-7b7432c639d0" message="#[payload]" />
+            </on-error-propagate>
+            <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="7853e24c-5f33-4451-afae-9176a2a8d495" type="TEP:ERROR">
                 <!-- [STUDIO:"Choice"]<choice doc:name="Choice" doc:id="1b6fd8df-2c65-4791-aa73-ca4c6c71f8aa" tracking:enable-default-events="true">
 					<otherwise >
 						<logger level="INFO" doc:name="Logger" doc:id="eed9d632-34fb-40e8-b10b-dad1358daa7a" message="#[payload&#93;"/>
@@ -297,7 +297,7 @@ vars.errorCodeTep]]></ee:set-variable>
             </on-error-propagate>
         </error-handler>
     </flow>
-	<flow name="traxion-pharma-api-console">
+    <flow name="traxion-pharma-api-console">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="/console/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers>#[vars.outboundHeaders default {}]</http:headers>
@@ -425,5 +425,23 @@ attributes.queryParams.customer_name]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
         <flow-ref doc:name="Call-orchestrator-get-issste-detailed" doc:id="e69e6d90-c3ce-4c4e-b3b0-1c9fb990d1e4" name="orchestrator-get-issste-detailed" />
+    </flow>
+    <flow name="post:\imss\order:application\xml:traxion-pharma-api-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  traxion_response: {
+    completed_succesfully: "true",
+    response: {
+      message: "order created correctly",
+      data: null
+    }
+  }
+} as Object {encoding: "UTF-8", mediaType: "application/xml"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
     </flow>
 </mule>
