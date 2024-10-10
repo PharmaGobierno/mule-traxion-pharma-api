@@ -138,12 +138,6 @@
 		</dependency>
 		<dependency>
 			<groupId>ab8117f6-d718-4307-b5f7-03262d589cd0</groupId>
-			<artifactId>mule-plugin-process-pharma-api</artifactId>
-			<version>1.0.24</version>
-			<classifier>mule-plugin</classifier>
-		</dependency>
-		<dependency>
-			<groupId>ab8117f6-d718-4307-b5f7-03262d589cd0</groupId>
 			<artifactId>mule-plugin-system-tms-tep-api</artifactId>
 			<version>1.0.16</version>
 			<classifier>mule-plugin</classifier>
@@ -160,6 +154,12 @@
 			<version>1.0.22</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>ab8117f6-d718-4307-b5f7-03262d589cd0</groupId>
+			<artifactId>mule-plugin-process-pharma-api</artifactId>
+			<version>1.0.25</version>
+			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
 

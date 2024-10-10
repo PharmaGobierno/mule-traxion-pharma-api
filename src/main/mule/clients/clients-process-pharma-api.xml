@@ -171,4 +171,8 @@ output application/json
 		</http:request> [STUDIO] -->
 		<process-pharma-api:orders doc:name="Post orders request" doc:id="08a371c5-137d-40b0-94cf-9496acebb31a" config-ref="Process_pharma_api_Config" client-id="#[p('client.process.pharma.api.https.client_id')]" client-secret="#[p('client.process.pharma.api.https.client_secret')]" customer-name="#[vars.customer_name]"/>
 	</sub-flow>
+	<sub-flow name="clients-process-pharma-api-call-create-order" doc:id="997cd952-928d-4269-b206-aa67fe163371" >
+		<logger level="INFO" doc:name="Logger" doc:id="8369cd7f-c596-4312-a9dd-e9c495f5e211" message="#[payload]"/>
+		<process-pharma-api:order doc:name="Order" doc:id="6f5b769b-d9be-484c-9da5-7c73adee16f0" config-ref="Process_pharma_api_Config" client-id="#[p('client.process.pharma.api.https.client_id')]" source-system="IZEL" client-secret="#[p('client.process.pharma.api.https.client_secret')]"/>
+	</sub-flow>
 </mule>
