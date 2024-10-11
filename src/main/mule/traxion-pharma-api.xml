@@ -426,7 +426,7 @@ attributes.queryParams.customer_name]]></ee:set-variable>
         </ee:transform>
         <flow-ref doc:name="Call-orchestrator-get-issste-detailed" doc:id="e69e6d90-c3ce-4c4e-b3b0-1c9fb990d1e4" name="orchestrator-get-issste-detailed" />
     </flow>
-    <flow name="post:\imss\orders:application\xml:traxion-pharma-api-config">
+    <flow name="post:\imss\orders:application\json:traxion-pharma-api-config">
 		<flow-ref doc:name="orchestrator-create-order-main" doc:id="31679e03-caf1-483f-86fc-957913835016" name="orchestrator-create-order-main"/>
 		<ee:transform doc:name="Transform Message">
             <ee:message>
