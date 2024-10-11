@@ -428,11 +428,11 @@ attributes.queryParams.customer_name]]></ee:set-variable>
     </flow>
     <flow name="post:\imss\orders:application\json:traxion-pharma-api-config">
 		<flow-ref doc:name="orchestrator-create-order-main" doc:id="31679e03-caf1-483f-86fc-957913835016" name="orchestrator-create-order-main"/>
-		<ee:transform doc:name="Transform Message">
+		<!-- [STUDIO:"Transform Message"]<ee:transform doc:name="Transform Message">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/xml
----
+&#45;&#45;-
 {
   traxion_response: {
     completed_succesfully: "true",
@@ -441,8 +441,8 @@ output application/xml
       data: null
     }
   }
-} as Object {encoding: "UTF-8", mediaType: "application/xml"}]]></ee:set-payload>
+} as Object {encoding: "UTF-8", mediaType: "application/xml"}&#93;&#93;></ee:set-payload>
             </ee:message>
-        </ee:transform>
+        </ee:transform> [STUDIO] -->
     </flow>
 </mule>
