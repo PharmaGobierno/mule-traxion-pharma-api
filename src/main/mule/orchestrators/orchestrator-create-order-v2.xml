@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="orchestrator-create-order-v2-main" doc:id="581dab95-245c-49a4-aa59-328d98a8af49" >
+		<flow-ref doc:name="Call to orchestrator-create-order-v2-convert-json-request" doc:id="caad8b06-40c9-413e-8d1c-1a8873e49e92" name="orchestrator-create-order-v2-convert-json-request"/>
+		<flow-ref doc:name="clients-process-pharma-api-call-create-order" doc:id="31ed5654-aa6e-4e9d-9acb-27dc6275310c" name="clients-process-pharma-api-call-create-order"/>
+		<logger level="INFO" doc:name="Logger" doc:id="0763cca0-eb49-4093-9c13-df97c8785de5" message="RESPUESTA: #[payload]" />
+	</sub-flow>
+	<sub-flow name="orchestrator-create-order-v2-convert-json-request" doc:id="c7cb6411-fade-4086-8f9b-c536c30b1dff" >
+		<ee:transform doc:name="Transform Message" doc:id="65288b4b-f2fd-4468-b943-26fcf634e0d2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>
