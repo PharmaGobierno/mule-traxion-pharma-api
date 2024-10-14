@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.24:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.25:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -426,23 +426,10 @@ attributes.queryParams.customer_name]]></ee:set-variable>
         </ee:transform>
         <flow-ref doc:name="Call-orchestrator-get-issste-detailed" doc:id="e69e6d90-c3ce-4c4e-b3b0-1c9fb990d1e4" name="orchestrator-get-issste-detailed" />
     </flow>
-    <flow name="post:\imss\orders:application\json:traxion-pharma-api-config">
-		<flow-ref doc:name="orchestrator-create-order-main" doc:id="31679e03-caf1-483f-86fc-957913835016" name="orchestrator-create-order-main"/>
-		<!-- [STUDIO:"Transform Message"]<ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/xml
-&#45;&#45;-
-{
-  traxion_response: {
-    completed_succesfully: "true",
-    response: {
-      message: "order created correctly",
-      data: null
-    }
-  }
-} as Object {encoding: "UTF-8", mediaType: "application/xml"}&#93;&#93;></ee:set-payload>
-            </ee:message>
-        </ee:transform> [STUDIO] -->
+    <flow name="post:\imss\orders:application\xml:traxion-pharma-api-config">
+        <flow-ref doc:name="orchestrator-create-order-main" doc:id="5bbe8e6b-e1a3-407f-8356-ac63d83ddd4a" name="orchestrator-create-order-main" />
+    </flow>
+    <flow name="post:\imss\orders\v2:application\json:traxion-pharma-api-config">
+		<flow-ref doc:name="Call to orchestrator-create-order-v2-main" doc:id="87e0dcf8-0b9f-4826-b73d-cb377d0d6016" name="orchestrator-create-order-v2-main" />
     </flow>
 </mule>

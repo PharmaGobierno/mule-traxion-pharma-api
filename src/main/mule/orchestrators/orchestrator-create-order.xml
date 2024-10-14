@@ -7,6 +7,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<sub-flow name="orchestrator-create-order-main" doc:id="581dab95-245c-49a4-aa59-328d98a8af49" >
 		<flow-ref doc:name="orchestrator-create-order-convert-json-request" doc:id="caad8b06-40c9-413e-8d1c-1a8873e49e92" name="orchestrator-create-order-convert-json-request"/>
 		<flow-ref doc:name="clients-process-pharma-api-call-create-order" doc:id="31ed5654-aa6e-4e9d-9acb-27dc6275310c" name="clients-process-pharma-api-call-create-order"/>
+		<flow-ref doc:name="Call to orchestrator-create-order-response" doc:id="52226522-370b-4e3b-9ad9-73668705782a" name="orchestrator-create-order-response"/>
 		<logger level="INFO" doc:name="Logger" doc:id="0763cca0-eb49-4093-9c13-df97c8785de5" message="RESPUESTA: #[payload]" />
 	</sub-flow>
 	<sub-flow name="orchestrator-create-order-convert-json-request" doc:id="c7cb6411-fade-4086-8f9b-c536c30b1dff" >
@@ -14,6 +15,55 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
+---
+{
+  "fechaViaje": payload.Envelope.Body.CrearViajeCompleto.crearviaje.FechaViaje,
+  "fechaInicioPlan": payload.Envelope.Body.CrearViajeCompleto.crearviaje.FechaInicioPlan,
+  "fechaFinPlan": payload.Envelope.Body.CrearViajeCompleto.crearviaje.FechaFinPlan,
+  "referencia": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Referencia,
+  "descripcion": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Descripcion,
+  "sucursal": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Sucursal,
+  "operacion": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Operacion,
+  "empresa": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Empresa,
+  "tipoViaje": payload.Envelope.Body.CrearViajeCompleto.crearviaje.TipoViaje,
+  "refCliente": payload.Envelope.Body.CrearViajeCompleto.crearviaje.cliente.RefCliente,
+  "razonSocialCliente": payload.Envelope.Body.CrearViajeCompleto.crearviaje.cliente.RazonSocial,
+  "direccionCliente": payload.Envelope.Body.CrearViajeCompleto.crearviaje.cliente.Direccion,
+  "depositoSalida": payload.Envelope.Body.CrearViajeCompleto.crearviaje.depositoSalida.RefDepositoExterno,
+  "depositoLlegada": payload.Envelope.Body.CrearViajeCompleto.crearviaje.depositoLlegada.RefDepositoExterno,
+  "paradas": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Paradas.*pParada map(item)-> {
+      "secuencia": item.Secuencia,
+      "tipoParada": item.TipoParada,
+      "descripcion": item.Descripcion,
+      "inicioHorarioPlanificado": item.InicioHorarioPlanificado,
+      "finHorarioPlanificado": item.FinHorarioPlanificado,
+      "refCliente": item.cliente.RefCliente,
+      "razonSocialCliente": item.cliente.RazonSocial,
+      "direccionCliente": item.cliente.Direccion,
+      "items": item.Items.*pParadaItem map(item)->
+        {
+          "refDocumento": item.RefDocumento,
+          "refDocumentoAdicional": item.refDocumentoAdicional,
+          "descripcion": item.Descripcion,
+          "cantidad": item.Cantidad,
+          "volumen": item.Volumen,
+          "peso": item.Peso,
+          "pallets": item.Pallets,
+          "productoLinea": item.ProductoLinea,
+          "apilablePermitido": item.Apilable_Permitido,
+          "embalaje": item.Varchar2,
+          "claveSat": item.Varchar3   
+        }
+    }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="orchestrator-create-order-response" doc:id="d867f347-6bec-420d-bc8c-e1c08a6de2ba" >
+		<ee:transform doc:name="Transform Message" doc:id="49b1a375-3563-47bb-ae73-23ba3fe9ba82" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
 ---
 payload]]></ee:set-payload>
 			</ee:message>
