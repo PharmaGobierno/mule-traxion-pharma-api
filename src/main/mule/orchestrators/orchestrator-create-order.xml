@@ -31,19 +31,21 @@ output application/json
   "direccionCliente": payload.Envelope.Body.CrearViajeCompleto.crearviaje.cliente.Direccion,
   "depositoSalida": payload.Envelope.Body.CrearViajeCompleto.crearviaje.depositoSalida.RefDepositoExterno,
   "depositoLlegada": payload.Envelope.Body.CrearViajeCompleto.crearviaje.depositoLlegada.RefDepositoExterno,
-  "paradas": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Paradas.*pParada map(item)-> {
-      "secuencia": item.Secuencia,
-      "tipoParada": item.TipoParada,
-      "descripcion": item.Descripcion,
-      "inicioHorarioPlanificado": item.InicioHorarioPlanificado,
-      "finHorarioPlanificado": item.FinHorarioPlanificado,
-      "refCliente": item.cliente.RefCliente,
-      "razonSocialCliente": item.cliente.RazonSocial,
-      "direccionCliente": item.cliente.Direccion,
-      "items": item.Items.*pParadaItem map(item)->
+  "paradas": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Paradas.*pParada map(parada)-> {
+      "secuencia": parada.Secuencia,
+      "tipoParada": parada.TipoParada,
+      "refDocumento": parada.RefDocumento,
+      "refDocumentoAdicional": parada.RefDocumentoAdicional,     
+      "descripcion": parada.Descripcion,
+      "inicioHorarioPlanificado": parada.InicioHorarioPlanificado,
+      "finHorarioPlanificado": parada.FinHorarioPlanificado,
+      "refCliente": parada.cliente.RefCliente,
+      "razonSocialCliente": parada.cliente.RazonSocial,
+      "direccionCliente": parada.cliente.Direccion,
+      "items": parada.Items.*pParadaItem map(item)->
         {
           "refDocumento": item.RefDocumento,
-          "refDocumentoAdicional": item.refDocumentoAdicional,
+          "refDocumentoAdicional": item.RefDocumentoAdicional,
           "descripcion": item.Descripcion,
           "cantidad": item.Cantidad,
           "volumen": item.Volumen,
@@ -51,8 +53,10 @@ output application/json
           "pallets": item.Pallets,
           "productoLinea": item.ProductoLinea,
           "apilablePermitido": item.Apilable_Permitido,
-          "embalaje": item.Varchar2,
-          "claveSat": item.Varchar3   
+          "embalaje": item.Varchar3,
+          "fechaCaducidad": item.Varchar2,
+          "lote": item.Varchar1
+          
         }
     }
 }]]></ee:set-payload>
