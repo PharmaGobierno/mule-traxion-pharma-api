@@ -28,20 +28,18 @@ output application/json
   "tipoViaje": payload.Envelope.Body.CrearViajeCompleto.crearviaje.TipoViaje,
   "refCliente": payload.Envelope.Body.CrearViajeCompleto.crearviaje.cliente.RefCliente,
   "razonSocialCliente": payload.Envelope.Body.CrearViajeCompleto.crearviaje.cliente.RazonSocial,
-  "direccionCliente": payload.Envelope.Body.CrearViajeCompleto.crearviaje.cliente.Direccion,
   "depositoSalida": payload.Envelope.Body.CrearViajeCompleto.crearviaje.depositoSalida.RefDepositoExterno,
   "depositoLlegada": payload.Envelope.Body.CrearViajeCompleto.crearviaje.depositoLlegada.RefDepositoExterno,
   "paradas": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Paradas.*pParada map(parada)-> {
       "secuencia": parada.Secuencia,
-      "tipoParada": parada.TipoParada,
       "refDocumento": parada.RefDocumento,
-      "refDocumentoAdicional": parada.RefDocumentoAdicional,     
-      "descripcion": parada.Descripcion,
+      "refDocumentoAdicional": parada.refDocumentoAdicional,
+      "tipoParada": parada.TipoParada,
       "inicioHorarioPlanificado": parada.InicioHorarioPlanificado,
       "finHorarioPlanificado": parada.FinHorarioPlanificado,
       "refCliente": parada.cliente.RefCliente,
-      "razonSocialCliente": parada.cliente.RazonSocial,
-      "direccionCliente": parada.cliente.Direccion,
+      "refDomicilioExternoCliente": parada.cliente.RefDomicilioExterno,
+      "domicilioDescripcionCliente": parada.cliente.DomicilioDescripcion,
       "items": parada.Items.*pParadaItem map(item)->
         {
           "refDocumento": item.RefDocumento,
@@ -56,7 +54,6 @@ output application/json
           "embalaje": item.Varchar3,
           "fechaCaducidad": item.Varchar2,
           "lote": item.Varchar1
-          
         }
     }
 }]]></ee:set-payload>
