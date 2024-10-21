@@ -38,8 +38,8 @@ output application/json
       "tipoParada": parada.TipoParada,
       "inicioHorarioPlanificado": parada.InicioHorarioPlanificado,
       "finHorarioPlanificado": parada.FinHorarioPlanificado,
-      "refCliente": parada.cliente.RefCliente,
-      "refDomicilioExternoCliente": parada.cliente.RefDomicilioExterno,
+      "refCliente": "IMSS BIENESTAR",//parada.cliente.RefCliente
+      "refDomicilioExternoCliente": parada.cliente.RefCliente,//parada.cliente.RefDomicilioExterno,
       "domicilioDescripcionCliente": parada.cliente.DomicilioDescripcion,
       "items": parada.Items.*pParadaItem map(item)->
         {
