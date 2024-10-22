@@ -11,7 +11,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<logger level="INFO" doc:name="Logger" doc:id="0763cca0-eb49-4093-9c13-df97c8785de5" message="RESPUESTA: #[payload]" />
 	</sub-flow>
 	<sub-flow name="orchestrator-create-order-convert-json-request" doc:id="c7cb6411-fade-4086-8f9b-c536c30b1dff" >
-		<logger level="INFO" doc:name="Logger" doc:id="7c024d62-a195-418c-93c4-452e4f2ceee0" message="#[payload]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="1826d098-2431-43da-b8d7-6f9ab5aaa2a4" message="#[payload]"/>
 		<ee:transform doc:name="Transform Message" doc:id="65288b4b-f2fd-4468-b943-26fcf634e0d2" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -20,7 +20,7 @@ output application/json
 {
   "fechaViaje": payload.Envelope.Body.CrearViajeCompleto.crearviaje.FechaViaje,
   "fechaInicioPlan": payload.Envelope.Body.CrearViajeCompleto.crearviaje.FechaInicioPlan,
-  "fechaFinPlan": payload.Envelope.Body.CrearViajeCompleto.crearviaje.FechaFinPlan,
+  "fechaFinPlan": now()[0 to 18], ///payload.Envelope.Body.CrearViajeCompleto.crearviaje.FechaFinPlan ,
   "referencia": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Referencia,
   "descripcion": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Descripcion,
   "sucursal": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Sucursal,
