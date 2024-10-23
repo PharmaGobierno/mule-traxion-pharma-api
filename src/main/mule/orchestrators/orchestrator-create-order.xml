@@ -67,7 +67,15 @@ output application/json
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/xml
 ---
-payload]]></ee:set-payload>
+{
+	"traxion_response": {
+	
+		"completed_succesfully": "true",
+		"message": {
+			"description": "exitoso"
+		}
+	}
+	}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 	</sub-flow>
