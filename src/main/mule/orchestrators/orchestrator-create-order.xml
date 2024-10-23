@@ -39,7 +39,7 @@ output application/json
       "inicioHorarioPlanificado": parada.InicioHorarioPlanificado,
       "finHorarioPlanificado": parada.FinHorarioPlanificado,
       "refCliente": "IMSS BIENESTAR",//parada.cliente.RefCliente
-      "refDomicilioExternoCliente": parada.cliente.RefCliente,//parada.cliente.RefDomicilioExterno,
+      "refDomicilioExternoCliente": parada.cliente.RefDomicilioExterno,//parada.cliente.RefCliente,
       "domicilioDescripcionCliente": parada.cliente.DomicilioDescripcion,
       "items": parada.Items.*pParadaItem map(item)->
         {
