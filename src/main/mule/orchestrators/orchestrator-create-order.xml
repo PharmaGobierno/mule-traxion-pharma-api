@@ -20,6 +20,7 @@ output application/json
 {
   "fechaViaje": payload.Envelope.Body.CrearViajeCompleto.crearviaje.FechaViaje,
   "fechaInicioPlan": payload.Envelope.Body.CrearViajeCompleto.crearviaje.FechaInicioPlan,
+  "fechaArribo": payload.Envelope.Body.CrearViajeCompleto.crearviaje.FechaArribo,
   "fechaFinPlan": now()[0 to 18], ///payload.Envelope.Body.CrearViajeCompleto.crearviaje.FechaFinPlan ,
   "referencia": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Referencia,
   "descripcion": payload.Envelope.Body.CrearViajeCompleto.crearviaje.Descripcion,
