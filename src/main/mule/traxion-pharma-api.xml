@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.25:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.26:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -373,7 +373,10 @@ output application/json
         <ee:transform doc:name="Set variable" doc:id="52ce10a1-9f42-42a4-977c-c4ca6de84020">
             <ee:message />
             <ee:variables>
-                <ee:set-variable variableName="source_system"><![CDATA[attributes.queryParams.source_system]]></ee:set-variable>
+                <ee:set-variable variableName="source_system"><![CDATA[%dw 2.0
+output application/json
+---
+attributes.queryParams.source_system default "MD"]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
         <flow-ref doc:name="Call-orchestrator-post-tms-bill-lading" doc:id="202aeed3-595f-4d4a-96be-31ac868d6f11" name="orchestrator-post-tms-bill-lading" />
@@ -430,6 +433,6 @@ attributes.queryParams.customer_name]]></ee:set-variable>
         <flow-ref doc:name="orchestrator-create-order-main" doc:id="5bbe8e6b-e1a3-407f-8356-ac63d83ddd4a" name="orchestrator-create-order-main" />
     </flow>
     <flow name="post:\imss\orders\v2:application\json:traxion-pharma-api-config">
-		<flow-ref doc:name="Call to orchestrator-create-order-v2-main" doc:id="87e0dcf8-0b9f-4826-b73d-cb377d0d6016" name="orchestrator-create-order-v2-main" />
+        <flow-ref doc:name="Call to orchestrator-create-order-v2-main" doc:id="87e0dcf8-0b9f-4826-b73d-cb377d0d6016" name="orchestrator-create-order-v2-main" />
     </flow>
 </mule>
