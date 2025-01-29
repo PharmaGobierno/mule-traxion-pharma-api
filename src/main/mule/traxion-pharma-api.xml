@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.26:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.27:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -434,5 +434,22 @@ attributes.queryParams.customer_name]]></ee:set-variable>
     </flow>
     <flow name="post:\imss\orders\v2:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="Call to orchestrator-create-order-v2-main" doc:id="87e0dcf8-0b9f-4826-b73d-cb377d0d6016" name="orchestrator-create-order-v2-main" />
+    </flow>
+    <flow name="get:\tms\carta-porte:traxion-pharma-api-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+            </ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="loadNumber" ><![CDATA[%dw 2.0
+output application/json
+---
+attributes.queryParams.identifier]]></ee:set-variable>
+				<ee:set-variable variableName="date" ><![CDATA[%dw 2.0
+output application/json
+---
+attributes.queryParams.date]]></ee:set-variable>
+			</ee:variables>
+        </ee:transform>
+		<flow-ref doc:name="Call to orchestrator-get-s3-bill-lading" doc:id="fe1f59c3-26ce-4a8b-9104-7fa08c517715" name="orchestrator-get-s3-bill-lading"/>
     </flow>
 </mule>

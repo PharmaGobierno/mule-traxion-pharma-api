@@ -133,7 +133,26 @@ error.muleMessage.typedValue]]></ee:set-variable>
 			</error-handler>
 		</try>
 	</sub-flow>
-	<sub-flow name="clients-process-pharma-api-get-details" doc:id="139d3889-a651-48bc-9fa4-6ac45a6d6b4e" >
+	<sub-flow name="clients-process-pharma-api-get-details" doc:id="3626e4f7-cc0f-46cc-a10f-29a8b251c97f" >
+		<logger level="INFO" doc:name="Visualize payload" doc:id="da7e0489-07c0-42e1-958b-635a7ee58f3d" message="#[payload]"/>
+		<!-- [STUDIO:"Request"]<http:request method="GET" doc:name="Request" doc:id="8bf16fb3-48a0-4e06-863f-0e1a30bcc6a1" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.isste.detail}">
+			<http:headers ><![CDATA[#[%dw 2.0
+output application/json
+&#45;&#45;-
+{
+	"client_id": Mule::p('secure::client.process.pharma.api.https.client_id'),
+	"client_secret": Mule::p('secure::client.process.pharma.api.https.client_secret')
+}&#93;&#93;&#93;></http:headers>
+			<http:query-params ><![CDATA[#[%dw 2.0
+output application/json
+&#45;&#45;-
+{
+	"customer_namer": vars.customer_name
+}&#93;&#93;&#93;></http:query-params>
+		</http:request> [STUDIO] -->
+		<process-pharma-api:get-products doc:name="Get products request" doc:id="5f219ead-5ef1-43fe-bfeb-46c838cba560" config-ref="Process_pharma_api_Config" customer-namer="#[vars.customer_name]" client-id="#[p('client.process.pharma.api.https.client_id')]" client-secret="#[p('client.process.pharma.api.https.client_secret')]"/>
+	</sub-flow>
+	<sub-flow name="clients-process-pharma-api-get-files" doc:id="139d3889-a651-48bc-9fa4-6ac45a6d6b4e" >
 		<logger level="INFO" doc:name="Visualize payload" doc:id="37afc62b-8a46-4841-94d2-be853b61a382" message="#[payload]"/>
 		<!-- [STUDIO:"Request"]<http:request method="GET" doc:name="Request" doc:id="32c60b32-b719-4cfb-9fb1-2b7ff562fae6" config-ref="HTTP_Request_configuration-process-pharma-api" path="${client.process.pharma.api.https.path.isste.detail}">
 			<http:headers ><![CDATA[#[%dw 2.0
@@ -150,7 +169,7 @@ output application/json
 	"customer_namer": vars.customer_name
 }&#93;&#93;&#93;></http:query-params>
 		</http:request> [STUDIO] -->
-		<process-pharma-api:get-products doc:name="Get products request" doc:id="efbe9de7-2926-42d5-89f1-47c517504e3b" config-ref="Process_pharma_api_Config" customer-namer="#[vars.customer_name]" client-id="#[p('client.process.pharma.api.https.client_id')]" client-secret="#[p('client.process.pharma.api.https.client_secret')]"/>
+		<process-pharma-api:get-documents-carta-porte doc:name="GET documents carta porte" doc:id="a88f8e68-4f31-41e0-9f0c-44ecd2aeca36" config-ref="Process_pharma_api_Config" identifier="#[vars.loadNumber]" date="#[vars.date]"/>
 	</sub-flow>
 	<sub-flow name="clients-process-pharma-api-get-detailed" doc:id="3c4925c4-28d9-45cd-8d87-edd23b97d1eb" >
 		<logger level="INFO" doc:name="Visualize payload" doc:id="d41ae080-64a5-4c68-9579-b0002563357f" message="#[payload]"/>
