@@ -169,7 +169,7 @@ output application/json
 	"customer_namer": vars.customer_name
 }&#93;&#93;&#93;></http:query-params>
 		</http:request> [STUDIO] -->
-		<process-pharma-api:get-documents-carta-porte doc:name="GET documents carta porte" doc:id="a88f8e68-4f31-41e0-9f0c-44ecd2aeca36" config-ref="Process_pharma_api_Config" identifier="#[vars.loadNumber]" date="#[vars.date]"/>
+		<process-pharma-api:get-documents-carta-porte doc:name="GET documents carta porte" doc:id="a88f8e68-4f31-41e0-9f0c-44ecd2aeca36" config-ref="Process_pharma_api_Config" identifier="#[vars.loadNumber]" date="#[vars.date]" client-id="#[p('client.process.pharma.api.https.client_id')]" client-secret="#[p('client.process.pharma.api.https.client_secret')]"/>
 	</sub-flow>
 	<sub-flow name="clients-process-pharma-api-get-detailed" doc:id="3c4925c4-28d9-45cd-8d87-edd23b97d1eb" >
 		<logger level="INFO" doc:name="Visualize payload" doc:id="d41ae080-64a5-4c68-9579-b0002563357f" message="#[payload]"/>
