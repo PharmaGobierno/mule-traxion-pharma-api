@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.27:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.28:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -437,19 +437,30 @@ attributes.queryParams.customer_name]]></ee:set-variable>
     </flow>
     <flow name="get:\tms\carta-porte:traxion-pharma-api-config">
         <ee:transform doc:name="Transform Message">
-            <ee:message>
-            </ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="loadNumber" ><![CDATA[%dw 2.0
+            <ee:message />
+            <ee:variables>
+                <ee:set-variable variableName="loadNumber"><![CDATA[%dw 2.0
 output application/json
 ---
 attributes.queryParams.identifier]]></ee:set-variable>
-				<ee:set-variable variableName="date" ><![CDATA[%dw 2.0
+                <ee:set-variable variableName="date"><![CDATA[%dw 2.0
 output application/json
 ---
 attributes.queryParams.date]]></ee:set-variable>
-			</ee:variables>
+            </ee:variables>
         </ee:transform>
-		<flow-ref doc:name="Call to orchestrator-get-s3-bill-lading" doc:id="fe1f59c3-26ce-4a8b-9104-7fa08c517715" name="orchestrator-get-s3-bill-lading"/>
+        <flow-ref doc:name="Call to orchestrator-get-s3-bill-lading" doc:id="fe1f59c3-26ce-4a8b-9104-7fa08c517715" name="orchestrator-get-s3-bill-lading" />
+    </flow>
+    <flow name="post:\v2\tms\carta-porte:application\json:traxion-pharma-api-config">
+		<ee:transform doc:name="Set variable" doc:id="a08b9f1b-e524-4277-934e-2c0e72ed71d6">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="source_system"><![CDATA[%dw 2.0
+output application/json
+---
+attributes.queryParams.source_system default "MD"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="Call-orchestrator-post-tms-bill-lading" doc:id="a88f78a3-fb28-4e70-a9da-882e9397289d" name="orchestrator-post-tms-bill-lading" />
     </flow>
 </mule>
