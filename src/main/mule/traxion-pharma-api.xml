@@ -461,6 +461,22 @@ output application/json
 attributes.queryParams.source_system default "MD"]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<flow-ref doc:name="Call-orchestrator-post-tms-bill-lading" doc:id="a88f78a3-fb28-4e70-a9da-882e9397289d" name="orchestrator-post-tms-bill-lading" />
+		<!-- [STUDIO:"Call-orchestrator-post-tms-bill-lading"]<flow-ref doc:name="Call-orchestrator-post-tms-bill-lading" doc:id="a88f78a3-fb28-4e70-a9da-882e9397289d" name="orchestrator-post-tms-bill-lading" /> [STUDIO] -->
+		<ee:transform doc:name="Transform Message" doc:id="2b93162e-9324-4552-9ab8-7f8ebf411810" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  traxion_response: {
+    completed_succesfully: "true",
+    response: {
+      message: "successful",
+      data: {}
+    }
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
     </flow>
 </mule>
