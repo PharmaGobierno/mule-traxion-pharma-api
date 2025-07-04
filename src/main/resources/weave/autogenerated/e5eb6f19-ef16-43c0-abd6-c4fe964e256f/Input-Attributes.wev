@@ -1,0 +1,27 @@
+%dw 2.0
+
+type auto_e5eb6f19_ef16_43c0_abd6_c4fe964e256f_Input_Attributes = {|
+  clientCertificate?: {|
+    publicKey?: {|  |}, 
+    "type"?: String, 
+    encoded?: Binary
+  |}, 
+  headers: {| Authorization: String |}, 
+  listenerPath: String, 
+  method: String, 
+  queryParams: {|
+    load_num: Number, 
+    company: String, 
+    shipment_id: String
+  |}, 
+  queryString: String, 
+  relativePath: String, 
+  remoteAddress: String, 
+  requestPath: String, 
+  requestUri: String, 
+  scheme: String, 
+  uriParams: {|  |}, 
+  version: String, 
+  localAddress: String
+|}
+
