@@ -6,6 +6,7 @@
 http://www.mulesoft.org/schema/mule/system-wms-api http://www.mulesoft.org/schema/mule/system-wms-api/current/mule-system-wms-api.xsd">
 	<system-wms-api:config name="System_wms_api_Config" doc:name="System-wms-api Config" doc:id="628de36e-381a-433d-97cb-7c53ca70e6c0" property_host="${client.system.wms.api.https.host}" property_port="${client.system.wms.api.https.port}" property_basePath="/api" property_protocol="HTTPS" property_responseTimeout="${client.system.wms.api.https.response.timeout}"/>
 	<sub-flow name="client-wms-rpt-resumen-lista-empaque-call" doc:id="e5eb6f19-ef16-43c0-abd6-c4fe964e256f" >
+		<logger level="INFO" doc:name="Logger" doc:id="b0479816-5908-4021-a77f-565d39a90a5b" message='#[{&#10;	"load":vars.load_num,&#10;	"company":vars.company,&#10;	"shipment":vars.shipment_id&#10;}]'/>
 		<system-wms-api:get-lista-empaque doc:name="Get lista empaque" doc:id="cbbeb078-7939-4a85-9cb3-63b2742a2295" config-ref="System_wms_api_Config" load-num="#[vars.load_num]" company="#[vars.company]" shipment-id="#[vars.shipment_id]" client-id="${client.system.wms.api.https.client_id}" client-secret="${client.system.wms.api.https.client_secret}"/>
 	</sub-flow>
 </mule>
