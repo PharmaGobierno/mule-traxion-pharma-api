@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.32:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.33:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -480,13 +480,13 @@ output application/json
         </ee:transform>
     </flow>
     <flow name="get:\medistik\packing\list:traxion-pharma-api-config">
-		<ee:transform doc:name="Transform Message1" doc:id="5c235208-4586-48e3-a00e-c78bd2d73815">
+        <ee:transform doc:name="Transform Message1" doc:id="5c235208-4586-48e3-a00e-c78bd2d73815">
             <ee:message />
             <ee:variables>
                 <ee:set-variable variableName="load_num"><![CDATA[%dw 2.0
 output application/json
 ---
-attributes.queryParams.load_num]]></ee:set-variable>
+attributes.queryParams.load_num default 0]]></ee:set-variable>
                 <ee:set-variable variableName="company"><![CDATA[%dw 2.0
 output application/json
 ---
@@ -497,6 +497,6 @@ output application/json
 attributes.queryParams.shipment_id]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-		<flow-ref doc:name="client-wms-rpt-resumen-lista-empaque-call" doc:id="97b8626b-d8cf-476b-be56-43cfc0915ac3" name="client-wms-rpt-resumen-lista-empaque-call" />
+        <flow-ref doc:name="client-wms-rpt-resumen-lista-empaque-call" doc:id="97b8626b-d8cf-476b-be56-43cfc0915ac3" name="client-wms-rpt-resumen-lista-empaque-call" />
     </flow>
 </mule>
