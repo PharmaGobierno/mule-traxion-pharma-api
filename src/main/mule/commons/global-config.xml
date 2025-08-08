@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
-	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
-	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+<mule xmlns:kafka="http://www.mulesoft.org/schema/mule/kafka"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
 http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
-http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/kafka/current/mule-kafka.xsd">
 	<tls:context name="TLS_Context" doc:name="TLS Context" doc:id="bb89a54d-a80c-42dc-aed5-c45904e9e8ca" >
 		<tls:key-store type="pkcs12" path="${https.listener.key.store.path}" keyPassword="${https.listener.key.store.key.password}" password="${https.listener.key.store.password}" />
 	</tls:context>
@@ -21,5 +22,12 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 	<http:request-config name="HTTP_Request_configuration-system-tep-api" doc:name="HTTP Request configuration" doc:id="c6bba8d2-1fda-476a-8127-c83c514603f3" basePath="${client.system.tep.api.base.path}" responseTimeout="${client.system.tep.api.https.response.timeout}">
 		<http:request-connection host="${client.system.tep.api.https.host}" port="${client.system.tep.api.https.port}" protocol="${client.system.tep.api.https.protocol}" maxConnections="${client.system.tep.api.https.max.connections}" connectionIdleTimeout="${client.system.tep.api.https.connection.idle.timeout}" responseBufferSize="${client.system.tep.api.https.response.buffer.size}"/>
 	</http:request-config>
-	
+	<kafka:producer-config name="Apache_Kafka_Producer_configuration" doc:name="Apache Kafka Producer configuration" doc:id="c8d7d408-0217-4d8a-824f-a62f29dfb01d" >
+		<kafka:producer-plaintext-connection >
+			<kafka:bootstrap-servers >
+				<kafka:bootstrap-server value="127.0.0.1:9092" />
+			</kafka:bootstrap-servers>
+		</kafka:producer-plaintext-connection>
+	</kafka:producer-config>
+
 </mule>

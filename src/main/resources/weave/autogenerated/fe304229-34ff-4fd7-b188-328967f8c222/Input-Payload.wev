@@ -1,0 +1,18 @@
+%dw 2.0
+
+type auto_fe304229_34ff_4fd7_b188_328967f8c222_Input_Payload = {|
+  metadata: {|
+    timestamp: String, 
+    source_system: String, 
+    transaction_id: String, 
+    transaction_type: String, 
+    correlation_id: String
+  |}, 
+  payload: {|
+    tracking_id: String, 
+    original_amount: Number, 
+    load_id: String, 
+    comment: String
+  |}
+|}
+

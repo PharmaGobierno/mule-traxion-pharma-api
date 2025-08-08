@@ -1,6 +1,6 @@
 %dw 2.0
 
-type auto_581dab95_245c_49a4_aa59_328d98a8af49_Input_Attributes = {|
+type auto_d6790733_fce3_4bd3_be89_92fbad80e19f_Input_Attributes = {|
   clientCertificate?: {|
     publicKey?: {|  |}, 
     "type"?: String, 
@@ -9,7 +9,7 @@ type auto_581dab95_245c_49a4_aa59_328d98a8af49_Input_Attributes = {|
   headers: {| Authorization: String |}, 
   listenerPath: String, 
   method: String, 
-  queryParams: {| source_system: String |}, 
+  queryParams: {|  |}, 
   queryString: String, 
   relativePath: String, 
   remoteAddress: String, 
