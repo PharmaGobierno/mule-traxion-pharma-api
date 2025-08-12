@@ -13,6 +13,7 @@ output application/json
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="abcced48-30a4-4a08-9faa-89171207340d" message="#[payload]"/>
 		<flow-ref doc:name="client-kafka-publish-message-modify-remision" doc:id="de31b519-167a-49ea-a5f1-e048345a2b2e" name="client-kafka-publish-message-modify-remision"/>
 		<ee:transform doc:name="Transform Message" doc:id="ca8f70ad-ea73-435a-9516-7bdda33f175b" >
 			<ee:message >
@@ -41,6 +42,7 @@ output application/json
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="bc8fd142-1101-49a2-a6c7-6f3136cfeb9e" message="#[payload]"/>
 		<flow-ref doc:name="client-kafka-publish-message-create-remision" doc:id="a6e92960-9ec1-42c5-9cbc-a83e0e555d4c" name="client-kafka-publish-message-create-remision" />
 		<ee:transform doc:name="Transform Message1" doc:id="522590b5-33eb-4202-a8c9-fd8ad18ccffb" >
 			<ee:message >
@@ -69,6 +71,7 @@ output application/json
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="c00d1b9e-3105-4eae-9165-acdcf48b59c9" message="#[payload]"/>
 		<flow-ref doc:name="client-kafka-publish-events-remision" doc:id="1363954a-2430-4842-9266-fb0a6a697a4a" name="client-kafka-publish-events-remision" />
 		<ee:transform doc:name="Transform Message1" doc:id="4a9b8fcd-400e-495a-a06f-0f490e462e04" >
 			<ee:message >
