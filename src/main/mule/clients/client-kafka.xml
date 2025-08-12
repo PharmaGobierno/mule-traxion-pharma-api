@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:kafka="http://www.mulesoft.org/schema/mule/kafka" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/kafka/current/mule-kafka.xsd">
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:kafka="http://www.mulesoft.org/schema/mule/kafka"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/kafka/current/mule-kafka.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
 	<kafka:producer-config name="Apache_Kafka_Producer_localhost" doc:name="Apache Kafka Producer configuration" doc:id="772a1db5-fa5e-43b3-95b6-d3cefaf5e8fe" >
 		<kafka:producer-plaintext-connection >
+			<tls:context >
+				<tls:trust-store insecure="true" />
+			</tls:context>
 			<kafka:bootstrap-servers >
 				<kafka:bootstrap-server value="localhost:9094" />
 			</kafka:bootstrap-servers>
 		</kafka:producer-plaintext-connection>
 	</kafka:producer-config>
 	<sub-flow name="client-kafka-publish-message-modify-remision" doc:id="ec3fadf9-211e-40ca-90ce-f964e29cbc82" >
-		<kafka:publish doc:name="Publish" doc:id="97dc3aab-8f89-471f-96b1-9c237bbda718" config-ref="Apache_Kafka_Producer_localhost" topic="${kafka.settings.modify.remision.topic.in}"/>
+		<kafka:publish doc:name="Publish" doc:id="97dc3aab-8f89-471f-96b1-9c237bbda718" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.modify.remision.topic.in}"/>
 	</sub-flow>
 	<sub-flow name="client-kafka-publish-message-create-remision" doc:id="fe304229-34ff-4fd7-b188-328967f8c222" >
-		<kafka:publish doc:name="Publish" doc:id="d9b4b8d9-187c-4f47-810f-84e6e948b93c" config-ref="Apache_Kafka_Producer_localhost" topic="${kafka.settings.create.remision.topic.in}"/>
+		<kafka:publish doc:name="Publish" doc:id="d9b4b8d9-187c-4f47-810f-84e6e948b93c" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.create.remision.topic.in}"/>
 	</sub-flow>
 	<sub-flow name="client-kafka-publish-events-remision" doc:id="34b61f05-4482-443b-88b4-a5489504d649" >
-		<kafka:publish doc:name="Publish" doc:id="5a955b51-1a64-40e9-82f1-9f5e0a4b8790" config-ref="Apache_Kafka_Producer_localhost" topic="${kafka.settings.event.remision.topic.in}"/>
+		<kafka:publish doc:name="Publish" doc:id="5a955b51-1a64-40e9-82f1-9f5e0a4b8790" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.event.remision.topic.in}"/>
 	</sub-flow>
 </mule>

@@ -10,32 +10,17 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  "metadata": {
-    "timestamp": "2025-07-07T15:55:57.532144Z",   // Timestamp UTC de la publicación en Kafka
-    "source_system": "BLUEYONDER_WMS",          // Sistema de origen
-    "transaction_id": "REMISSION-8013147163-UUID", // ID único para esta transacción específica (ej. tracking_id + type + UUID)
-    "transaction_type": "REMISSION_CREATION",  // Tipo de transacción: REMISSION_CREATION, REMISSION_EVENT, REMISSION_MODIFICATION
-    "correlation_id": "OPCIONAL_PARA_TRAZABILIDAD" // Opcional: ID para correlacionar a lo largo de los sistemas
-  },
-  "payload": {
-  "tracking_id": "8013147163",
-  "original_amount": 50,
-  "load_id": "0000000258",
-  "comment": "Monto original ajustado y carga asignada"
-}
-}
-]]></ee:set-payload>
+payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<flow-ref doc:name="client-kafka-publish-message-modify-remision" doc:id="de31b519-167a-49ea-a5f1-e048345a2b2e" name="client-kafka-publish-message-modify-remision"/>
 		<ee:transform doc:name="Transform Message" doc:id="ca8f70ad-ea73-435a-9516-7bdda33f175b" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-output application/xml
+output application/json
 ---
 
-mod_rem_res:{
+{
   traxion_response:{
     response: {
       message: "successful",
@@ -53,51 +38,17 @@ mod_rem_res:{
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  "order_number": null,
-  "tracking_id": "8013147163",
-  "items": {
-    "id": "01000042890100",
-    "sku": "01000042890100",
-    "brand": null,
-    "description": "DARUNAVIR. TABLETA. CADA TABLETA CONTIENE: DARUNAVIR 600 MG. ENVASE CON 60 TABLETAS."
-  },
-  "lot": [
-    {
-      "lot_number": "TESTS-111023-01",
-      "expiration_date": "2025-07-07T15:55:57.532144Z",
-      "quantity": 100
-    }
-  ],
-  "comment": null,
-  "original_amount": 48,
-  "destination": {
-    "id": "148001150900",
-    "name": "OOAD JALISCO",
-    "company": "IMSS ORDINARIO"
-  },
-  "origin_timestamp": "2025-07-07T15:55:57.532144Z",
-  "project": "IMSS-BIENESTAR",
-  "company": null,
-  "author": {
-    "id": "EROSALES",
-    "name": "ROSALES GARCIA, ELIAS ANDRES",
-    "type": "MESA DE CONTROL",
-    "email": null
-  },
-  "origin": "BLUEYONDER"
-}
-]]></ee:set-payload>
+payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<flow-ref doc:name="client-kafka-publish-message-create-remision" doc:id="a6e92960-9ec1-42c5-9cbc-a83e0e555d4c" name="client-kafka-publish-message-create-remision" />
 		<ee:transform doc:name="Transform Message1" doc:id="522590b5-33eb-4202-a8c9-fd8ad18ccffb" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-output application/xml
+output application/json
 ---
 
-crt_rem_res:{
+{
   traxion_response:{
     response: {
       message: "successful",
@@ -115,39 +66,17 @@ crt_rem_res:{
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  "tracking_id": "8013147163",
-  "events": [
-    {
-      "event": "DISPATCHED",
-      "event_timestamp": "2025-07-07T15:55:57.532144Z",
-      "comment": null,
-      "context": {
-        "dispatch_amount": null,
-        "order_supply": "AEV-28-01-2025-28014361-SAEPGC"
-      },
-      "author": {
-        "id": "EROSALES",
-        "name": "ROSALES GARCIA, ELIAS ANDRES",
-        "type": "MESA DE CONTROL",
-        "email": null
-      },
-      "load_id": "0000000257" // Este campo debería estar siempre presente si aplica para el evento.
-    }
-  ],
-  "origin": "BLUEYONDER",
-  "origin_timestamp": "2025-07-07T15:55:57.532144Z"
-}]]></ee:set-payload>
+payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<flow-ref doc:name="client-kafka-publish-events-remision" doc:id="1363954a-2430-4842-9266-fb0a6a697a4a" name="client-kafka-publish-events-remision" />
 		<ee:transform doc:name="Transform Message1" doc:id="4a9b8fcd-400e-495a-a06f-0f490e462e04" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-output application/xml
+output application/json
 ---
 
-event_rem_res:{
+{
   traxion_response:{
     response: {
       message: "successful",

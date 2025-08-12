@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.34:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.35:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -499,18 +499,18 @@ attributes.queryParams.shipment_id]]></ee:set-variable>
         </ee:transform>
         <flow-ref doc:name="client-wms-rpt-resumen-lista-empaque-call" doc:id="97b8626b-d8cf-476b-be56-43cfc0915ac3" name="client-wms-rpt-resumen-lista-empaque-call" />
     </flow>
-    <flow name="patch:\wms\orders\REMISSION\(tracking_id):application\xml:traxion-pharma-api-config">
+    <flow name="patch:\wms\orders\REMISSION\(tracking_id):application\json:traxion-pharma-api-config">
         <ee:transform doc:name="Transform Message">
             <ee:variables>
                 <ee:set-variable variableName="tracking_id">attributes.uriParams.'tracking_id'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-		<flow-ref doc:name="orchestrator-kafka-operations-modifica-remision" doc:id="db554e15-dff1-49c6-a501-810b36042c44" name="orchestrator-kafka-operations-modifica-remision"/>
+		<flow-ref doc:name="orchestrator-kafka-operations-modifica-remision" doc:id="db554e15-dff1-49c6-a501-810b36042c44" name="orchestrator-kafka-operations-modifica-remision" />
     </flow>
-    <flow name="post:\wms\orders\REMISSION:application\xml:traxion-pharma-api-config">
-		<flow-ref doc:name="orchestrator-kafka-operations-create-remision" doc:id="91b66d1f-6e54-4d25-8545-c9daca3ae8a2" name="orchestrator-kafka-operations-create-remision"/>
+    <flow name="post:\wms\orders\REMISSION:application\json:traxion-pharma-api-config">
+		<flow-ref doc:name="orchestrator-kafka-operations-create-remision" doc:id="795ed8c6-f12e-4e23-a11a-59709b16f663" name="orchestrator-kafka-operations-create-remision" />
     </flow>
-    <flow name="post:\wms\orders\REMISSION\events:application\xml:traxion-pharma-api-config">
-		<flow-ref doc:name="orchestrator-kafka-operations-events-remision" doc:id="eb5e1cfb-65bb-4c27-a144-ea6b7a3a17b3" name="orchestrator-kafka-operations-events-remision"/>
+    <flow name="post:\wms\orders\REMISSION\events:application\json:traxion-pharma-api-config">
+		<flow-ref doc:name="orchestrator-kafka-operations-events-remision" doc:id="eb5e1cfb-65bb-4c27-a144-ea6b7a3a17b3" name="orchestrator-kafka-operations-events-remision" />
     </flow>
 </mule>
