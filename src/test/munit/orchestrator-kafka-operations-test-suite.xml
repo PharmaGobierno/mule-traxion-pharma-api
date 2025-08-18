@@ -7,11 +7,14 @@
 		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
 		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
-	<munit:config name="traxion-pharma-api-test-suite.xml" />
-	<munit:test name="traxion-pharma-api-test-suite-post:\tms\load-confirmation:application\json:traxion-pharma-api-configTest" doc:id="32718be4-3678-4d83-826b-da8b678dcd16" description="Test">
+	<munit:config name="orchestrator-kafka-operations-test-suite.xml" />
+	<munit:test name="orchestrator-kafka-operations-test-suite-orchestrator-kafka-operations-modifica-remisionTest" doc:id="617c26a1-2371-4f78-a410-d67a008a827b" description="Test">
 		<munit:execution >
-			<flow-ref doc:name="Flow-ref to post:\tms\load-confirmation:application\json:traxion-pharma-api-config" doc:id="d5868b81-51a7-4ace-a62a-436b883caaf3" name="post:\tms\load-confirmation:application\json:traxion-pharma-api-config"/>
+			<flow-ref doc:name="Flow-ref to orchestrator-kafka-operations-modifica-remision" doc:id="a77f38f1-3a95-41de-8b9f-54b5f63f3339" name="orchestrator-kafka-operations-modifica-remision"/>
 		</munit:execution>
+		<munit:validation >
+			<logger level="INFO" doc:name="Logger" doc:id="35415be6-a170-4254-a317-0a322d359ac4" message="#[payload]"/>
+		</munit:validation>
 	</munit:test>
 
 
