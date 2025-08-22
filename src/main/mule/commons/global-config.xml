@@ -22,12 +22,15 @@ http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/ka
 	<http:request-config name="HTTP_Request_configuration-system-tep-api" doc:name="HTTP Request configuration" doc:id="c6bba8d2-1fda-476a-8127-c83c514603f3" basePath="${client.system.tep.api.base.path}" responseTimeout="${client.system.tep.api.https.response.timeout}">
 		<http:request-connection host="${client.system.tep.api.https.host}" port="${client.system.tep.api.https.port}" protocol="${client.system.tep.api.https.protocol}" maxConnections="${client.system.tep.api.https.max.connections}" connectionIdleTimeout="${client.system.tep.api.https.connection.idle.timeout}" responseBufferSize="${client.system.tep.api.https.response.buffer.size}"/>
 	</http:request-config>
-	<kafka:producer-config name="Apache_Kafka_Producer_configuration" doc:name="Apache Kafka Producer configuration" doc:id="c8d7d408-0217-4d8a-824f-a62f29dfb01d" >
-		<kafka:producer-plaintext-connection >
+	<kafka:producer-config name="Apache_Kafka_Producer_configuration" doc:name="Apache Kafka Producer configuration" doc:id="c8d7d408-0217-4d8a-824f-a62f29dfb01d" topic="traxporta.sap.01.in">
+		<kafka:producer-sasl-plain-connection username="${kafka.settings.bootstrap.server.user}" password="${kafka.settings.bootstrap.server.password}" endpointIdentificationAlgorithm="disabled">
+			<tls:context >
+				<tls:trust-store insecure="true" />
+			</tls:context>
 			<kafka:bootstrap-servers >
-				<kafka:bootstrap-server value="broker-dev.traxion.global:9094" />
+				<kafka:bootstrap-server value="${kafka.settings.bootstrap.server.url}" />
 			</kafka:bootstrap-servers>
-		</kafka:producer-plaintext-connection>
-	</kafka:producer-config>
+		</kafka:producer-sasl-plain-connection>
+	</kafka:producer-config> <!-- -->
 
 </mule>

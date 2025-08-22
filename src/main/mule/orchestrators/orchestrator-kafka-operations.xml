@@ -10,7 +10,15 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-payload]]></ee:set-payload>
+ {
+  "metadata": {
+    "transaction_id": uuid(),
+    "source_system": "BLUEYONDER_WMS",
+    "transaction_type": "REMISSION_MODIFY",
+    "timestamp": now()
+  },
+  "payload": payload
+}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="abcced48-30a4-4a08-9faa-89171207340d" message="#[payload]"/>
@@ -39,7 +47,16 @@ output application/json
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-payload]]></ee:set-payload>
+ {
+  "metadata": {
+    "transaction_id": uuid(),
+    "source_system": "BLUEYONDER_WMS",
+    "transaction_type": "REMISSION_CREATION",
+    "timestamp": now()
+  },
+  "payload": payload.payload
+}
+]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="bc8fd142-1101-49a2-a6c7-6f3136cfeb9e" message="#[payload]"/>
@@ -68,6 +85,7 @@ output application/json
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
+
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
