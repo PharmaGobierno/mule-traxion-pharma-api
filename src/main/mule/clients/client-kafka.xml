@@ -17,14 +17,18 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 	</kafka:producer-config> -->
 	<sub-flow name="client-kafka-publish-message-modify-remision" doc:id="ec3fadf9-211e-40ca-90ce-f964e29cbc82" >
 		<kafka:publish doc:name="Publish" doc:id="97dc3aab-8f89-471f-96b1-9c237bbda718" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.modify.remision.topic.in}"/>
-		<logger level="INFO" doc:name="Logger" doc:id="bbf82220-0107-4aad-bf0c-8b2d504411a1" />
+		<logger level="INFO" doc:name="Logger" doc:id="bbf82220-0107-4aad-bf0c-8b2d504411a1" message="#[payload]"/>
 	</sub-flow>
 	<sub-flow name="client-kafka-publish-message-create-remision" doc:id="fe304229-34ff-4fd7-b188-328967f8c222" >
 		<kafka:publish doc:name="Publish" doc:id="d9b4b8d9-187c-4f47-810f-84e6e948b93c" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.create.remision.topic.in}"/>
-		<logger level="INFO" doc:name="Logger" doc:id="2cdb9c58-3ada-48c0-9b1d-2ca77b988fc8" />
+		<logger level="INFO" doc:name="Logger" doc:id="2cdb9c58-3ada-48c0-9b1d-2ca77b988fc8" message="#[payload]"/>
 	</sub-flow>
 	<sub-flow name="client-kafka-publish-events-remision" doc:id="34b61f05-4482-443b-88b4-a5489504d649" >
 		<kafka:publish doc:name="Publish" doc:id="5a955b51-1a64-40e9-82f1-9f5e0a4b8790" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.event.remision.topic.in}"/>
-		<logger level="INFO" doc:name="Logger" doc:id="8a886943-403f-463d-918d-ad79a2c3509b" />
+		<logger level="INFO" doc:name="Logger" doc:id="8a886943-403f-463d-918d-ad79a2c3509b" message="payload"/>
+	</sub-flow>
+	<sub-flow name="client-kafka-load-events" doc:id="b0ed6ff9-dc7e-4a55-aeac-5ff66eea3f69" >
+		<kafka:publish doc:name="Publish" doc:id="6718df36-79ab-439c-8034-e728d6e3f73e" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.oms.load.events.topic.in}" />
+		<logger level="INFO" doc:name="Logger" doc:id="f62757e5-be33-4f21-bdcd-d61742f55ad7" message="payload" />
 	</sub-flow>
 </mule>

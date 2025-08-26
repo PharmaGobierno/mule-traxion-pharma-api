@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="orchestrator-kafka-unigis-by-wmsby-operations-load-events" doc:id="3c46f2c6-48e7-459a-a534-5e6cead2f1d7" >
+		<ee:transform doc:name="Transform Message" doc:id="dedba402-6e73-4bf8-a306-a60a4bf34465" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+ {
+  "metadata": {
+    "transaction_id": uuid(),
+    "source_system": "TMS_UNIGIS",
+    "transaction_type": "REMISSION_MODIFY",
+    "timestamp": now()
+  },
+  "payload": payload
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="5d12ddcb-6a48-4ff2-bdb1-275e07165ae5" message="#[payload]"/>
+		<flow-ref doc:name="client-kafka-load-events" doc:id="5677db11-4ec3-414d-879f-bd6c946a8acb" name="client-kafka-load-events"/>
+		<ee:transform doc:name="Transform Message1" doc:id="fe47e56d-c54d-41c6-8fb3-61669d92a617" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+{
+  traxion_response:{
+    response: {
+      message: "successful",
+      data:{}
+    },
+    completedSuccessfully: true
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>
