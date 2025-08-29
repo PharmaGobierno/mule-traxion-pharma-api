@@ -31,4 +31,12 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 		<kafka:publish doc:name="Publish" doc:id="6718df36-79ab-439c-8034-e728d6e3f73e" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.oms.load.events.topic.in}" />
 		<logger level="INFO" doc:name="Logger" doc:id="f62757e5-be33-4f21-bdcd-d61742f55ad7" message="payload" />
 	</sub-flow>
+	<sub-flow name="client-kafka-publish-article-inventory" doc:id="dfdcc948-7060-4ffc-8247-c874500bcf22" >
+		<kafka:publish doc:name="Publish" doc:id="ed86fa27-76a7-439c-afde-bec4b753a00a" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.oms.article.intenvory}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="06af0c4e-e1bc-4eae-a2af-688f54be8a34" message="payload"/>
+	</sub-flow>
+	<sub-flow name="client-kafka-publish-supplier-notifications" doc:id="da457882-7e9b-4df8-95e6-87ccb107159e" >
+		<kafka:publish doc:name="Publish" doc:id="b17b7b25-c2ec-4ae4-8cd2-07fe732e5c77" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.wms.pisa.supplier.notifications}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="6b5bab4e-ec90-44bc-bbc2-0303af719de2" message="payload"/>
+	</sub-flow>	
 </mule>
