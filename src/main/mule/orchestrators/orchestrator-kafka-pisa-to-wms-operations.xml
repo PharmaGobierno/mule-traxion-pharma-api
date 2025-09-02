@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="orchestrator-kafka-pisa-to-wms-operations-shipment-receipt" doc:id="2f2612e5-faa3-471a-8d93-579a0c1761f3" >
+		<ee:transform doc:name="Transform Message" doc:id="28a35ed8-9695-4b46-8ed6-73c7908649f2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+ {
+  "metadata": {
+    "transaction_id": uuid(),
+    "source_system": "TMS_UNIGIS",
+    "transaction_type": "REMISSION_MODIFY",
+    "timestamp": now()
+  },
+  "payload": payload
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="c0aedb57-62bd-4f42-a6c1-a368c41bd1b1" message="#[payload]" />
+		<flow-ref doc:name="client-kafka-shipment-receipt" doc:id="29123b34-b494-4dbe-93ad-eafd0b42a800" name="client-kafka-shipment-receipt"/>
+		<ee:transform doc:name="Transform Message1" doc:id="bb56b5b4-b36a-48d3-8bce-bd874a1eb1e8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+{
+  traxion_response:{
+    response: {
+      message: "successful",
+      data:{}
+    },
+    completedSuccessfully: true
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

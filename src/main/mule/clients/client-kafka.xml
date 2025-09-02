@@ -38,5 +38,9 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 	<sub-flow name="client-kafka-publish-supplier-notifications" doc:id="da457882-7e9b-4df8-95e6-87ccb107159e" >
 		<kafka:publish doc:name="Publish" doc:id="b17b7b25-c2ec-4ae4-8cd2-07fe732e5c77" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.wms.pisa.supplier.notifications}"/>
 		<logger level="INFO" doc:name="Logger" doc:id="6b5bab4e-ec90-44bc-bbc2-0303af719de2" message="payload"/>
+	</sub-flow>
+	<sub-flow name="client-kafka-shipment-receipt" doc:id="e4a0ea96-8517-4c7b-b57b-3ba60de40e95" >
+		<kafka:publish doc:name="Publish" doc:id="2e4b063e-8841-4548-96fd-66f550be8661" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.pisa.wms.shipment.receipt}" />
+		<logger level="INFO" doc:name="Logger" doc:id="ae24a137-384d-4ba0-98eb-e1bdc6489e81" message="payload" />
 	</sub-flow>	
 </mule>

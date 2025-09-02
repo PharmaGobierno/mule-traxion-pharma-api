@@ -1,0 +1,18 @@
+%dw 2.0
+
+type auto_2f2612e5_faa3_471a_8d93_579a0c1761f3_Output_Payload = {
+  traxion_response: {
+    completedSuccessfully: String, 
+    response: {
+      data: { _?: Any } {"label": "Data",
+      "description": "This object contains general information about the message response."}, 
+      message: String, 
+      _?: Any
+    } {"label": "Traxion_response",
+    "description": "Object that contains the message response an its data."}, 
+    _?: Any
+  } {"label": "Traxion_response",
+  "description": "Object that contains the body's response."}, 
+  _?: Any
+} {"description": "traxion generic response."}
+
