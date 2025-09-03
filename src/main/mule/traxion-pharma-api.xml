@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.41:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.43:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -524,5 +524,11 @@ attributes.queryParams.shipment_id]]></ee:set-variable>
     </flow>
     <flow name="post:\wms\by\shipment\receipt:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="orchestrator-kafka-pisa-to-wms-operations-shipment-receipt" doc:id="dec63001-b597-4150-90df-465aa2379198" name="orchestrator-kafka-pisa-to-wms-operations-shipment-receipt" />
+    </flow>
+    <flow name="post:\oms\orders:application\json:traxion-pharma-api-config">
+		<flow-ref doc:name="orchestrator-kafka-pisa-to-oms-create-order" doc:id="9c3e9ada-939a-4479-b524-2702e2bdcd8c" name="orchestrator-kafka-pisa-to-oms-create-order"/>
+    </flow>
+    <flow name="post:\pisa\confirm\receipt:application\json:traxion-pharma-api-config">
+		<flow-ref doc:name="orchestrator-kafka-wms-to-pisa-operations-confirm-receipt" doc:id="942390ce-0d03-4eae-b779-11080bf6eac9" name="orchestrator-kafka-wms-to-pisa-operations-confirm-receipt"/>
     </flow>
 </mule>

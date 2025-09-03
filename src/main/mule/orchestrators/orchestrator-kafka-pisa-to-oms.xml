@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="orchestrator-kafka-pisa-to-oms-create-order" doc:id="0ba960ca-dce9-496f-b370-941aba4c9c05" >
+		<logger level="INFO" doc:name="Logger" doc:id="f6faa9ac-ac1f-45f8-a8f8-93104e99bed1" message="#[payload]" />
+		<foreach doc:name="For Each" doc:id="a28d9a66-6cae-4bbd-9ee3-4690273ff768" collection="#[payload.create_order]">
+			<ee:transform doc:name="Transform Message" doc:id="13553660-0293-4b27-a5f4-7c051a02f555">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    "order_number": payload.order_number, // algun otro id: puede ser uno foreano o algun otro que sea util
+    "tracking_id": "", // remission_id
+    "items":[ 
+        { 
+            "id": "item-a1-bla-bla", // puede ser el mismo que el SKU
+            "sku": "A1-XXXX",
+            "description": "Optiona[str]", // puede ser null
+            "quantity": 100
+        },
+        { 
+            "id": "item-b2",
+            "sku": "B2-XXX",
+            "description": "Optiona[str]", // puede ser null
+            "quantity": 100
+        }
+    ],
+    "metadata": {
+        "delivery_date": 1756533600000, // int millis para saber la fecha u u hora de entrega, e.g. 1756533600000 -> 30-Agosto-2025
+        "appointment_delivery_date": 1756533600000, // Optional[int]
+        "comment": "Optional[str]", // puede ser null
+    },
+    "original_amount": "int", // original_amount (suma de quantity en items)
+    "destination": { // TBD
+        "id": "algo-id",
+        "displayable_name": "algo",
+        "company": null, // Optional[str]
+    },
+    "origin_platform": "PISA",
+    "origin_timestamp": 1745534082416, // int millis para saber la hora en que se prepara el msj para ser publicado , timestamp fisico real
+    "institution": "", // Optional[dict]  esto es lo que llama Dario "Institucion"?? 🚬
+    "author": {  // usuario el proceso del cual nos colgamos para la integracion
+        "id": "str",  
+        "name": "str",       
+        "type": "Opcional",   // TBD, propongo primera iteracion no ver que cargo tiene el man que (sea gerente de almacen, ans Senior, etc)        
+        "email": "Opcional"  // // puede ser null, cuando si lo tengan pos envienlo xD
+    },
+    "version": "1"
+}
+// - Institición
+// - Identificador Institucional ej. Or, OS, etc
+// - SKU
+// - Cantidad
+// - Destino]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+			<flow-ref doc:name="client-kafka-create-order" doc:id="bf18d3d6-4438-4ec1-962f-3823464ea7c6" name="client-kafka-create-order" />
+		</foreach>
+		<ee:transform doc:name="Transform Message1" doc:id="9dae25d3-3181-4bf9-ba2c-a7a7f8f8b0e8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+{
+  traxion_response:{
+    response: {
+      message: "successful",
+      data:{}
+    },
+    completedSuccessfully: true
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

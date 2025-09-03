@@ -42,5 +42,13 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 	<sub-flow name="client-kafka-shipment-receipt" doc:id="e4a0ea96-8517-4c7b-b57b-3ba60de40e95" >
 		<kafka:publish doc:name="Publish" doc:id="2e4b063e-8841-4548-96fd-66f550be8661" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.pisa.wms.shipment.receipt}" />
 		<logger level="INFO" doc:name="Logger" doc:id="ae24a137-384d-4ba0-98eb-e1bdc6489e81" message="payload" />
+	</sub-flow>
+	<sub-flow name="client-kafka-create-order" doc:id="6d3a4e23-15fb-4513-8b74-fb13e192233b" >
+		<kafka:publish doc:name="Publish" doc:id="c588366b-324c-41d1-885f-45a763b74b79" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.pisa.oms.create.order}" />
+		<logger level="INFO" doc:name="Logger" doc:id="4388dbe4-3a94-4fbe-97ab-1ab1b4bdd760" message="payload" />
+	</sub-flow>
+	<sub-flow name="client-kafka-confirm-receipt" doc:id="3f95eae5-c47c-4958-b721-d24b353683d6" >
+		<kafka:publish doc:name="Publish" doc:id="fc10594d-2aa3-4fc9-b956-e2dd30a7553a" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.wms.pisa.confirm.receipt}" />
+		<logger level="INFO" doc:name="Logger" doc:id="612ed855-90ed-45ad-8c07-5326d9399c2b" message="payload" />
 	</sub-flow>	
 </mule>

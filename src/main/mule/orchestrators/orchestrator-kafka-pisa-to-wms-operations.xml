@@ -13,8 +13,8 @@ output application/json
  {
   "metadata": {
     "transaction_id": uuid(),
-    "source_system": "TMS_UNIGIS",
-    "transaction_type": "REMISSION_MODIFY",
+    "source_system": "WMS_BY",
+    "transaction_type": "SHIPMENT_RECEIPT",
     "timestamp": now()
   },
   "payload": payload

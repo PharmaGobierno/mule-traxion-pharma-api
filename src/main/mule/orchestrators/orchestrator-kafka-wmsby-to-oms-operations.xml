@@ -13,7 +13,7 @@ output application/json
  {
   "metadata": {
     "transaction_id": uuid(),
-    "source_system": "BLUEYONDER_WMS",
+    "source_system": "WMS_BY",
     "transaction_type": "REMISSION_MODIFY",
     "timestamp": now()
   },
@@ -50,7 +50,7 @@ output application/json
  {
   "metadata": {
     "transaction_id": uuid(),
-    "source_system": "BLUEYONDER_WMS",
+    "source_system": "WMS_BY",
     "transaction_type": "REMISSION_CREATION",
     "timestamp": now()
   },
