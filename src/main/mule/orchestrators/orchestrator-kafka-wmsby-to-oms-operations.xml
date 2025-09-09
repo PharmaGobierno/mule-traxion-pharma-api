@@ -139,4 +139,34 @@ output application/json
 			</ee:message>
 		</ee:transform>
 	</sub-flow>
+	<sub-flow name="orchestrator-kafka-wmsby-to-oms-operations-order-events" doc:id="e7c36b17-8207-420a-b4e5-5d3472fe1995" >
+		<ee:transform doc:name="Transform Message" doc:id="992b057a-832c-41f8-ad5b-e2e1bf077b3a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="7ef0295a-80c0-4257-8a5f-06f51574628e" message="#[payload]" />
+		<flow-ref doc:name="client-kafka-order-events" doc:id="ae0a68b7-b387-4fe9-9548-9f027383e0c6" name="client-kafka-order-events" />
+		<ee:transform doc:name="Transform Message1" doc:id="a6e53194-f0d2-43da-bacd-fc0ac386df19" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+{
+  traxion_response:{
+    response: {
+      message: "successful",
+      data:{}
+    },
+    completedSuccessfully: true
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
 </mule>

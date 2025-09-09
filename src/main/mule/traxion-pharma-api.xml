@@ -532,21 +532,6 @@ attributes.queryParams.shipment_id]]></ee:set-variable>
         <flow-ref doc:name="orchestrator-kafka-wms-to-pisa-operations-confirm-receipt" doc:id="942390ce-0d03-4eae-b779-11080bf6eac9" name="orchestrator-kafka-wms-to-pisa-operations-confirm-receipt" />
     </flow>
     <flow name="post:\oms\orders\events:application\json:traxion-pharma-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  traxion_response: {
-    response: {
-      message: "successful",
-      data: {}
-    },
-    completedSuccessfully: "true"
-  }
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+		<flow-ref doc:name="orchestrator-kafka-wmsby-to-oms-operations-order-events" doc:id="3be52ac1-d87b-48a5-913f-c81a4093ff3c" name="orchestrator-kafka-wmsby-to-oms-operations-order-events"/>
     </flow>
 </mule>
