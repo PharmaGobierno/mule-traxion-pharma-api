@@ -30,13 +30,15 @@ output application/json
 ---
 
 {
-  traxion_response:{
-    response: {
-      message: "successful",
-      data:{}
-    },
-    completedSuccessfully: true
-  }
+    "traxion_response": {
+        "response": {
+            "message": "successful",
+            "data": {
+              "transactionId": correlationId
+            }
+        },
+        "completedSuccessfully": true
+    }
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
@@ -68,13 +70,15 @@ output application/json
 ---
 
 {
-  traxion_response:{
-    response: {
-      message: "successful",
-      data:{}
-    },
-    completedSuccessfully: true
-  }
+    "traxion_response": {
+        "response": {
+            "message": "successful",
+            "data": {
+              "transactionId": correlationId
+            }
+        },
+        "completedSuccessfully": true
+    }
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
@@ -98,13 +102,15 @@ output application/json
 ---
 
 {
-  traxion_response:{
-    response: {
-      message: "successful",
-      data:{}
-    },
-    completedSuccessfully: true
-  }
+    "traxion_response": {
+        "response": {
+            "message": "successful",
+            "data": {
+              "transactionId": correlationId
+            }
+        },
+        "completedSuccessfully": true
+    }
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
@@ -128,13 +134,15 @@ output application/json
 ---
 
 {
-  traxion_response:{
-    response: {
-      message: "successful",
-      data:{}
-    },
-    completedSuccessfully: true
-  }
+    "traxion_response": {
+        "response": {
+            "message": "successful",
+            "data": {
+              "transactionId": correlationId
+            }
+        },
+        "completedSuccessfully": true
+    }
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
@@ -156,15 +164,16 @@ payload]]></ee:set-payload>
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-
 {
-  traxion_response:{
-    response: {
-      message: "successful",
-      data:{}
-    },
-    completedSuccessfully: true
-  }
+    "traxion_response": {
+        "response": {
+            "message": "successful",
+            "data": {
+              "transactionId": correlationId
+            }
+        },
+        "completedSuccessfully": true
+    }
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
