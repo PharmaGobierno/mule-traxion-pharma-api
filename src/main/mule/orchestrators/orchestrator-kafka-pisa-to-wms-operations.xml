@@ -22,7 +22,7 @@ output application/json
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="c0aedb57-62bd-4f42-a6c1-a368c41bd1b1" message="#[payload]" />
-		<flow-ref doc:name="client-kafka-shipment-receipt" doc:id="29123b34-b494-4dbe-93ad-eafd0b42a800" name="client-kafka-shipment-receipt"/>
+		<flow-ref doc:name="client-pub-sub-shipment-receipt" doc:id="29123b34-b494-4dbe-93ad-eafd0b42a800" name="client-pub-sub-shipment-receipt"/>
 		<ee:transform doc:name="Transform Message1" doc:id="bb56b5b4-b36a-48d3-8bce-bd874a1eb1e8" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0

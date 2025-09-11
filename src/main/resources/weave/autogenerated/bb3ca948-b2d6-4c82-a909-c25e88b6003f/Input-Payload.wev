@@ -1,0 +1,46 @@
+%dw 2.0
+
+type auto_bb3ca948_b2d6_4c82_a909_c25e88b6003f_Input_Payload = {|
+  metadata: {|
+    transaction_id: String, 
+    source_system: String, 
+    transaction_type: String, 
+    timestamp: DateTime
+  |}, 
+  payload: {|
+    "movimiento transporte"?: {|
+      tipo_transaccion?: String, 
+      id_movimiento_host?: String, 
+      codigo_transportista?: String, 
+      id_remolque?: String, 
+      numero_remolque?: String, 
+      modo_transporte?: String, 
+      numero_seguimiento_pais?: String
+    |}, 
+    parada?: {|
+      id_parada?: String, 
+      nombre_parada?: String, 
+      secuencia_parada?: String, 
+      id_cliente?: String, 
+      id_direccion_host?: String, 
+      numero_documento?: String, 
+      numero_seguimiento?: String
+    |}, 
+    envio?: {|
+      id_envio_host?: String, 
+      id_cliente_host?: String, 
+      codigo_transportista?: String, 
+      nivel_servicio?: String, 
+      codigo_flete?: String, 
+      numero_documento?: String, 
+      numero_seguimiento?: String, 
+      fecha_entrada?: String, 
+      fecha_temprana_envio?: String, 
+      fecha_temprana_entrega?: String, 
+      fecha_limite_envio?: String, 
+      fecha_limite_entrega?: String
+    |}, 
+    pedidos_asignados?: Array<{|      id_cliente?: String,       numero_orden?: String,       linea_orden?: String,       sublinea_orden?: String    |}>
+  |} {"example": "{\\\"movimiento transporte\\\":{\\\"tipo_transaccion\\\":\\\"A\\\",\\\"id_movimiento_host\\\":\\\"A000000472\\\",\\\"codigo_transportista\\\":\\\"CENADISID\\\",\\\"id_remolque\\\":\\\"TRL0048274\\\",\\\"numero_remolque\\\":\\\"IB121224-STD-0100.4\\\",\\\"modo_transporte\\\":\\\"\\\",\\\"numero_seguimiento_pais\\\":\\\"\\\"},\\\"parada\\\":{\\\"id_parada\\\":\\\"STOP999999\\\",\\\"nombre_parada\\\":\\\"STOP999999\\\",\\\"secuencia_parada\\\":\\\"10\\\",\\\"id_cliente\\\":\\\"----\\\",\\\"id_direccion_host\\\":\\\"A000000472\\\",\\\"numero_documento\\\":\\\"\\\",\\\"numero_seguimiento\\\":\\\"\\\"},\\\"envio\\\":{\\\"id_envio_host\\\":\\\"SID99888\\\",\\\"id_cliente_host\\\":\\\"----\\\",\\\"codigo_transportista\\\":\\\"CENADISID\\\",\\\"nivel_servicio\\\":\\\"T\\\",\\\"codigo_flete\\\":\\\"\\\",\\\"numero_documento\\\":\\\"\\\",\\\"numero_seguimiento\\\":\\\"\\\",\\\"fecha_entrada\\\":\\\"\\\",\\\"fecha_temprana_envio\\\":\\\"\\\",\\\"fecha_temprana_entrega\\\":\\\"\\\",\\\"fecha_limite_envio\\\":\\\"\\\",\\\"fecha_limite_entrega\\\":\\\"\\\"},\\\"pedidos_asignados\\\":[{\\\"id_cliente\\\":\\\"----\\\",\\\"numero_orden\\\":\\\"101-7000252020\\\",\\\"linea_orden\\\":\\\"1\\\",\\\"sublinea_orden\\\":\\\"0000\\\"},{\\\"id_cliente\\\":\\\"----\\\",\\\"numero_orden\\\":\\\"101-7000252020\\\",\\\"linea_orden\\\":\\\"2\\\",\\\"sublinea_orden\\\":\\\"0000\\\"},{\\\"id_cliente\\\":\\\"----\\\",\\\"numero_orden\\\":\\\"101-7000252020\\\",\\\"linea_orden\\\":\\\"3\\\",\\\"sublinea_orden\\\":\\\"0000\\\"}]}"}
+|}
+

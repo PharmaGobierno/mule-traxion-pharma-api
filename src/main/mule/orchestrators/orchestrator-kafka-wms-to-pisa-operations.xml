@@ -46,7 +46,7 @@ output application/json
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<flow-ref doc:name="client-kafka-confirm-receipt" doc:id="e9ba3c58-0daf-4553-9e38-9d24e41860a2" name="client-kafka-confirm-receipt" />
+		<flow-ref doc:name="client-pub-sub-confirm-receipt" doc:id="e9ba3c58-0daf-4553-9e38-9d24e41860a2" name="client-pub-sub-confirm-receipt" />
 		<ee:transform doc:name="Transform Message1" doc:id="5b667adb-a5e5-43b7-9faa-fff64d887316" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0

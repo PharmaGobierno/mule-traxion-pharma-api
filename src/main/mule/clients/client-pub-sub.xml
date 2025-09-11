@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:pubsub="http://www.mulesoft.org/schema/mule/pubsub" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/pubsub/current/mule-pubsub.xsd">
+	<pubsub:config name="Google_Pub_Sub_Configuration" doc:name="Google Pub Sub Configuration" doc:id="f0f22c21-93a2-4656-9925-543a1a2df4c9" >
+		<pubsub:connection privateKeyId="${pubsub.private.key.id}" clientId="${pubsub.client.id}" clientEmail="${pubsub.client.email}" >
+			<pubsub:private-key ><![CDATA[${pubsub.private.key}]]></pubsub:private-key>
+		</pubsub:connection>
+	</pubsub:config>
+	<sub-flow name="client-pub-sub-shipment-receipt" doc:id="bb3ca948-b2d6-4c82-a909-c25e88b6003f" >
+		<pubsub:publish-message doc:name="Publish Message" doc:id="bf0f3de7-1387-439e-a2ef-2f69613c0451" config-ref="Google_Pub_Sub_Configuration" projectId="${pubsub.project.id}" topicName="${pubsub.topic.wms.receipt_events}">
+			<pubsub:message><![CDATA[#[payload]]]></pubsub:message>
+			<pubsub:attributes><![CDATA[#[output application/java
+---
+{
+	"action" : "shipment-recipt",
+	"project" : p('pubsub.project.confirm_receipt'),
+	"version" : p('pubsub.version.confirm_receipt')
+}]]]></pubsub:attributes>
+		</pubsub:publish-message>
+		<logger level="INFO" doc:name="Logger" doc:id="d2fa7208-87e2-43ad-ba6d-3eed4b1be8d9" message="#[payload]"/>
+	</sub-flow>
+	<sub-flow name="client-pub-sub-confirm-receipt" doc:id="ab90b12a-e63d-4295-8a8d-c86adc166c8c" >
+		<pubsub:publish-message doc:name="Publish Message" doc:id="b1b8123b-8cf1-4ab8-aa8a-506108a1ab87" config-ref="Google_Pub_Sub_Configuration" projectId="${pubsub.project.id}" topicName="${pubsub.topic.wms.receipt_events}" >
+			<pubsub:message ><![CDATA[#[payload]]]></pubsub:message>
+			<pubsub:attributes ><![CDATA[#[output application/java
+---
+{
+	"action" : "confirm-receipt",
+	"project" : p('pubsub.project.confirm_receipt'),
+	"version" : p('pubsub.version.confirm_receipt')
+}]]]></pubsub:attributes>
+		</pubsub:publish-message>
+		<logger level="INFO" doc:name="Logger" doc:id="1fc4c876-bd07-4d64-9d33-0366d487c059" message="#[payload]" />
+	</sub-flow>
+</mule>
