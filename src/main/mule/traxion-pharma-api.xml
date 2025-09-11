@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.44:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.45:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -532,6 +532,9 @@ attributes.queryParams.shipment_id]]></ee:set-variable>
         <flow-ref doc:name="orchestrator-kafka-wms-to-pisa-operations-confirm-receipt" doc:id="942390ce-0d03-4eae-b779-11080bf6eac9" name="orchestrator-kafka-wms-to-pisa-operations-confirm-receipt" />
     </flow>
     <flow name="post:\oms\orders\events:application\json:traxion-pharma-api-config">
-		<flow-ref doc:name="orchestrator-kafka-wmsby-to-oms-operations-order-events" doc:id="3be52ac1-d87b-48a5-913f-c81a4093ff3c" name="orchestrator-kafka-wmsby-to-oms-operations-order-events"/>
+        <flow-ref doc:name="orchestrator-kafka-wmsby-to-oms-operations-order-events" doc:id="3be52ac1-d87b-48a5-913f-c81a4093ff3c" name="orchestrator-kafka-wmsby-to-oms-operations-order-events" />
+    </flow>
+    <flow name="post:\oms\articles\inventory\status:application\json:traxion-pharma-api-config">
+		<flow-ref doc:name="orchestrator-kafka-wmsby-to-pisa-operations-article-inventory-status" doc:id="06c4b1df-fac3-4e4c-b182-67cadce608ec" name="orchestrator-kafka-wmsby-to-pisa-operations-article-inventory-status"/>
     </flow>
 </mule>

@@ -54,5 +54,9 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 	<sub-flow name="client-kafka-order-events" doc:id="cbe2cee6-d3fd-461a-8cc0-319ba0e64469" >
 		<kafka:publish doc:name="Publish" doc:id="624d66bf-47d8-4ece-bd64-fb27b0639b70" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.wms.oms.order.events.in}"/>
 		<logger level="INFO" doc:name="Logger" doc:id="1065032c-f1fc-48ed-9abb-2a0353e9d346" message="payload" />
+	</sub-flow>
+	<sub-flow name="client-kafka-article-inventory-status" doc:id="108a90cf-3e40-47cf-8abe-0a8bbed33a94" >
+		<kafka:publish doc:name="Publish" doc:id="da7d5062-78b2-4a9e-a45f-08ff9baa44a9" config-ref="Apache_Kafka_Producer_configuration" topic="${kafka.settings.wms.oms.articles.inventory.status.in}" />
+		<logger level="INFO" doc:name="Logger" doc:id="f164c538-b5c3-4938-9c08-4ecc67f51d68" message="payload" />
 	</sub-flow>	
 </mule>
