@@ -510,8 +510,6 @@ attributes.queryParams.shipment_id]]></ee:set-variable>
     <flow name="post:\oms\orders\REMISSION:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="orchestrator-kafka-operations-create-remision" doc:id="795ed8c6-f12e-4e23-a11a-59709b16f663" name="orchestrator-kafka-operations-create-remision" />
     </flow>
-    <flow name="post:\oms\orders\REMISSION\events:application\json:traxion-pharma-api-config">
-    </flow>
     <flow name="post:\oms\articles\inventory:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="orchestrator-kafka-wmsby-by-to-oms-operations-article-inventory" doc:id="00eeb488-1152-43d6-82c8-0e6dba7ea1b5" name="orchestrator-kafka-wmsby-by-to-oms-operations-article-inventory" />
     </flow>
