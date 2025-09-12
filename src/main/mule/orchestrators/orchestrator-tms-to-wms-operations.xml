@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="orchestrator-tms-to-wms-operations-appointment-confirmation" doc:id="160f54d0-8e9c-4b2e-8fd0-93515ce93a55" >
+		<ee:transform doc:name="Transform Message" doc:id="32e1f882-c550-48c5-83fc-c89c13e494c3" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="3358b28c-00e0-43e5-a752-a860d8aa1578" message="#[payload]" />
+		<flow-ref doc:name="client-pub-sub-appointment-confirmation" doc:id="341d8a04-c3fb-4c7a-9737-ad212e7685cd" name="client-pub-sub-appointment-confirmation" />
+		<ee:transform doc:name="Transform Message1" doc:id="e4d6c95d-46bd-4a1a-87a8-9c72f3828bcf" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+{
+    "traxion_response": {
+        "response": {
+            "message": "successful",
+            "data": {
+              "transactionId": correlationId
+            }
+        },
+        "completedSuccessfully": true
+    }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

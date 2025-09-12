@@ -94,7 +94,7 @@ payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="c00d1b9e-3105-4eae-9165-acdcf48b59c9" message="#[payload]"/>
-		<flow-ref doc:name="client-kafka-publish-events-remision" doc:id="1363954a-2430-4842-9266-fb0a6a697a4a" name="client-kafka-publish-events-remision" />
+		<flow-ref doc:name="client-pub-sub-order-events-by-tms" doc:id="1363954a-2430-4842-9266-fb0a6a697a4a" name="client-pub-sub-order-events-by-tms" />
 		<ee:transform doc:name="Transform Message1" doc:id="4a9b8fcd-400e-495a-a06f-0f490e462e04" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -126,7 +126,7 @@ payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="3607c212-1ef2-4fdf-bf17-beaa77b95bf2" message="#[payload]" />
-		<flow-ref doc:name="client-kafka-publish-article-inventory" doc:id="4eac4084-c45d-4638-8261-b2fd4fb393a9" name="client-kafka-publish-article-inventory" />
+		<flow-ref doc:name="client-pub-sub-article-inventory" doc:id="4eac4084-c45d-4638-8261-b2fd4fb393a9" name="client-pub-sub-article-inventory" />
 		<ee:transform doc:name="Transform Message1" doc:id="8e883f85-6fa8-4d35-a131-8117c03b4bc5" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -158,7 +158,7 @@ payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="7ef0295a-80c0-4257-8a5f-06f51574628e" message="#[payload]" />
-		<flow-ref doc:name="client-kafka-order-events" doc:id="ae0a68b7-b387-4fe9-9548-9f027383e0c6" name="client-kafka-order-events" />
+		<flow-ref doc:name="client-pub-sub-order-events" doc:id="ae0a68b7-b387-4fe9-9548-9f027383e0c6" name="client-pub-sub-order-events" />
 		<ee:transform doc:name="Transform Message1" doc:id="a6e53194-f0d2-43da-bacd-fc0ac386df19" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0

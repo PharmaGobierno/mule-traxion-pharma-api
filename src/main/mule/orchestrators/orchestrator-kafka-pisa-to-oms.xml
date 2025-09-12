@@ -58,7 +58,7 @@ output application/json
 // - Destino]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-			<flow-ref doc:name="client-kafka-create-order" doc:id="bf18d3d6-4438-4ec1-962f-3823464ea7c6" name="client-kafka-create-order" />
+			<flow-ref doc:name="client-pub-sub-create-order" doc:id="bf18d3d6-4438-4ec1-962f-3823464ea7c6" name="client-pub-sub-create-order" />
 		</foreach>
 		<ee:transform doc:name="Transform Message1" doc:id="9dae25d3-3181-4bf9-ba2c-a7a7f8f8b0e8" >
 			<ee:message >

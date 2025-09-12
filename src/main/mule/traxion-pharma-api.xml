@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.46:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.47:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -511,7 +511,6 @@ attributes.queryParams.shipment_id]]></ee:set-variable>
         <flow-ref doc:name="orchestrator-kafka-operations-create-remision" doc:id="795ed8c6-f12e-4e23-a11a-59709b16f663" name="orchestrator-kafka-operations-create-remision" />
     </flow>
     <flow name="post:\oms\orders\REMISSION\events:application\json:traxion-pharma-api-config">
-        <flow-ref doc:name="orchestrator-kafka-operations-events-remision" doc:id="eb5e1cfb-65bb-4c27-a144-ea6b7a3a17b3" name="orchestrator-kafka-operations-events-remision" />
     </flow>
     <flow name="post:\oms\articles\inventory:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="orchestrator-kafka-wmsby-by-to-oms-operations-article-inventory" doc:id="00eeb488-1152-43d6-82c8-0e6dba7ea1b5" name="orchestrator-kafka-wmsby-by-to-oms-operations-article-inventory" />
@@ -535,6 +534,12 @@ attributes.queryParams.shipment_id]]></ee:set-variable>
         <flow-ref doc:name="orchestrator-kafka-wmsby-to-oms-operations-order-events" doc:id="3be52ac1-d87b-48a5-913f-c81a4093ff3c" name="orchestrator-kafka-wmsby-to-oms-operations-order-events" />
     </flow>
     <flow name="post:\pisa\inventory\status:application\json:traxion-pharma-api-config">
-		<flow-ref doc:name="orchestrator-kafka-wmsby-to-pisa-operations-article-inventory-status" doc:id="06c4b1df-fac3-4e4c-b182-67cadce608ec" name="orchestrator-kafka-wmsby-to-pisa-operations-article-inventory-status" />
+        <flow-ref doc:name="orchestrator-kafka-wmsby-to-pisa-operations-article-inventory-status" doc:id="06c4b1df-fac3-4e4c-b182-67cadce608ec" name="orchestrator-kafka-wmsby-to-pisa-operations-article-inventory-status" />
+    </flow>
+    <flow name="post:\wms\by\appointment\confirmation:application\json:traxion-pharma-api-config">
+        <flow-ref doc:name="orchestrator-tms-to-wms-operations-appointment-confirmation" doc:id="78d64745-8aa1-4ec5-9e31-c2d88553c8a6" name="orchestrator-tms-to-wms-operations-appointment-confirmation"/>
+    </flow>
+    <flow name="post:\oms\orders\tms\events:application\json:traxion-pharma-api-config">
+		<flow-ref doc:name="orchestrator-kafka-operations-events-remision" doc:id="ad7bffb2-3118-4373-94aa-0fbb07bcf82f" name="orchestrator-kafka-operations-events-remision"/>
     </flow>
 </mule>

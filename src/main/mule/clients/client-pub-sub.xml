@@ -15,6 +15,7 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes><![CDATA[#[output application/java
 ---
 {
+	"company" : "pisa",
 	"action" : "shipment-recipt",
 	"project" : p('pubsub.project.confirm_receipt'),
 	"version" : p('pubsub.version.confirm_receipt')
@@ -28,11 +29,110 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
+	"company" : "wms",
 	"action" : "confirm-receipt",
 	"project" : p('pubsub.project.confirm_receipt'),
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
 		<logger level="INFO" doc:name="Logger" doc:id="1fc4c876-bd07-4d64-9d33-0366d487c059" message="#[payload]" />
+	</sub-flow>
+	<sub-flow name="client-pub-sub-article-inventory" doc:id="d7f96cca-291e-4698-8ef6-d3a3e63b73a0" >
+		<pubsub:publish-message doc:name="Publish Message" doc:id="34f52e2d-3230-40b3-b530-59a25f12a1f8" config-ref="Google_Pub_Sub_Configuration" projectId="${pubsub.project.id}" topicName="${pubsub.topic.wms.article_inventory}" >
+			<pubsub:message ><![CDATA[#[payload]]]></pubsub:message>
+			<pubsub:attributes ><![CDATA[#[output application/java
+---
+{
+	"company" : "wms",
+	"action" : "article-inventory",
+	"project" : p('pubsub.project.confirm_receipt'),
+	"version" : p('pubsub.version.confirm_receipt')
+}]]]></pubsub:attributes>
+		</pubsub:publish-message>
+		<logger level="INFO" doc:name="Logger" doc:id="c47b2b9f-0f4f-4cac-865a-7684b3d687e1" message="#[payload]" />
+	</sub-flow>
+	<sub-flow name="client-pub-sub-supplier-notifications" doc:id="50e5e1cd-5f05-4054-bb64-780582e3028e" >
+		<pubsub:publish-message doc:name="Publish Message" doc:id="6e60213f-1f51-40a3-ad8d-963471a7d1be" config-ref="Google_Pub_Sub_Configuration" projectId="${pubsub.project.id}" topicName="${pubsub.topic.wms.supplier_notifications}" >
+			<pubsub:message ><![CDATA[#[payload]]]></pubsub:message>
+			<pubsub:attributes ><![CDATA[#[output application/java
+---
+{
+	"company" : "wms",
+	"action" : "order-events",
+	"project" : p('pubsub.project.confirm_receipt'),
+	"version" : p('pubsub.version.confirm_receipt')
+}]]]></pubsub:attributes>
+		</pubsub:publish-message>
+		<logger level="INFO" doc:name="Logger" doc:id="27e5123f-02b2-4454-bd4d-b81950b2f6dc" message="#[payload]" />
+	</sub-flow>
+	<sub-flow name="client-pub-sub-order-events" doc:id="9e8d1e7f-9eab-44ac-ade7-706adb270300" >
+		<pubsub:publish-message doc:name="Publish Message" doc:id="b1fd0fc9-1be2-45e4-beb4-6b77901f090f" config-ref="Google_Pub_Sub_Configuration" projectId="${pubsub.project.id}" topicName="${pubsub.topic.wms.order_events}" >
+			<pubsub:message ><![CDATA[#[payload]]]></pubsub:message>
+			<pubsub:attributes ><![CDATA[#[output application/java
+---
+{
+	"company" : "wms",
+	"action" : "order-events",
+	"project" : p('pubsub.project.confirm_receipt'),
+	"version" : p('pubsub.version.confirm_receipt')
+}]]]></pubsub:attributes>
+		</pubsub:publish-message>
+		<logger level="INFO" doc:name="Logger" doc:id="7e2ee1c4-7b0d-494c-be62-bd132a41af09" message="#[payload]" />
+	</sub-flow>
+	<sub-flow name="client-pub-sub-create-order" doc:id="d1590992-18b9-42cb-bda5-ad8d2d6000a3" >
+		<pubsub:publish-message doc:name="Publish Message" doc:id="47f58dee-6edb-453d-bf90-8e3b9f5ed05d" config-ref="Google_Pub_Sub_Configuration" projectId="${pubsub.project.id}" topicName="${pubsub.topic.wms.create_order}" >
+			<pubsub:message ><![CDATA[#[payload]]]></pubsub:message>
+			<pubsub:attributes ><![CDATA[#[output application/java
+---
+{
+	"company" : "wms",
+	"action" : "order-events",
+	"project" : p('pubsub.project.confirm_receipt'),
+	"version" : p('pubsub.version.confirm_receipt')
+}]]]></pubsub:attributes>
+		</pubsub:publish-message>
+		<logger level="INFO" doc:name="Logger" doc:id="0ce2cdd6-40f2-4a49-9c71-ba699c99629a" message="#[payload]" />
+	</sub-flow>
+	<sub-flow name="client-pub-sub-article-inventory-status" doc:id="dad5bf59-1eed-4d94-9025-e5157fd9aa69" >
+		<pubsub:publish-message doc:name="Publish Message" doc:id="1c75b38a-e465-46df-afc9-4cbc17fb8ee0" config-ref="Google_Pub_Sub_Configuration" projectId="${pubsub.project.id}" topicName="${pubsub.topic.wms.article_inventory_status}" >
+			<pubsub:message ><![CDATA[#[payload]]]></pubsub:message>
+			<pubsub:attributes ><![CDATA[#[output application/java
+---
+{
+	"company" : "wms",
+	"action" : "order-events",
+	"project" : p('pubsub.project.confirm_receipt'),
+	"version" : p('pubsub.version.confirm_receipt')
+}]]]></pubsub:attributes>
+		</pubsub:publish-message>
+		<logger level="INFO" doc:name="Logger" doc:id="ff6a11f1-8dd9-4053-b1a4-e07571461d05" message="#[payload]" />
+	</sub-flow>
+	<sub-flow name="client-pub-sub-order-events-by-tms" doc:id="345c1cd9-a06f-4565-ad0e-a79ede6cf433" >
+		<pubsub:publish-message doc:name="Publish Message" doc:id="5d617060-6198-4a3a-bd27-945504d8330d" config-ref="Google_Pub_Sub_Configuration" projectId="${pubsub.project.id}" topicName="${pubsub.topic.wms.order_events_tms}" >
+			<pubsub:message ><![CDATA[#[payload]]]></pubsub:message>
+			<pubsub:attributes ><![CDATA[#[output application/java
+---
+{
+	"company" : "wms",
+	"action" : "order-events",
+	"project" : p('pubsub.project.confirm_receipt'),
+	"version" : p('pubsub.version.confirm_receipt')
+}]]]></pubsub:attributes>
+		</pubsub:publish-message>
+		<logger level="INFO" doc:name="Logger" doc:id="17b4d78d-1166-44cf-b8f7-7923283af7d8" message="#[payload]" />
+	</sub-flow>
+	<sub-flow name="client-pub-sub-appointment-confirmation" doc:id="ac058ddc-d508-46d9-a1a2-6e74bdcd5874" >
+		<pubsub:publish-message doc:name="Publish Message" doc:id="06f9eb64-f111-4f5e-837e-c02c744c19e4" config-ref="Google_Pub_Sub_Configuration" projectId="${pubsub.project.id}" topicName="${pubsub.topic.wms.appointment_confirmation}" >
+			<pubsub:message ><![CDATA[#[payload]]]></pubsub:message>
+			<pubsub:attributes ><![CDATA[#[output application/java
+---
+{
+	"company" : "wms",
+	"action" : "order-events",
+	"project" : p('pubsub.project.confirm_receipt'),
+	"version" : p('pubsub.version.confirm_receipt')
+}]]]></pubsub:attributes>
+		</pubsub:publish-message>
+		<logger level="INFO" doc:name="Logger" doc:id="8547ec2f-090d-4aaa-b0fc-e0e4dc1a81af" message="#[payload]" />
 	</sub-flow>
 </mule>

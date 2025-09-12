@@ -15,7 +15,7 @@ output application/json
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<flow-ref doc:name="client-kafka-publish-supplier-notifications" doc:id="9c89783c-49ba-49ee-8c7e-df4fb1d55be7" name="client-kafka-publish-supplier-notifications"/>
+		<flow-ref doc:name="client-pub-sub-supplier-notifications" doc:id="9c89783c-49ba-49ee-8c7e-df4fb1d55be7" name="client-pub-sub-supplier-notifications"/>
 		<ee:transform doc:name="Transform Message1" doc:id="ba3468bb-e1e6-4d89-8e93-a60330abbd2b" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -77,7 +77,7 @@ payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="b5422b60-13a7-4f3d-99e0-2739104fad31" message="#[payload]" />
-		<flow-ref doc:name="client-kafka-article-inventory-status" doc:id="9652f8a5-2470-4c7e-9370-bcf7cb910a1d" name="client-kafka-article-inventory-status"/>
+		<flow-ref doc:name="client-pub-sub-article-inventory-status" doc:id="9652f8a5-2470-4c7e-9370-bcf7cb910a1d" name="client-pub-sub-article-inventory-status"/>
 		<ee:transform doc:name="Transform Message1" doc:id="a3b57534-3877-480d-bd84-dfcd16de23b0" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
