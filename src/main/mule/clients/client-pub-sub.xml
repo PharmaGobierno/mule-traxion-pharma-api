@@ -15,9 +15,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes><![CDATA[#[output application/java
 ---
 {
-	"company" : "pisa",
-	"action" : "shipment-recipt",
-	"project" : p('pubsub.project.confirm_receipt'),
+	"company" : vars.system,
+	"operation" : "shipment-receipt",
+	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -29,9 +29,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : "wms",
-	"action" : "confirm-receipt",
-	"project" : p('pubsub.project.confirm_receipt'),
+	"company" : vars.system,
+	"operation" : "confirm-receipt",
+	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -43,9 +43,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : "wms",
-	"action" : "article-inventory",
-	"project" : p('pubsub.project.confirm_receipt'),
+	"company" : vars.system,
+	"operation" : "article-inventory",
+	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -57,9 +57,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : "wms",
-	"action" : "order-events",
-	"project" : p('pubsub.project.confirm_receipt'),
+	"company" : vars.system,
+	"operation" : "supplier_notifications",
+	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -71,9 +71,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : "wms",
-	"action" : "order-events",
-	"project" : p('pubsub.project.confirm_receipt'),
+	"company" : vars.system,
+	"operation" : "order-events",
+	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -85,9 +85,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : "wms",
-	"action" : "order-events",
-	"project" : p('pubsub.project.confirm_receipt'),
+	"company" : vars.system,
+	"operation" : "create-order",
+	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -99,9 +99,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : "wms",
-	"action" : "order-events",
-	"project" : p('pubsub.project.confirm_receipt'),
+	"company" : vars.system,
+	"operation" : "inventory-status",
+	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -113,9 +113,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : "wms",
-	"action" : "order-events",
-	"project" : p('pubsub.project.confirm_receipt'),
+	"company" : vars.system,
+	"operation" : "order-events-by-tms",
+	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -127,9 +127,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : "wms",
-	"action" : "order-events",
-	"project" : p('pubsub.project.confirm_receipt'),
+	"company" : vars.system,
+	"operation" : "appointment-confirmation",
+	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
