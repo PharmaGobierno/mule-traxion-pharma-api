@@ -16,6 +16,7 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 ---
 {
 	"company" : vars.system,
+	"event" : "RECEIPT_GOODS_RECEIPT",
 	"operation" : "shipment-receipt",
 	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
@@ -30,6 +31,7 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 ---
 {
 	"company" : vars.system,
+	"event" : "RECEIPT_GOODS_CONFIRM",
 	"operation" : "confirm-receipt",
 	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
@@ -44,7 +46,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 ---
 {
 	"company" : vars.system,
+	"event" : "Value",
 	"operation" : "article-inventory",
+	"action" : "Value",
 	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
@@ -57,8 +61,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system,
-	"operation" : "supplier_notifications",
+	"company" : vars.system default "TMS",
+	"event" : "ORDER_FULFILLED",
+	"order_type" : "REMISSION_PISA",
 	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
@@ -72,7 +77,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 ---
 {
 	"company" : vars.system,
-	"operation" : "order-events",
+	"event" : vars.event,
+	"action" : vars.status,
+	"order_type" : "REMISSION_PISA",
 	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
@@ -86,7 +93,7 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 ---
 {
 	"company" : vars.system,
-	"operation" : "create-order",
+	"event" : "ORDER_CREATED",
 	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
@@ -100,7 +107,7 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 ---
 {
 	"company" : vars.system,
-	"operation" : "inventory-status",
+	"event" : "INVENTORY_STATUS_UPDATE",
 	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
@@ -128,7 +135,8 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 ---
 {
 	"company" : vars.system,
-	"operation" : "appointment-confirmation",
+	"event" : "APPOINTMENT_CONFIRMED",
+	"order_type" : "REMISSION_PISA",
 	"project" : vars.project,
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>

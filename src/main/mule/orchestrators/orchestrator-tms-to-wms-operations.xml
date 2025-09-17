@@ -13,6 +13,8 @@ output application/json
 
 payload]]></ee:set-payload>
 			</ee:message>
+			<ee:variables >
+			</ee:variables>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="3358b28c-00e0-43e5-a752-a860d8aa1578" message="#[payload]" />
 		<flow-ref doc:name="client-pub-sub-appointment-confirmation" doc:id="341d8a04-c3fb-4c7a-9737-ad212e7685cd" name="client-pub-sub-appointment-confirmation" />

@@ -6,8 +6,7 @@
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<sub-flow name="orchestrator-kafka-pisa-to-oms-create-order" doc:id="0ba960ca-dce9-496f-b370-941aba4c9c05" >
 		<logger level="INFO" doc:name="Logger" doc:id="f6faa9ac-ac1f-45f8-a8f8-93104e99bed1" message="#[payload]" />
-		<foreach doc:name="For Each" doc:id="a28d9a66-6cae-4bbd-9ee3-4690273ff768" collection="#[payload.create_order]">
-			<ee:transform doc:name="Transform Message" doc:id="13553660-0293-4b27-a5f4-7c051a02f555">
+		<ee:transform doc:name="Transform Message" doc:id="13553660-0293-4b27-a5f4-7c051a02f555">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -58,8 +57,7 @@ output application/json
 // - Destino]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-			<flow-ref doc:name="client-pub-sub-create-order" doc:id="bf18d3d6-4438-4ec1-962f-3823464ea7c6" name="client-pub-sub-create-order" />
-		</foreach>
+		<flow-ref doc:name="client-pub-sub-create-order" doc:id="bf18d3d6-4438-4ec1-962f-3823464ea7c6" name="client-pub-sub-create-order" />
 		<ee:transform doc:name="Transform Message1" doc:id="9dae25d3-3181-4bf9-ba2c-a7a7f8f8b0e8" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
