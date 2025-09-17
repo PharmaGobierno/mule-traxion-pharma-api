@@ -36,16 +36,16 @@ output application/json
 		</ee:transform>
 	</sub-flow>
 	<sub-flow name="orchestrator-kafka-wms-to-pisa-operations-confirm-receipt" doc:id="b31cf1a5-9917-42a5-8394-248edc01b666" >
-		<logger level="INFO" doc:name="Logger" doc:id="0ffa821c-81ca-4e47-b465-2a98da80cd51" message="#[payload]" />
-		<ee:transform doc:name="Transform Message" doc:id="7a7d4e91-f537-49e6-8817-60e544a94c47" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
+		<ee:transform doc:name="Transform Message" doc:id="7a7d4e91-f537-49e6-8817-60e544a94c47">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 
-payload]]></ee:set-payload>
+payload.UC_TRX_INVENTORY_RECEIPT_IFD]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="0ffa821c-81ca-4e47-b465-2a98da80cd51" message="#[payload]" />
 		<flow-ref doc:name="client-pub-sub-confirm-receipt" doc:id="e9ba3c58-0daf-4553-9e38-9d24e41860a2" name="client-pub-sub-confirm-receipt" />
 		<ee:transform doc:name="Transform Message1" doc:id="5b667adb-a5e5-43b7-9faa-fff64d887316" >
 			<ee:message >
@@ -73,7 +73,7 @@ output application/json
 output application/json
 ---
 
-payload]]></ee:set-payload>
+payload.UC_TRX_INVENTORY_SNAPSHOT]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="b5422b60-13a7-4f3d-99e0-2739104fad31" message="#[payload]" />

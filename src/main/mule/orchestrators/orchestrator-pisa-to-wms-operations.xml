@@ -10,14 +10,15 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
- {
-  "metadata": {
-    "transaction_id": uuid(),
-    "source_system": "WMS_BY",
-    "transaction_type": "SHIPMENT_RECEIPT",
-    "timestamp": now()
-  },
-  "payload": payload
+
+{
+    "payload":payload,
+    "origin_timestamp" : 1757524635221,
+    "action": "SHIPMENT_RECEIPT",  // UPDATE, CANCEL
+    "publish_at": 1757524660486,
+    "project": "PISA", //attributo de filtro obligatorio
+    "company": "PISA", //attributo de filtro obligatorio
+    "version": "1" //attributo de filtro obligatorio
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>

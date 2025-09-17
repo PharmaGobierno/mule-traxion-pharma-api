@@ -15,10 +15,10 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system,
+	"company" : vars.system default "PISA",
 	"event" : "RECEIPT_GOODS_RECEIPT",
 	"operation" : "shipment-receipt",
-	"project" : vars.project,
+	"project" : vars.project default "PISA",
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -30,10 +30,10 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system,
+	"company" : vars.system default "WMS",
 	"event" : "RECEIPT_GOODS_CONFIRM",
 	"operation" : "confirm-receipt",
-	"project" : vars.project,
+	"project" : vars.project default "PISA",
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -45,11 +45,11 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system,
+	"company" : vars.system default "WMS",
 	"event" : "Value",
 	"operation" : "article-inventory",
 	"action" : "Value",
-	"project" : vars.project,
+	"project" : vars.project default "PISA",
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -64,7 +64,7 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 	"company" : vars.system default "TMS",
 	"event" : "ORDER_FULFILLED",
 	"order_type" : "REMISSION_PISA",
-	"project" : vars.project,
+	"project" : vars.project default "PISA",
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -76,11 +76,11 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system,
+	"company" : vars.system default "WMS",
 	"event" : vars.event,
 	"action" : vars.status,
 	"order_type" : "REMISSION_PISA",
-	"project" : vars.project,
+	"project" : vars.project default "PISA",
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -92,9 +92,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system,
+	"company" : vars.system default "PISA",
 	"event" : "ORDER_CREATED",
-	"project" : vars.project,
+	"project" : vars.project default "PISA",
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -106,9 +106,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system,
+	"company" : vars.system default "WMS",
 	"event" : "INVENTORY_STATUS_UPDATE",
-	"project" : vars.project,
+	"project" : vars.project default "PISA",
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -120,9 +120,9 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system,
+	"company" : vars.system default "TMS",
 	"operation" : "order-events-by-tms",
-	"project" : vars.project,
+	"project" : vars.project default "PISA",
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
@@ -134,10 +134,10 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system,
+	"company" : vars.system default "TMS",
 	"event" : "APPOINTMENT_CONFIRMED",
 	"order_type" : "REMISSION_PISA",
-	"project" : vars.project,
+	"project" : vars.project default "PISA",
 	"version" : p('pubsub.version.confirm_receipt')
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
