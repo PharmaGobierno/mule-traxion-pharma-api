@@ -151,7 +151,7 @@ output application/json
 ---
 
 {
-    "payload":payload,
+    "payload": payload.UC_TRX_INVENTORY_SNAPSHOT,
     "origin_timestamp" : now() as Number {unit: "milliseconds"},
     "event": "ARTICLE_INVENTORY",  // UPDATE, CANCEL
     "publish_at": now() as Number {unit: "milliseconds"},
@@ -184,6 +184,7 @@ output application/json
 		</ee:transform>
 	</sub-flow>
 	<sub-flow name="orchestrator-kafka-wmsby-to-oms-operations-order-events" doc:id="e7c36b17-8207-420a-b4e5-5d3472fe1995" >
+		<logger level="INFO" doc:name="Logger1" doc:id="14a80192-f1c7-4837-86e6-831a45a04be6" message="#[payload]" />
 		<ee:transform doc:name="Transform Message" doc:id="992b057a-832c-41f8-ad5b-e2e1bf077b3a" >
 			<ee:message >
 			</ee:message>
@@ -211,7 +212,7 @@ output application/json
 ---
 
 {
-    "payload":payload,
+    "payload": payload,
     "origin_timestamp" : now() as Number {unit: "milliseconds"},
     "event": vars.status,  // UPDATE, CANCEL
     "publish_at": now() as Number {unit: "milliseconds"},
