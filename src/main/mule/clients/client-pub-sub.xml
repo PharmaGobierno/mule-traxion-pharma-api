@@ -30,7 +30,7 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system default "WMS",
+	"company" : vars.system default "PISA",
 	"event" : "RECEIPT_GOODS_CONFIRM",
 	"operation" : "confirm-receipt",
 	"project" : vars.project default "PISA",
