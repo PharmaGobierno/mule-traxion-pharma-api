@@ -10,8 +10,15 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-
-payload]]></ee:set-payload>
+{
+    "payload": payload,
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},
+    "event": "APPOINTMENT_CONFIRMED",  // UPDATE, CANCEL
+    "publish_at": now() as Number {unit: "milliseconds"},
+    "project": "PISA", //attributo de filtro obligatorio
+    "company": "WMS", //attributo de filtro obligatorio
+    "version": "1" //attributo de filtro obligatorio
+}]]></ee:set-payload>
 			</ee:message>
 			<ee:variables >
 			</ee:variables>

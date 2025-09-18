@@ -12,49 +12,17 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-    "order_number": payload.order_number, // algun otro id: puede ser uno foreano o algun otro que sea util
-    "tracking_id": "", // remission_id
-    "items":[ 
-        { 
-            "id": "item-a1-bla-bla", // puede ser el mismo que el SKU
-            "sku": "A1-XXXX",
-            "description": "Optiona[str]", // puede ser null
-            "quantity": 100
-        },
-        { 
-            "id": "item-b2",
-            "sku": "B2-XXX",
-            "description": "Optiona[str]", // puede ser null
-            "quantity": 100
-        }
-    ],
-    "metadata": {
-        "delivery_date": 1756533600000, // int millis para saber la fecha u u hora de entrega, e.g. 1756533600000 -> 30-Agosto-2025
-        "appointment_delivery_date": 1756533600000, // Optional[int]
-        "comment": "Optional[str]", // puede ser null
+    "payload":{
+        "process_id": "76879",
+        "orders": payload.create_order
     },
-    "original_amount": "int", // original_amount (suma de quantity en items)
-    "destination": { // TBD
-        "id": "algo-id",
-        "displayable_name": "algo",
-        "company": null, // Optional[str]
-    },
-    "origin_platform": "PISA",
-    "origin_timestamp": 1745534082416, // int millis para saber la hora en que se prepara el msj para ser publicado , timestamp fisico real
-    "institution": "", // Optional[dict]  esto es lo que llama Dario "Institucion"?? 🚬
-    "author": {  // usuario el proceso del cual nos colgamos para la integracion
-        "id": "str",  
-        "name": "str",       
-        "type": "Opcional",   // TBD, propongo primera iteracion no ver que cargo tiene el man que (sea gerente de almacen, ans Senior, etc)        
-        "email": "Opcional"  // // puede ser null, cuando si lo tengan pos envienlo xD
-    },
-    "version": "1"
-}
-// - Institición
-// - Identificador Institucional ej. Or, OS, etc
-// - SKU
-// - Cantidad
-// - Destino]]></ee:set-payload>
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},
+    "event": "CREATE",  // UPDATE, CANCEL
+    "publish_at": now() as Number {unit: "milliseconds"},
+    "project": "PISA", //attributo de filtro obligatorio
+    "company": "PISA", //attributo de filtro obligatorio
+    "version": "1" //attributo de filtro obligatorio
+}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<flow-ref doc:name="client-pub-sub-create-order" doc:id="bf18d3d6-4438-4ec1-962f-3823464ea7c6" name="client-pub-sub-create-order" />

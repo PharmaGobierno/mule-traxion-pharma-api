@@ -86,11 +86,6 @@ output application/json
 	<sub-flow name="orchestrator-kafka-operations-events-remision" doc:id="b14afaf0-7e89-4981-abc7-7e2703e40da6" >
 		<ee:transform doc:name="Transform Message" doc:id="a2b31c28-2b3f-4660-8aa8-421962cd5e68" >
 			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-
-payload]]></ee:set-payload>
 			</ee:message>
 			<ee:variables >
 				<ee:set-variable variableName="status" ><![CDATA[%dw 2.0
@@ -106,6 +101,24 @@ traductorstatus(payload.status)
 
 
 ]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message2" doc:id="df6b5695-b4e1-45bf-a10f-21f8480816f3">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    "payload":payload,
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},
+    "event": "ARTICLE_INVENTORY",  // UPDATE, CANCEL
+    "publish_at": now() as Number {unit: "milliseconds"},
+    "project": "PISA", //attributo de filtro obligatorio
+    "company": "PISA", //attributo de filtro obligatorio
+    "version": "1" //attributo de filtro obligatorio
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables>
 			</ee:variables>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="c00d1b9e-3105-4eae-9165-acdcf48b59c9" message="#[payload]"/>
@@ -137,7 +150,15 @@ output application/json
 output application/json
 ---
 
-payload]]></ee:set-payload>
+{
+    "payload":payload,
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},
+    "event": "ARTICLE_INVENTORY",  // UPDATE, CANCEL
+    "publish_at": now() as Number {unit: "milliseconds"},
+    "project": "PISA", //attributo de filtro obligatorio
+    "company": "PISA", //attributo de filtro obligatorio
+    "version": "1" //attributo de filtro obligatorio
+}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="3607c212-1ef2-4fdf-bf17-beaa77b95bf2" message="#[payload]" />
@@ -165,11 +186,6 @@ output application/json
 	<sub-flow name="orchestrator-kafka-wmsby-to-oms-operations-order-events" doc:id="e7c36b17-8207-420a-b4e5-5d3472fe1995" >
 		<ee:transform doc:name="Transform Message" doc:id="992b057a-832c-41f8-ad5b-e2e1bf077b3a" >
 			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-
-payload]]></ee:set-payload>
 			</ee:message>
 			<ee:variables >
 				<ee:set-variable variableName="status" ><![CDATA[%dw 2.0
@@ -186,6 +202,25 @@ traductorstatus(payload.status)
 
 
 ]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message2" doc:id="e98202b8-265a-4544-a035-b89146914793">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+
+{
+    "payload":payload,
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},
+    "event": vars.status,  // UPDATE, CANCEL
+    "publish_at": now() as Number {unit: "milliseconds"},
+    "project": "PISA", //attributo de filtro obligatorio
+    "company": "PISA", //attributo de filtro obligatorio
+    "version": "1" //attributo de filtro obligatorio
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables>
 			</ee:variables>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="7ef0295a-80c0-4257-8a5f-06f51574628e" message="#[payload]" />

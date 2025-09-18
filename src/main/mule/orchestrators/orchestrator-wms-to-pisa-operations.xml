@@ -11,8 +11,16 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-
-payload]]></ee:set-payload>
+{
+    "payload": payload,
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},
+    "event": "ORDER_FULFILLED",  // UPDATE, CANCEL
+    "publish_at": now() as Number {unit: "milliseconds"},
+    "project": "PISA", //attributo de filtro obligatorio
+    "company": "PISA", //attributo de filtro obligatorio
+    "version": "1" //attributo de filtro obligatorio
+}
+]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<flow-ref doc:name="client-pub-sub-supplier-notifications" doc:id="9c89783c-49ba-49ee-8c7e-df4fb1d55be7" name="client-pub-sub-supplier-notifications"/>
@@ -42,7 +50,16 @@ output application/json
 output application/json
 ---
 
-payload.UC_TRX_INVENTORY_RECEIPT_IFD]]></ee:set-payload>
+
+{
+    "payload":payload.UC_TRX_INVENTORY_RECEIPT_IFD,
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},
+    "event": "RECEIPT_GOODS_CONFIRM",  // UPDATE, CANCEL
+    "publish_at": now() as Number {unit: "milliseconds"},
+    "project": "PISA", //attributo de filtro obligatorio
+    "company": "WMS", //attributo de filtro obligatorio
+    "version": "1" //attributo de filtro obligatorio
+}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="0ffa821c-81ca-4e47-b465-2a98da80cd51" message="#[payload]" />
@@ -73,7 +90,17 @@ output application/json
 output application/json
 ---
 
-payload.UC_TRX_INVENTORY_SNAPSHOT]]></ee:set-payload>
+
+
+{
+    "payload": payload.UC_TRX_INVENTORY_SNAPSHOT,
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},
+    "event": "INVENTORY_STATUS_UPDATE",  // UPDATE, CANCEL
+    "publish_at": now() as Number {unit: "milliseconds"},
+    "project": "PISA", //attributo de filtro obligatorio
+    "company": "WMS", //attributo de filtro obligatorio
+    "version": "1" //attributo de filtro obligatorio
+}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="b5422b60-13a7-4f3d-99e0-2739104fad31" message="#[payload]" />

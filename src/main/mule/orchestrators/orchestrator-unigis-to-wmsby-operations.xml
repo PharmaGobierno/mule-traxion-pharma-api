@@ -10,14 +10,14 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
- {
-  "metadata": {
-    "transaction_id": uuid(),
-    "source_system": "TMS_UNIGIS",
-    "transaction_type": "REMISSION_MODIFY",
-    "timestamp": now()
-  },
-  "payload": payload
+{
+    "payload":payload,
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},
+    "event": "LOAD_EVENTS",  // UPDATE, CANCEL
+    "publish_at": now() as Number {unit: "milliseconds"},
+    "project": "PISA", //attributo de filtro obligatorio
+    "company": "PISA", //attributo de filtro obligatorio
+    "version": "1" //attributo de filtro obligatorio
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
