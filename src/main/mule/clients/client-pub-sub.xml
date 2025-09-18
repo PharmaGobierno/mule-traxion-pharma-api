@@ -74,9 +74,8 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system default "WMS",
-	"event" : vars.event,
-	"action" : vars.status,
+	"company" : vars.system default "PISA",
+	"event" : vars.status,
 	"order_type" : "REMISSION_PISA",
 	"project" : vars.project default "PISA",
 	"version" : p('pubsub.version.confirm_receipt')
@@ -93,7 +92,8 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 	"company" : vars.system default "PISA",
 	"event" : "ORDER_CREATED",
 	"project" : vars.project default "PISA",
-	"version" : p('pubsub.version.confirm_receipt')
+	"version" : p('pubsub.version.confirm_receipt'),
+	"action_type" : "CREATED"
 }]]]></pubsub:attributes>
 		</pubsub:publish-message>
 		<logger level="INFO" doc:name="Logger" doc:id="0ce2cdd6-40f2-4a49-9c71-ba699c99629a" message="#[payload]" />
