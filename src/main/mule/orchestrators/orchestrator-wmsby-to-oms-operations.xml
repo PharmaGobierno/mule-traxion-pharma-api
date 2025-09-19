@@ -216,15 +216,9 @@ output application/json
 			<ee:variables >
 				<ee:set-variable variableName="status" ><![CDATA[%dw 2.0
 output application/json
-fun traductorstatus(aString)
-= aString match {
-  case "validar" -> "ORDER_VALIDATED"
-  case "cargar" -> "ORDER_ON_TRANSPORT"
- case "despacho" -> "ORDER_DISPATCHED"
-  else -> "UNKNOWN"
-}
+
 ---
-traductorstatus(payload.status)
+payload.order_status_change.STATUS
 
 
 ]]></ee:set-variable>
