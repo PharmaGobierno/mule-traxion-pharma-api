@@ -4,6 +4,8 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="prueba" doc:id="1f2d408c-24d6-4c65-af84-a71a56714c36" >
+	</sub-flow>
 	<sub-flow name="orchestrator-kafka-operations-modifica-remision" doc:id="c87e7afc-a10e-4607-b048-f52ac42dbeb3" >
 		<ee:transform doc:name="Transform Message" doc:id="b1a7f6dd-741d-4189-9792-531a36ccb283" >
 			<ee:message >
@@ -144,25 +146,49 @@ output application/json
 		</ee:transform>
 	</sub-flow>
 	<sub-flow name="orchestrator-kafka-wmsby-by-to-oms-operations-article-inventory" doc:id="0143fdac-1d5f-4194-a155-63feb105dd5c" >
-		<ee:transform doc:name="Transform Message" doc:id="945b300d-36eb-4697-8130-c3440ac32767" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
+		<ee:transform doc:name="Transform Message" doc:id="4ccc5120-49d3-4a8c-b907-3e69229126f3">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-
+payload.UC_TRX_INVENTORY_SNAPSHOT.inventory_snapshot
+    groupBy ((order, index) -> order.PRODUCT_NUMBER)
+    pluck ((value, key, index) -> value)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<foreach doc:name="For Each" doc:id="e3e163eb-6d46-4fb0-acb2-d4639d7bc785" collection="#[payload]">
+			<ee:transform doc:name="Transform Message" doc:id="945b300d-36eb-4697-8130-c3440ac32767">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
 {
-    "payload": payload.UC_TRX_INVENTORY_SNAPSHOT,
-    "origin_timestamp" : now() as Number {unit: "milliseconds"},
-    "event": "ARTICLE_INVENTORY",  // UPDATE, CANCEL
-    "publish_at": now() as Number {unit: "milliseconds"},
+    "payload": {
+        "process_id": correlationId,
+        "sku": payload[0].PRODUCT_NUMBER[0],
+        "brand": payload[0].BRAND[0],
+        "description": payload[0].DESCRIPTION[0], // Optional[str] cuando te la manden nos las mandas XD
+        "lotes": payload map(item) -> {
+            "id": item.LOT_NUMBER,
+            "expiration_date": item.EXPIRATION_DATE,
+            "quantity": item.QUANTITY,
+            "origin_warehouse": item.WAREHOUSE
+         }
+    },
+	"publish_at": now() as Number {unit: "milliseconds"},
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},// fecha de creacion del snapshot en WMS
+    "origin_platform": "WMS",
     "project": "PISA", //attributo de filtro obligatorio
     "company": "PISA", //attributo de filtro obligatorio
-    "version": "1" //attributo de filtro obligatorio
+    "version": "1", //attributo de filtro obligatorio
+    "action_type": "VIEW" // REQUEST
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+			<logger level="INFO" doc:name="Logger" doc:id="3870fc6f-aec3-41cb-ba25-1c2931db8ba2" message="#[payload]" />
+			<flow-ref doc:name="client-pub-sub-article-inventory" doc:id="4eac4084-c45d-4638-8261-b2fd4fb393a9" name="client-pub-sub-article-inventory" />
+		</foreach>
 		<logger level="INFO" doc:name="Logger" doc:id="3607c212-1ef2-4fdf-bf17-beaa77b95bf2" message="#[payload]" />
-		<flow-ref doc:name="client-pub-sub-article-inventory" doc:id="4eac4084-c45d-4638-8261-b2fd4fb393a9" name="client-pub-sub-article-inventory" />
 		<ee:transform doc:name="Transform Message1" doc:id="8e883f85-6fa8-4d35-a131-8117c03b4bc5" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
