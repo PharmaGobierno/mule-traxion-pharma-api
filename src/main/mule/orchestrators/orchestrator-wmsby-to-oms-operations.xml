@@ -171,7 +171,7 @@ output application/json
             "id": item.LOT_NUMBER,
             "expiration_date": item.EXPIRATION_DATE,
             "quantity": item.QUANTITY,
-            "origin_warehouse": item.WAREHOUSE
+            "origin_warehouse": item.ORIGIN_WAREHOUSE
          }
     },
 	"publish_at": now() as Number {unit: "milliseconds"},
