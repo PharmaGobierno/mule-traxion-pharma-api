@@ -84,6 +84,7 @@ output application/json
 		</ee:transform>
 	</sub-flow>
 		<sub-flow name="orchestrator-kafka-wmsby-to-pisa-operations-article-inventory-status" doc:id="ebd34186-8afe-4802-aa12-8b69cdf6dc9c" >
+		<logger level="INFO" doc:name="Logger" doc:id="fccfb6ac-7a4d-4db4-b9b9-c6e25aae0060" message="#[payload]"/>
 		<ee:transform doc:name="Transform Message" doc:id="8b0811f3-19d0-45a6-8a7e-619350f215c7" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
