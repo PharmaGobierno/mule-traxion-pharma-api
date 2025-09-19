@@ -20,7 +20,7 @@ output application/json
                 "order_type": item.order_type, 
                 "customer_id": item.customer_id, //id del cliente lugar al que se entrega destination e.j ISSSTE
                 "address_id": item.address_id, //id de la unidad   e.j Hospital reginal siglo XXI, Venustiano carranza
-                "products": item.products map (sku)->
+                "products": item.skus map (sku)->
                     {
                     "sku": item.sku, 
                     "quantity": sku.quantity, 
