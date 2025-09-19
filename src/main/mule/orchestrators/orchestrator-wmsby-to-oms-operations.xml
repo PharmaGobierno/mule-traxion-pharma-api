@@ -164,8 +164,8 @@ output application/json
     "payload": {
         "process_id": correlationId,
         "sku": payload[0].PRODUCT_NUMBER[0],
-        "brand": payload[0].BRAND[0],
-        "description": payload[0].DESCRIPTION[0], // Optional[str] cuando te la manden nos las mandas XD
+        "brand": payload[0].BRAND[0] default "",
+        "description": payload[0].DESCRIPTION[0] default "", // Optional[str] cuando te la manden nos las mandas XD
         "lotes": payload map(item) -> {
             "id": item.LOT_NUMBER,
             "expiration_date": item.EXPIRATION_DATE,

@@ -22,7 +22,7 @@ output application/json
                 "address_id": item.address_id, //id de la unidad   e.j Hospital reginal siglo XXI, Venustiano carranza
                 "products": item.skus map (sku)->
                     {
-                    "sku": item.sku, 
+                    "sku": sku.sku, 
                     "quantity": sku.quantity, 
                     "origin_warehouse": sku.origin_warehouse
                     },
