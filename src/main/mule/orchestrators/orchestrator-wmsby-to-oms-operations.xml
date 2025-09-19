@@ -144,6 +144,7 @@ output application/json
 		</ee:transform>
 	</sub-flow>
 	<sub-flow name="orchestrator-kafka-wmsby-by-to-oms-operations-article-inventory" doc:id="0143fdac-1d5f-4194-a155-63feb105dd5c" >
+		<logger level="INFO" doc:name="Logger" doc:id="654a9bdb-f73c-4eaf-80c3-b2aa959e9756" message="#[payload]"/>
 		<ee:transform doc:name="Transform Message" doc:id="4ccc5120-49d3-4a8c-b907-3e69229126f3">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
@@ -163,9 +164,9 @@ output application/json
 {
     "payload": {
         "process_id": correlationId,
-        "sku": payload[0].PRODUCT_NUMBER[0],
-        "brand": payload[0].BRAND[0] default "",
-        "description": payload[0].DESCRIPTION[0] default "", // Optional[str] cuando te la manden nos las mandas XD
+        "sku": payload.PRODUCT_NUMBER[0],
+        "brand": payload.BRAND[0] default "",
+        "description": payload.DESCRIPTION[0] default "", // Optional[str] cuando te la manden nos las mandas XD
         "lotes": payload map(item) -> {
             "id": item.LOT_NUMBER,
             "expiration_date": item.EXPIRATION_DATE,
