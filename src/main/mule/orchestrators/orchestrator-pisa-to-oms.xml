@@ -13,8 +13,25 @@ output application/json
 ---
 {
     "payload":{
-        "process_id": "76879",
-        "orders": payload.create_order
+        "process_id": correlationId,
+        "orders": payload.create_order map(item)->
+            {
+                "order_number": item.order_number,
+                "order_type": item.order_type, 
+                "customer_id": item.customer_id, //id del cliente lugar al que se entrega destination e.j ISSSTE
+                "address_id": item.address_id, //id de la unidad   e.j Hospital reginal siglo XXI, Venustiano carranza
+                "products": item.products map (sku)->
+                    {
+                    "sku": item.sku, 
+                    "quantity": sku.quantity, 
+                    "origin_warehouse": sku.origin_warehouse
+                    },
+                "institution_number": item.institution_number,
+                "issuance_date": item.issuance_date, // Optional[int] (***)emision de pedido ?
+                "delivery_date": item.max_delivery_date,  //*** // max_delivery_date
+                "appointment_delivery_date": "" // Optional[str]
+            }
+        
     },
     "origin_timestamp" : now() as Number {unit: "milliseconds"},
     "event": "CREATE",  // UPDATE, CANCEL
