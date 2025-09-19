@@ -233,7 +233,7 @@ output application/json
     "payload": {
         "tracking_id": payload.order_status_change.ORGREF,
         "event": payload.order_status_change.STATUS, //  [DISPATCH, ...]   
-        "event_timestamp": payload.order_status_change.EVENT_TIMESTAMP,   // momento en el que ocurre (utc, no reginal) , timestamp fisico real
+        "event_timestamp": payload.order_status_change.EVENT_TIMESTAMP as DateTime as Number {unit: "milliseconds"} ,   // momento en el que ocurre (utc, no reginal) , timestamp fisico real
         "event_note": null, // TBD default null Optional[dict]
         "author": {
             "id": "",   // obligatorio
@@ -255,7 +255,7 @@ output application/json
                 "item_id": item.PRODUCT_NUMBER, // sku
                 "lote_id": item.LOT_NUMBER,
                 "expiration_date": item.EXPIRATION_DATE,
-                "origin_warehouse": item.ORIGIN_WAREHOUSE,
+                "origin_warehouse": payload.order_status_change.ORIGIN_WAREHOUSE,
                 "accepted_quantity": item.QUANTITY
             }
     },
