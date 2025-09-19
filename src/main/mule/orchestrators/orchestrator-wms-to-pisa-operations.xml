@@ -93,7 +93,7 @@ output application/json
 
 
 {
-    "payload": payload.UC_TRX_INVENTORY_SNAPSHOT,
+    "payload": payload.'UC_TRX_INVENTORY-STATUS-CHANGE',
     "origin_timestamp" : now() as Number {unit: "milliseconds"},
     "event": "INVENTORY_STATUS_UPDATE",  // UPDATE, CANCEL
     "publish_at": now() as Number {unit: "milliseconds"},

@@ -41,6 +41,7 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger1" doc:id="594514d5-7178-4b9e-a35f-7c88839371e5" message="#[payload]" />
 		<flow-ref doc:name="client-pub-sub-create-order" doc:id="bf18d3d6-4438-4ec1-962f-3823464ea7c6" name="client-pub-sub-create-order" />
 		<ee:transform doc:name="Transform Message1" doc:id="9dae25d3-3181-4bf9-ba2c-a7a7f8f8b0e8" >
 			<ee:message >
