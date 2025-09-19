@@ -229,14 +229,36 @@ payload.order_status_change.STATUS
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-
 {
-    "payload": payload,
-    "origin_timestamp" : now() as Number {unit: "milliseconds"},
-    "event": vars.status,  // UPDATE, CANCEL
-    "publish_at": now() as Number {unit: "milliseconds"},
+    "payload": {
+        "tracking_id": payload.order_status_change.ORGREF,
+        "event": payload.order_status_change.STATUS, //  [DISPATCH, ...]   
+        "event_timestamp": payload.order_status_change.EVENT_TIMESTAMP,   // momento en el que ocurre (utc, no reginal) , timestamp fisico real
+        "event_note": null, // TBD default null Optional[dict]
+        "author": {
+            "id": "",   // obligatorio
+            "name": payload.order_status_change.USER,       
+            "type": "",  // hay manera que lo envie?        
+            "email": ""  // si lo tienen lo envian, sino null
+        },
+    },
+    "event": payload.order_status_change.STATUS, //attributo de filtro obligatorio
+    "publish_at":now() as Number {unit: "milliseconds"},
     "project": "PISA", //attributo de filtro obligatorio
     "company": "PISA", //attributo de filtro obligatorio
+    "origin_platform" : "WMS", // [TMS, WMS, ...]
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},
+    "order_type": "REMISSION_PISA", //attributo de filtro obligatorio
+    "context": { //Optional[dict]
+        "lotes": payload.order_status_change.order_details map(item)->
+            { 
+                "item_id": item.PRODUCT_NUMBER, // sku
+                "lote_id": item.LOT_NUMBER,
+                "expiration_date": item.EXPIRATION_DATE,
+                "origin_warehouse": item.ORIGIN_WAREHOUSE,
+                "accepted_quantity": item.QUANTITY
+            }
+    },
     "version": "1" //attributo de filtro obligatorio
 }]]></ee:set-payload>
 			</ee:message>
