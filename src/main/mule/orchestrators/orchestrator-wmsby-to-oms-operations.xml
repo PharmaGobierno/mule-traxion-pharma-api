@@ -4,8 +4,6 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	<sub-flow name="prueba" doc:id="1f2d408c-24d6-4c65-af84-a71a56714c36" >
-	</sub-flow>
 	<sub-flow name="orchestrator-kafka-operations-modifica-remision" doc:id="c87e7afc-a10e-4607-b048-f52ac42dbeb3" >
 		<ee:transform doc:name="Transform Message" doc:id="b1a7f6dd-741d-4189-9792-531a36ccb283" >
 			<ee:message >
