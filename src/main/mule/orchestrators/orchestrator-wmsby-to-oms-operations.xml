@@ -231,7 +231,7 @@ output application/json
 ---
 {
     "payload": {
-        "tracking_id": payload.order_status_change.ORGREF,
+        "tracking_id": payload.order_status_change.TRACKING_ID,
         "event": payload.order_status_change.STATUS, //  [DISPATCH, ...]   
         "event_timestamp": payload.order_status_change.EVENT_TIMESTAMP as DateTime as Number {unit: "milliseconds"} ,   // momento en el que ocurre (utc, no reginal) , timestamp fisico real
         "event_note": null, // TBD default null Optional[dict]
