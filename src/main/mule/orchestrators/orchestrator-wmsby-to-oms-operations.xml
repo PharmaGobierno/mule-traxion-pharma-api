@@ -259,7 +259,22 @@ fun toDate(aString) = aString[0 to 3] ++ "-" ++ aString[4 to 5] ++ "-" ++ aStrin
                 "expiration_date": (toDate(item.EXPIRATION_DATE) as DateTime) as Number {unit: "milliseconds"},
                 "origin_warehouse": payload.order_status_change.ORIGIN_WAREHOUSE,
                 "accepted_quantity": item.QUANTITY
-            }
+            },
+                "order_details":  payload.order_status_change.order_details map(ord)->  
+            {
+                "product_number":ord.PRODUCT_NUMBER,
+                "volume": ord.VOLUME,
+                "weight": ord.WEIGHT,
+                "bulk": ord.BULK,
+                "parcel": ord.PARCEL,
+                "lot_number": ord.LOT_NUMBER,
+                "expiration_date": (toDate(ord.EXPIRATION_DATE)as DateTime) as Number {unit: "milliseconds"},
+                "quantity": ord.QUANTITY,
+                "expected_quantity": ord.EXPECTED_QUANTITY,
+                "material_type": ord.MATERIAL_TYPE,
+                "condition_type": ord.CONDITION_TYPE
+            },
+            "delivery_id": payload.order_status_change.LOAD_ID
     },
     "version": "1" //attributo de filtro obligatorio
 }]]></ee:set-payload>
