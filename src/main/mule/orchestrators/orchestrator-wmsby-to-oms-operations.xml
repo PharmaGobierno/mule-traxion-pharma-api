@@ -164,7 +164,7 @@ fun toDate(aString) = aString[0 to 3] ++ "-" ++ aString[4 to 5] ++ "-" ++ aStrin
 ---
 {
     "payload": {
-        "process_id": "correlationId",
+        "process_id": correlationId,
         "sku": payload.PRODUCT_NUMBER[0],
         "brand": payload.BRAND[0] default "",
         "description": payload.DESCRIPTION[0] default "", // Optional[str] cuando te la manden nos las mandas XD
