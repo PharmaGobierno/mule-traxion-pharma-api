@@ -229,6 +229,7 @@ payload.order_status_change.STATUS
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
+fun toDate(aString) = aString[0 to 3] ++ "-" ++ aString[4 to 5] ++ "-" ++ aString[6 to 7] ++ "T" ++ aString[8 to 9] ++ ":" ++ aString[10 to 11] ++ ":" ++ aString[12 to 13] 
 ---
 {
     "payload": {
@@ -255,7 +256,7 @@ output application/json
             { 
                 "item_id": item.PRODUCT_NUMBER, // sku
                 "lote_id": item.LOT_NUMBER,
-                "expiration_date": item.EXPIRATION_DATE,
+                "expiration_date": (toDate(item.EXPIRATION_DATE) as DateTime) as Number {unit: "milliseconds"},
                 "origin_warehouse": payload.order_status_change.ORIGIN_WAREHOUSE,
                 "accepted_quantity": item.QUANTITY
             }
