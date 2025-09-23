@@ -160,16 +160,17 @@ payload.UC_TRX_INVENTORY_SNAPSHOT.inventory_snapshot
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
+fun toDate(aString) = aString[0 to 3] ++ "-" ++ aString[4 to 5] ++ "-" ++ aString[6 to 7] ++ "T" ++ aString[8 to 9] ++ ":" ++ aString[10 to 11] ++ ":" ++ aString[12 to 13] 
 ---
 {
     "payload": {
-        "process_id": correlationId,
+        "process_id": "correlationId",
         "sku": payload.PRODUCT_NUMBER[0],
         "brand": payload.BRAND[0] default "",
         "description": payload.DESCRIPTION[0] default "", // Optional[str] cuando te la manden nos las mandas XD
         "lotes": payload map(item) -> {
             "id": item.LOT_NUMBER,
-            "expiration_date": item.EXPIRATION_DATE,
+            "expiration_date": (toDate(item.EXPIRATION_DATE) as DateTime) as Number {unit: "milliseconds"},
             "quantity": item.QUANTITY,
             "origin_warehouse": item.ORIGIN_WAREHOUSE
          }
