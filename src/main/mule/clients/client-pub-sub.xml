@@ -141,4 +141,18 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 		</pubsub:publish-message>
 		<logger level="INFO" doc:name="Logger" doc:id="8547ec2f-090d-4aaa-b0fc-e0e4dc1a81af" message="#[payload]" />
 	</sub-flow>
+	<sub-flow name="client-pub-sub-send-tracking-tms" doc:id="5985a679-c022-47ed-98a3-1be82e0aad5b" >
+		<pubsub:publish-message doc:name="Publish Message" doc:id="00f062c8-b677-47ba-a613-6da62835ecbc" config-ref="Google_Pub_Sub_Configuration" projectId="${pubsub.project.id}" topicName="${pubsub.topic.tms.send_tracking}" >
+			<pubsub:message ><![CDATA[#[payload]]]></pubsub:message>
+			<pubsub:attributes ><![CDATA[#[output application/java
+---
+{
+	"company" : vars.system default "TMS",
+	"event" : "TRACKING_GPS",
+	"project" : vars.project default "PISA",
+	"version" : p('pubsub.version.confirm_receipt')
+}]]]></pubsub:attributes>
+		</pubsub:publish-message>
+		<logger level="INFO" doc:name="Logger" doc:id="69e7b66b-61f3-4fbe-b252-acef29bd46b5" message="#[payload]" />
+	</sub-flow>	
 </mule>

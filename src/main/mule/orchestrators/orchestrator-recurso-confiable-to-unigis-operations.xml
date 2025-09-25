@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="orchestrator-recurso-confiable-to-unigis-operations-send-tracking" doc:id="a52cf559-8818-4d96-8dc3-6ad1dba69775" >
+		<ee:transform doc:name="Transform Message" doc:id="1fdce77d-2a4e-4e45-a00b-0270d646a8e4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+ {
+  "metadata": {
+    "transaction_id": uuid(),
+    "source_system": "RECURSO_CONFIABLE",
+    "transaction_type": "TRACKING",
+    "timestamp": now()
+  },
+  "payload": payload
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="b9e15af6-f8df-4ef1-b3bb-2a72549a714d" message="#[payload]" />
+		<flow-ref doc:name="client-pub-sub-send-tracking-tms" doc:id="cf3df9f3-2d88-4cb9-9efd-41105c5ff3ac" name="client-pub-sub-send-tracking-tms" />
+		<ee:transform doc:name="Transform Message1" doc:id="c3b97d19-062d-4b7f-a418-7adc88247e68" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+{
+    "traxion_response": {
+        "response": {
+            "message": "successful",
+            "data": {
+              "transactionId": correlationId
+            }
+        },
+        "completedSuccessfully": true
+    }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

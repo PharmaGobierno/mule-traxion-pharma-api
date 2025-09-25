@@ -1,0 +1,17 @@
+%dw 2.0
+
+type auto_5985a679_c022_47ed_98a3_1be82e0aad5b_Input_Payload = {|
+  metadata: {|
+    transaction_id: String, 
+    source_system: String, 
+    transaction_type: String, 
+    timestamp: DateTime
+  |}, 
+  payload: {|
+    tracking_id?: String, 
+    events?: Array<{|      event?: String,       event_timestamp?: String,       comment?: Null,       context?: {|        dispatch_amount?: Null,         order_supply?: String      |},       author?: {|        id?: String,         name?: String,         "type"?: String,         email?: Null      |},       load_id?: String    |}>, 
+    origin?: String, 
+    origin_timestamp?: String
+  |} {"example": "{\\\"tracking_id\\\":\\\"8013147163\\\",\\\"events\\\":[{\\\"event\\\":\\\"DISPATCHED\\\",\\\"event_timestamp\\\":\\\"2025-07-07T15:55:57.532144Z\\\",\\\"comment\\\":null,\\\"context\\\":{\\\"dispatch_amount\\\":null,\\\"order_supply\\\":\\\"AEV-28-01-2025-28014361-SAEPGC\\\"},\\\"author\\\":{\\\"id\\\":\\\"EROSALES\\\",\\\"name\\\":\\\"ROSALES GARCIA, ELIAS ANDRES\\\",\\\"type\\\":\\\"MESA DE CONTROL\\\",\\\"email\\\":null},\\\"load_id\\\":\\\"0000000257\\\"}],\\\"origin\\\":\\\"BLUEYONDER\\\",\\\"origin_timestamp\\\":\\\"2025-07-07T15:55:57.532144Z\\\"}"}
+|}
+

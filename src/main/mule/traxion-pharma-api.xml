@@ -3,7 +3,7 @@
     <http:listener-config name="traxion-pharma-api-httpListenerConfig">
         <http:listener-connection host="${https.listener.host}" port="${https.listener.port}" protocol="HTTPS" readTimeout="${https.listener.read.timeout}" tlsContext="TLS_Context" />
     </http:listener-config>
-    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.48:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="traxion-pharma-api-config" api="resource::ab8117f6-d718-4307-b5f7-03262d589cd0:traxion-pharma-api:1.0.49:raml:zip:traxion-pharma-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="traxion-pharma-api-main">
         <http:listener config-ref="traxion-pharma-api-httpListenerConfig" path="${https.listener.path}">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -520,35 +520,35 @@ attributes.queryParams.shipment_id]]></ee:set-variable>
     </flow>
     <flow name="post:\pisa\suppliers\notification:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="traxion-pharma-api-set-vars" doc:id="6e67a99a-5a36-4ac7-9c19-3bc4184aaf47" name="traxion-pharma-api-set-vars" />
-		<flow-ref doc:name="orchestrator-kafka-wms-to-pisa-operations-suppliers-notification" doc:id="d0d03f09-5d92-4991-842d-431271aac7a9" name="orchestrator-kafka-wms-to-pisa-operations-suppliers-notification" />
+        <flow-ref doc:name="orchestrator-kafka-wms-to-pisa-operations-suppliers-notification" doc:id="d0d03f09-5d92-4991-842d-431271aac7a9" name="orchestrator-kafka-wms-to-pisa-operations-suppliers-notification" />
     </flow>
     <flow name="post:\wms\by\shipment\receipt:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="traxion-pharma-api-set-vars" doc:id="be65ff73-1d92-4bc4-aecb-21a1066df66e" name="traxion-pharma-api-set-vars" />
-		<flow-ref doc:name="orchestrator-kafka-pisa-to-wms-operations-shipment-receipt" doc:id="dec63001-b597-4150-90df-465aa2379198" name="orchestrator-kafka-pisa-to-wms-operations-shipment-receipt" />
+        <flow-ref doc:name="orchestrator-kafka-pisa-to-wms-operations-shipment-receipt" doc:id="dec63001-b597-4150-90df-465aa2379198" name="orchestrator-kafka-pisa-to-wms-operations-shipment-receipt" />
     </flow>
     <flow name="post:\oms\orders:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="traxion-pharma-api-set-vars" doc:id="374e5afb-07f3-425c-bb46-d5aef26a7dc4" name="traxion-pharma-api-set-vars" />
-		<flow-ref doc:name="orchestrator-kafka-pisa-to-oms-create-order" doc:id="9c3e9ada-939a-4479-b524-2702e2bdcd8c" name="orchestrator-kafka-pisa-to-oms-create-order" />
+        <flow-ref doc:name="orchestrator-kafka-pisa-to-oms-create-order" doc:id="9c3e9ada-939a-4479-b524-2702e2bdcd8c" name="orchestrator-kafka-pisa-to-oms-create-order" />
     </flow>
     <flow name="post:\pisa\confirm\receipt:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="traxion-pharma-api-set-vars" doc:id="d4213c5e-7c07-4ff2-b826-032308e0130c" name="traxion-pharma-api-set-vars" />
-		<flow-ref doc:name="orchestrator-kafka-wms-to-pisa-operations-confirm-receipt" doc:id="942390ce-0d03-4eae-b779-11080bf6eac9" name="orchestrator-kafka-wms-to-pisa-operations-confirm-receipt" />
+        <flow-ref doc:name="orchestrator-kafka-wms-to-pisa-operations-confirm-receipt" doc:id="942390ce-0d03-4eae-b779-11080bf6eac9" name="orchestrator-kafka-wms-to-pisa-operations-confirm-receipt" />
     </flow>
     <flow name="post:\oms\orders\events:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="traxion-pharma-api-set-vars" doc:id="5b196d99-e84c-4f25-a1c3-216ec22f4b09" name="traxion-pharma-api-set-vars" />
-		<flow-ref doc:name="orchestrator-kafka-wmsby-to-oms-operations-order-events" doc:id="3be52ac1-d87b-48a5-913f-c81a4093ff3c" name="orchestrator-kafka-wmsby-to-oms-operations-order-events" />
+        <flow-ref doc:name="orchestrator-kafka-wmsby-to-oms-operations-order-events" doc:id="3be52ac1-d87b-48a5-913f-c81a4093ff3c" name="orchestrator-kafka-wmsby-to-oms-operations-order-events" />
     </flow>
     <flow name="post:\pisa\inventory\status:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="traxion-pharma-api-set-vars" doc:id="cf063aef-86ce-4d01-8278-793d2aa83162" name="traxion-pharma-api-set-vars" />
-		<flow-ref doc:name="orchestrator-kafka-wmsby-to-pisa-operations-article-inventory-status" doc:id="06c4b1df-fac3-4e4c-b182-67cadce608ec" name="orchestrator-kafka-wmsby-to-pisa-operations-article-inventory-status" />
+        <flow-ref doc:name="orchestrator-kafka-wmsby-to-pisa-operations-article-inventory-status" doc:id="06c4b1df-fac3-4e4c-b182-67cadce608ec" name="orchestrator-kafka-wmsby-to-pisa-operations-article-inventory-status" />
     </flow>
     <flow name="post:\wms\by\appointment\confirmation:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="traxion-pharma-api-set-vars" doc:id="284d5b01-296c-4940-8490-74d19bf872cd" name="traxion-pharma-api-set-vars" />
-		<flow-ref doc:name="orchestrator-tms-to-wms-operations-appointment-confirmation" doc:id="78d64745-8aa1-4ec5-9e31-c2d88553c8a6" name="orchestrator-tms-to-wms-operations-appointment-confirmation" />
+        <flow-ref doc:name="orchestrator-tms-to-wms-operations-appointment-confirmation" doc:id="78d64745-8aa1-4ec5-9e31-c2d88553c8a6" name="orchestrator-tms-to-wms-operations-appointment-confirmation" />
     </flow>
     <flow name="post:\oms\orders\tms\events:application\json:traxion-pharma-api-config">
         <flow-ref doc:name="traxion-pharma-api-set-vars" doc:id="9ce21d26-7ee4-45d6-ab60-c1b09b6ef018" name="traxion-pharma-api-set-vars" />
-		<flow-ref doc:name="orchestrator-kafka-operations-events-remision" doc:id="ad7bffb2-3118-4373-94aa-0fbb07bcf82f" name="orchestrator-kafka-operations-events-remision" />
+        <flow-ref doc:name="orchestrator-kafka-operations-events-remision" doc:id="ad7bffb2-3118-4373-94aa-0fbb07bcf82f" name="orchestrator-kafka-operations-events-remision" />
     </flow>
     <sub-flow name="traxion-pharma-api-set-vars" doc:id="b2002f0c-8bb7-41a6-b4ed-d2ecdc10b8d0">
         <ee:transform doc:name="Transform Message" doc:id="7cdad2cc-53ef-47d5-be14-d487e65903b7">
@@ -565,4 +565,12 @@ attributes.queryParams.system]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
     </sub-flow>
+    <flow name="post:\rc\tracking\initialize:application\json:traxion-pharma-api-config">
+		<flow-ref doc:name="traxion-pharma-api-set-vars" doc:id="fbb3884c-7db6-4339-bb53-2532908e0108" name="traxion-pharma-api-set-vars"/>
+		<flow-ref doc:name="orchestrator-unigis-to-recurso-confiable-operations-initialize-tracking" doc:id="34a145de-032a-470a-9227-7c42ddb77d58" name="orchestrator-unigis-to-recurso-confiable-operations-initialize-tracking"/>
+    </flow>
+    <flow name="post:\tms\tracking:application\json:traxion-pharma-api-config">
+        <flow-ref doc:name="traxion-pharma-api-set-vars" doc:id="1e8d6e61-e1d2-4722-b254-0cd4e08fcb80" name="traxion-pharma-api-set-vars" />
+		<flow-ref doc:name="orchestrator-recurso-confiable-to-unigis-operations-send-tracking" doc:id="6b58a155-9785-4f99-beb6-0e24d78948de" name="orchestrator-recurso-confiable-to-unigis-operations-send-tracking"/>
+    </flow>
 </mule>
