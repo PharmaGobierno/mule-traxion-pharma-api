@@ -99,7 +99,7 @@ fun traductorstatus(aString)
   else -> "UNKNOWN"
 }
 ---
-traductorstatus(payload.status)
+"TRANSPORT_ARRIVED"
 
 
 ]]></ee:set-variable>
@@ -109,14 +109,30 @@ traductorstatus(payload.status)
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
+fun toDate(aString) = aString[0 to 3] ++ "-" ++ aString[4 to 5] ++ "-" ++ aString[6 to 7] ++ "T" ++ aString[8 to 9] ++ ":" ++ aString[10 to 11] ++ ":" ++ aString[12 to 13] 
 ---
 {
-    "payload":payload,
-    "origin_timestamp" : now() as Number {unit: "milliseconds"},
-    "event": "ARTICLE_INVENTORY",  // UPDATE, CANCEL
-    "publish_at": now() as Number {unit: "milliseconds"},
+    "payload": {
+        "tracking_id": payload.tracking_id,
+        "event": "TRANSPORT_ARRIVED", //  [DISPATCH, ...]   
+        "event_timestamp": payload.date_time as DateTime as Number {unit: "milliseconds"} ,   // momento en el que ocurre (utc, no reginal) , timestamp fisico real
+        "event_note": null, // TBD default null Optional[dict]
+        "author": {
+            "id": payload.destination_id,   // obligatorio
+            "name": "",       
+            "type": "",  // hay manera que lo envie?        
+            "email": ""  // si lo tienen lo envian, sino null
+        },
+    },
+    "event": "TRANSPORT_ARRIVED", //attributo de filtro obligatorio
+    "publish_at":now() as Number {unit: "milliseconds"},
     "project": "PISA", //attributo de filtro obligatorio
     "company": "PISA", //attributo de filtro obligatorio
+    "origin_platform" : "TMS", // [TMS, WMS, ...]
+    "origin_timestamp" : now() as Number {unit: "milliseconds"},
+    "order_type": "REMISSION_PISA", //attributo de filtro obligatorio
+    "context": { //Validar con OMS que pasa si envio vacios o no envio nada
+        },
     "version": "1" //attributo de filtro obligatorio
 }]]></ee:set-payload>
 			</ee:message>

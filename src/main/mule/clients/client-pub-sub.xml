@@ -119,6 +119,7 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 ---
 {
 	"company" : vars.system default "TMS",
+	"event" : vars.status,
 	"operation" : "order-events-by-tms",
 	"project" : vars.project default "PISA",
 	"version" : p('pubsub.version.confirm_receipt')
