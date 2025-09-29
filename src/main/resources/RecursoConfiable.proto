@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+service RecursoConfiableRPC {
+  rpc RegisterPlate (RegisterRequest) returns (RegisterReply);
+}
+
+message RegisterRequest {
+  string Plate = 1;
+  string LoadId = 2;
+  string LoadNumber = 3;
+}
+
+message RegisterReply {
+  string message = 1;
+}

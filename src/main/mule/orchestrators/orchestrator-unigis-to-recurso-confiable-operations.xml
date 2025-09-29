@@ -5,11 +5,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<sub-flow name="orchestrator-unigis-to-recurso-confiable-operations-initialize-tracking" doc:id="d96928d1-d77f-4144-99c4-a93ddbc4569e" >
-		<ee:transform doc:name="Transform Message" doc:id="cddf240a-12d4-420b-a445-c4186fa7b915" >
+		<!-- [STUDIO:"Transform Message"]<ee:transform doc:name="Transform Message" doc:id="cddf240a-12d4-420b-a445-c4186fa7b915" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
----
+&#45;&#45;-
  {
   "metadata": {
     "transaction_id": uuid(),
@@ -18,28 +18,38 @@ output application/json
     "timestamp": now()
   },
   "payload": payload
-}]]></ee:set-payload>
+}&#93;&#93;></ee:set-payload>
 			</ee:message>
-		</ee:transform>
+		</ee:transform> [STUDIO] -->
 		<logger level="INFO" doc:name="Logger" doc:id="9d403fdf-714e-4c00-a48f-0e415b5a2294" message="#[payload]" />
 		<ee:transform doc:name="Transform Message1" doc:id="da82daf4-2dc0-449f-b5b9-078a8b021dc6" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
+import java!com::traxion::grpc::StaticRecursoConfiableClient
 ---
-
-{
-    "traxion_response": {
-        "response": {
-            "message": "successful",
-            "data": {
-              "transactionId": correlationId
-            }
-        },
-        "completedSuccessfully": true
-    }
+do {
+	var plateToTest = payload.license_plates
+	var loadId = payload.load_id
+	var loadNumber = payload.order_number
+	var webhookRawResponse = StaticRecursoConfiableClient::registerPlate(plateToTest, loadId, loadNumber)
+	var parsedWebhookResponse = if (webhookRawResponse contains "WEBHOOK_RESPONSE:") 
+		read(webhookRawResponse replace "WEBHOOK_RESPONSE: " with "", "application/json")
+		else webhookRawResponse
+	---
+	{
+		"request_data": {
+			"plate": plateToTest,
+			"loadId": loadId,
+			"loadNumber": loadNumber
+		},
+		"webhook_response": parsedWebhookResponse,
+		"status": if (webhookRawResponse != null and webhookRawResponse != "") "SUCCESS" else "ERROR",
+		"timestamp": now()
+	}
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger1" doc:id="5a3dd0f1-0a60-42a9-8e97-161645bd3833" message="#[payload]" />
 	</sub-flow>
 </mule>
