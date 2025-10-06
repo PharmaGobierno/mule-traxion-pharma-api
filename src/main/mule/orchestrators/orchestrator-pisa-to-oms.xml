@@ -19,16 +19,25 @@ output application/json
                 "order_number": item.order_number,
                 "order_type": item.order_type default "REMISSION_PISA", 
                 "customer_id": item.customer_id, //id del cliente lugar al que se entrega destination e.j ISSSTE
-                "address_id": item.address_id, //id de la unidad   e.j Hospital reginal siglo XXI, Venustiano carranza
-                "products": item.skus map (sku)->
+                "address_id": item.address_delivery, //id de la unidad   e.j Hospital reginal siglo XXI, Venustiano carranza,  
+                "products": item.items map (sku)->
                     {
-                    "sku": sku.sku, 
+                    "sku": sku.SKU, 
                     "quantity": sku.quantity, 
-                    "origin_warehouse": sku.origin_warehouse
+                    "origin_warehouse": item.warehouse
                     },
                 "institution_number": item.institution_number,
-                "issuance_date": item.issuance_date as DateTime as Number {unit: "milliseconds"}, // Optional[int] (***)emision de pedido ?
-                "delivery_date": item.max_delivery_date as DateTime as Number {unit: "milliseconds"}  //*** // max_delivery_date
+                
+                "delivery_date": item.max_delivery_date as DateTime as Number {unit: "milliseconds"},  //*** // max_delivery_date
+ 
+                "metadata": {
+                    "issuance_date": item.issuance_date as DateTime as Number {unit: "milliseconds"}, // Optional[int] (***)emision de pedido ?
+                    "bid_number": item.bid_number,
+                    "contract_number": item.contract_number,
+                    "society": item.society, 
+                    "destination_center": item.destination_center,
+                    "address_ship_to": item.address_ship_to
+                }               
             }
         
     },
