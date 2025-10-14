@@ -52,7 +52,12 @@ output application/json
 
 
 {
-    "payload":payload.UC_TRX_INVENTORY_RECEIPT_IFD,
+    "payload": {
+    "confirm_receipt":
+flatten([
+payload.UC_TRX_INVENTORY_RECEIPT_IFD.confirm_receipt 
+])
+},
     "origin_timestamp" : now() as Number {unit: "milliseconds"},
     "event": "RECEIPT_GOODS_CONFIRM",  // UPDATE, CANCEL
     "publish_at": now() as Number {unit: "milliseconds"},

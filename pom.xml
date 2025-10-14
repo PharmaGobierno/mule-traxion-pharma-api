@@ -201,13 +201,6 @@
 			<version>1.1.0</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
-		<dependency>
-			<groupId>ab8117f6-d718-4307-b5f7-03262d589cd0</groupId>
-			<artifactId>traxion-pharma-api</artifactId>
-			<version>1.0.50</version>
-			<classifier>raml</classifier>
-			<type>zip</type>
-		</dependency>
 		<!-- gRPC Dependencies -->
 		<dependency>
 			<groupId>io.grpc</groupId>
@@ -240,6 +233,13 @@
 			<artifactId>junit</artifactId>
 			<version>4.13.2</version>
 			<scope>test</scope>
+			</dependency>
+		<dependency>
+			<groupId>ab8117f6-d718-4307-b5f7-03262d589cd0</groupId>
+			<artifactId>traxion-pharma-api</artifactId>
+			<version>1.0.52</version>
+			<classifier>raml</classifier>
+			<type>zip</type>
 		</dependency>
 	</dependencies>
 
