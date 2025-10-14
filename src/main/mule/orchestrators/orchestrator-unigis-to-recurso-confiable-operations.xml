@@ -38,15 +38,14 @@ do {
 		else webhookRawResponse
 	---
 	{
-		"request_data": {
-			"plate": plateToTest,
-			"loadId": loadId,
-			"loadNumber": loadNumber
-		},
-		"webhook_response": parsedWebhookResponse,
-		"status": if (webhookRawResponse != null and webhookRawResponse != "") "SUCCESS" else "ERROR",
-		"timestamp": now()
-	}
+	    "traxion_response": {
+	        "response": {
+	            "message": if (webhookRawResponse != null and webhookRawResponse != "") "SUCCESS" else "ERROR",
+	            "data": parsedWebhookResponse
+	        },
+	        "completed_successfully": true
+    }
+}
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>

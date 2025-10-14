@@ -4,11 +4,6 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/pubsub/current/mule-pubsub.xsd">
-	<pubsub:config name="Google_Pub_Sub_Configuration" doc:name="Google Pub Sub Configuration" doc:id="f0f22c21-93a2-4656-9925-543a1a2df4c9" >
-		<pubsub:connection privateKeyId="${pubsub.private.key.id}" clientId="${pubsub.client.id}" clientEmail="${pubsub.client.email}" >
-			<pubsub:private-key ><![CDATA[${pubsub.private.key}]]></pubsub:private-key>
-		</pubsub:connection>
-	</pubsub:config>
 	<sub-flow name="client-pub-sub-shipment-receipt" doc:id="bb3ca948-b2d6-4c82-a909-c25e88b6003f" >
 		<pubsub:publish-message doc:name="Publish Message" doc:id="bf0f3de7-1387-439e-a2ef-2f69613c0451" config-ref="Google_Pub_Sub_Configuration" projectId="${pubsub.project.id}" topicName="${pubsub.topic.wms.receipt_events}">
 			<pubsub:message><![CDATA[#[payload]]]></pubsub:message>

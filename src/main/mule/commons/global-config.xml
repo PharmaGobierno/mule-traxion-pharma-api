@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:kafka="http://www.mulesoft.org/schema/mule/kafka"
-	xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
-	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
-	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+<mule xmlns:pubsub="http://www.mulesoft.org/schema/mule/pubsub"
+	xmlns:kafka="http://www.mulesoft.org/schema/mule/kafka"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
 http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
 http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
-http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/kafka/current/mule-kafka.xsd">
+http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/kafka/current/mule-kafka.xsd
+http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/pubsub/current/mule-pubsub.xsd">
 	<tls:context name="TLS_Context" doc:name="TLS Context" doc:id="bb89a54d-a80c-42dc-aed5-c45904e9e8ca" >
 		<tls:key-store type="pkcs12" path="${https.listener.key.store.path}" keyPassword="${https.listener.key.store.key.password}" password="${https.listener.key.store.password}" />
 	</tls:context>
@@ -32,5 +33,9 @@ http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/ka
 			</kafka:bootstrap-servers>
 		</kafka:producer-sasl-plain-connection>
 	</kafka:producer-config> <!-- -->
-
+	<pubsub:config name="Google_Pub_Sub_Configuration" doc:name="Google Pub Sub Configuration" doc:id="a8f37c8a-f3d3-47cf-aec6-ac1e554c0991" >
+		<pubsub:connection privateKeyId="${pubsub.private.key.id}" clientId="${pubsub.client.id}" clientEmail="${pubsub.client.email}" >
+			<pubsub:private-key ><![CDATA[${pubsub.private.key}]]></pubsub:private-key>
+		</pubsub:connection>
+	</pubsub:config>
 </mule>
