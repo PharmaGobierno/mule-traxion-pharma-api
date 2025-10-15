@@ -276,8 +276,8 @@ fun toDate(aString) = aString[0 to 3] ++ "-" ++ aString[4 to 5] ++ "-" ++ aStrin
             { 
                 "item_id": item.PRODUCT_NUMBER, // sku
                 "lote_id": item.LOT_NUMBER,
-                "expiration_date": (toDate(item.EXPIRATION_DATE) as DateTime) as Number {unit: "milliseconds"},
-                "origin_warehouse": payload.order_status_change.ORIGIN_WAREHOUSE,
+               // "expiration_date": (toDate(item.EXPIRATION_DATE) as DateTime) as Number {unit: "milliseconds"},
+                //"origin_warehouse": payload.order_status_change.ORIGIN_WAREHOUSE,
                 "accepted_quantity": item.QUANTITY
             },
                 "order_details":  flatten([payload.order_status_change.order_details]) map(ord)->  
@@ -288,7 +288,7 @@ fun toDate(aString) = aString[0 to 3] ++ "-" ++ aString[4 to 5] ++ "-" ++ aStrin
                 "bulk": ord.BULK,
                 "parcel": ord.PARCEL,
                 "lot_number": ord.LOT_NUMBER,
-                "expiration_date": (toDate(ord.EXPIRATION_DATE)as DateTime) as Number {unit: "milliseconds"},
+               // "expiration_date": (toDate(ord.EXPIRATION_DATE)as DateTime) as Number {unit: "milliseconds"},
                 "quantity": ord.QUANTITY,
                 "expected_quantity": ord.EXPECTED_QUANTITY,
                 "material_type": ord.MATERIAL_TYPE,
