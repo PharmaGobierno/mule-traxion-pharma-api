@@ -272,7 +272,7 @@ fun toDate(aString) = aString[0 to 3] ++ "-" ++ aString[4 to 5] ++ "-" ++ aStrin
     "origin_timestamp" : now() as Number {unit: "milliseconds"},
     "order_type": "REMISSION_PISA", //attributo de filtro obligatorio
     "context": { //Optional[dict]
-        "lotes": payload.order_status_change.order_details map(item)->
+        "lotes": flatten([payload.order_status_change.order_details]) map(item)->
             { 
                 "item_id": item.PRODUCT_NUMBER, // sku
                 "lote_id": item.LOT_NUMBER,
@@ -280,7 +280,7 @@ fun toDate(aString) = aString[0 to 3] ++ "-" ++ aString[4 to 5] ++ "-" ++ aStrin
                 "origin_warehouse": payload.order_status_change.ORIGIN_WAREHOUSE,
                 "accepted_quantity": item.QUANTITY
             },
-                "order_details":  payload.order_status_change.order_details map(ord)->  
+                "order_details":  flatten([payload.order_status_change.order_details]) map(ord)->  
             {
                 "product_number":ord.PRODUCT_NUMBER,
                 "volume": ord.VOLUME,
