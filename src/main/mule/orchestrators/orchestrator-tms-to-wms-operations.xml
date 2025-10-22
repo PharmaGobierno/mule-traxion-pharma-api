@@ -11,7 +11,36 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-    "payload": payload,
+    "payload":  {
+        "whse_id": payload.CTRL_SEG.WHSE_ID,
+        "host_client_id": "PISA",
+        "transaction_type": payload.CTRL_SEG.CARRIER_MOVE_SEG.Transaction_type,
+        "load_id": payload.CTRL_SEG.LOADNUM,
+        "stops": payload.CTRL_SEG.*STOP_SEG map (stop) ->
+            {
+                "segnam": stop.SEGNAM,
+                "client_id": stop.CLIENT_ID,
+                "stop_number": stop.stop_number,
+                "stop_description": stop.stop_description,
+                "stop_sequence": stop.stop_sequence,
+                "orders": payload.CTRL_SEG.*SHIPMENT_LINE_SEG map (order)->
+                    {
+                        "segnam": order.SEGNAM,
+                        "shipto_id": payload.CTRL_SEG.SHIPMENT_SEG.shipto_id,
+                        "host_client_id": order.CLIENT_ID,
+                        "order_number": order.order_number,
+                        "items": [
+                            {
+                                "client_id": order.CLIENT_ID,
+                                "ordnum": order.order_number,
+                                "product_number": order.item,
+                                "quantity": order.quantity
+                            }
+                        ]
+                    }
+            }
+        
+    },
     "origin_timestamp" : now() as Number {unit: "milliseconds"},
     "event": "APPOINTMENT_CONFIRMED",  // UPDATE, CANCEL
     "publish_at": now() as Number {unit: "milliseconds"},
