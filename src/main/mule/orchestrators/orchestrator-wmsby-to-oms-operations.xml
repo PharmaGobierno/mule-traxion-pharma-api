@@ -109,7 +109,7 @@ fun toDate(aString) = aString[0 to 3] ++ "-" ++ aString[4 to 5] ++ "-" ++ aStrin
 {
     "payload": {
         "tracking_id": payload.tracking_id,
-        "event": "vars.status", //  [DISPATCH, ...]   
+        "event": vars.status, //  [DISPATCH, ...]   
         "event_timestamp": payload.date_time as DateTime as Number {unit: "milliseconds"} ,   // momento en el
         "event_note": payload.product_number, // TBD default null Optional[dict]
         "author": {

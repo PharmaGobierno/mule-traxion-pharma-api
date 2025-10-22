@@ -128,7 +128,7 @@ http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/p
 			<pubsub:attributes ><![CDATA[#[output application/java
 ---
 {
-	"company" : vars.system default "TMS",
+	"company" : vars.system default "PISA",
 	"event" : "APPOINTMENT_CONFIRMED",
 	"order_type" : "REMISSION_PISA",
 	"project" : vars.project default "PISA",
