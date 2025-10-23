@@ -5,6 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<sub-flow name="orchestrator-tms-to-wms-operations-appointment-confirmation" doc:id="160f54d0-8e9c-4b2e-8fd0-93515ce93a55" >
+		<logger level="INFO" doc:name="Logger" doc:id="934f628c-9e97-49f1-b8e6-2b57c46086cd" message="#[payload]"/>
 		<ee:transform doc:name="Transform Message" doc:id="32e1f882-c550-48c5-83fc-c89c13e494c3" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -26,15 +27,15 @@ output application/json
                 "orders": payload.CTRL_SEG.*SHIPMENT_LINE_SEG map (order)->
                     {
                         "segnam": order.SEGNAM,
-                        "shipto_id": payload.CTRL_SEG.SHIPMENT_SEG.shipto_id,
+                        "shipto_id": order.order_number ++ stop.stop_number,
                         "host_client_id": order.CLIENT_ID,
                         "order_number": order.order_number,
                         "items": [
                             {
                                 "client_id": order.CLIENT_ID,
                                 "ordnum": order.order_number,
-                                "product_number": order.item,
-                                "quantity": order.quantity
+                                "product_number": order.item default "ITEMA",
+                                "quantity": order.quantity default "5"
                             }
                         ]
                     }
