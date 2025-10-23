@@ -15,7 +15,7 @@ output application/json
         "whse_id": payload.CTRL_SEG.WHSE_ID,
         "host_client_id": "PISA",
         "transaction_type": payload.CTRL_SEG.CARRIER_MOVE_SEG.Transaction_type,
-        "load_id": payload.CTRL_SEG.LOADNUM,
+        "load_id": payload.CTRL_SEG.CARRIER_MOVE_SEG.load_id,
         "stops": payload.CTRL_SEG.*STOP_SEG map (stop) ->
             {
                 "segnam": stop.SEGNAM,
